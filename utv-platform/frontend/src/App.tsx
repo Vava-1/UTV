@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { AudioPlayerProvider } from '@/contexts/AudioPlayerContext';
+import { ToastProvider } from '@/components/Toast';
 import { Layout } from '@/components/Layout';
 import { Home } from '@/pages/Home';
 import { MusicPage } from '@/pages/Music';
@@ -22,7 +23,8 @@ function App() {
   return (
     <AuthProvider>
       <AudioPlayerProvider>
-        <Routes>
+        <ToastProvider>
+          <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<AboutPage />} />
@@ -42,6 +44,7 @@ function App() {
             <Route path="*" element={<Navigate to="/" />} />
           </Route>
         </Routes>
+        </ToastProvider>
       </AudioPlayerProvider>
     </AuthProvider>
   );

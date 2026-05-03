@@ -91,5 +91,49 @@
       "description": "Start exploring our collection of classical and gospel music, books, and more to build your personal library.",
       "cta": "Explore the Catalog"
     }
+  },
+  "books": {
+    "title": "Books",
+    "subtitle": "Explore our collection of educational and formative literature",
+    "searchPlaceholder": "Search books by title or author...",
+    "addToCart": "Add to Cart",
+    "download": "Download",
+    "errorLoading": "Failed to load books. Please try again.",
+    "errorAdding": "Failed to add to cart. Please try again.",
+    "addedToCart": "Added to cart successfully!",
+    "loginRequired": "Please sign in to add items to your cart",
+    "empty": {
+      "title": "No Books Found",
+      "description": "Our book collection is being curated. Check back soon for educational and formative literature.",
+      "search": "No books match your search criteria.",
+      "clearSearch": "Clear Search"
+    }
+  },
+  "concerts": {
+    "title": "Concerts",
+    "subtitle": "Upcoming classical and gospel music events",
+    "searchPlaceholder": "Search concerts by title or venue...",
+    "buyTickets": "Buy Tickets",
+    "soldOut": "Sold Out",
+    "ticketsLeft": "tickets left",
+    "errorLoading": "Failed to load concerts. Please try again.",
+    "errorPurchasing": "Failed to purchase tickets. Please try again.",
+    "loginRequired": "Please sign in to purchase tickets",
+    "empty": {
+      "title": "No Upcoming Concerts",
+      "description": "Stay tuned for upcoming classical and gospel music concerts in your area.",
+      "search": "No concerts match your search.",
+      "clearSearch": "Clear Search"
+    }
+  },
+  "auth": {
+    "login": "Sign In",
+    "register": "Create Account",
+    "email": "Email Address",
+    "password": "Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
   }
 }
