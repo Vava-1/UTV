@@ -1,21 +1,180 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { UTVLogo } from './UTVLogo';
+import { useTranslation } from 'react-i18next';
+import { Globe, Menu, X } from 'lucide-react';
 
 export function HeroSection() {
+  const { t, i18n } = useTranslation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  
+  const navItems = [
+    { path: '/discover', labelKey: 'header.discover' },
+    { path: '/books', labelKey: 'header.books' },
+    { path: '/concerts', labelKey: 'header.concerts' },
+    { path: '/artists', labelKey: 'header.artists' },
+    { path: '/library', labelKey: 'header.library' },
+    { path: '/contact', labelKey: 'header.contact' },
+  ];
+
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'fr', name: 'Français' },
+    { code: 'es', name: 'Español' },
+    { code: 'de', name: 'Deutsch' },
+    { code: 'it', name: 'Italiano' },
+    { code: 'pt', name: 'Português' },
+    { code: 'rw', name: 'Kinyarwanda' },
+    { code: 'sw', name: 'Kiswahili' },
+  ];
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    setIsMobileMenuOpen(false);
+  };
+
+  const currentLang = languages.find(l => l.code === i18n.language)?.name || 'English';
+
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-[#09090b] overflow-hidden">
       {/* Professional Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#09090b] via-[#1a1812] to-[#0a0a08]" />
       
-      {/* Subtle decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-amber-500/3 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/2 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+      {/* Top Navigation Bar - Fixed Position */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-[#09090b]/98 backdrop-blur-md border-b border-[#1e1a12]/50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-18">
+            {/* Logo - Top Left */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="relative group">
+                <img 
+                  src="/logo.png" 
+                  alt="UNA TANTUM VOCE Logo" 
+                  className="w-8 h-8 sm:w-10 sm:h-10 object-cover rounded-full border border-amber-500/20 shadow-md transition-all duration-300 group-hover:border-amber-500/40 group-hover:shadow-lg"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const fallback = target.nextElementSibling as HTMLElement;
+                    if (fallback) fallback.style.display = 'flex';
+                  }}
+                />
+                <div className="absolute inset-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300" style={{ display: 'none' }}>
+                  <span className="text-[#09090b] font-bold text-xs sm:text-sm">UTV</span>
+                </div>
+              </div>
+              <div className="hidden sm:block">
+                <h1 className="text-lg sm:text-xl font-bold text-white tracking-wider font-serif leading-none transition-colors group-hover:text-amber-500">
+                  UNA TANTUM VOCE
+                </h1>
+                <p className="text-xs sm:text-sm text-amber-500 tracking-[0.15em] uppercase mt-1 font-medium">
+                  MUSIC DEVELOPMENT FOR ALL
+                </p>
+              </div>
+            </div>
+
+            {/* Navigation - Center */}
+            <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`text-xs sm:text-sm font-medium transition-all duration-300 px-2 py-1 rounded-md ${
+                    window.location.pathname === item.path
+                      ? 'text-amber-500 bg-amber-500/10'
+                      : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
+                  }`}
+                >
+                  {t(item.labelKey)}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Right side buttons */}
+            <div className="flex items-center gap-2 sm:gap-4">
+              {/* Language Switch */}
+              <div className="relative">
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="hidden md:flex items-center gap-2 px-2 py-1 text-xs sm:text-sm text-[#9a9080] hover:text-white bg-[#111109]/80 border border-[#1e1a12]/50 rounded-md transition-all duration-300 hover:bg-[#1a1813] hover:border-amber-500/50"
+                >
+                  <Globe size={12} className="flex-shrink-0" />
+                  <span className="hidden sm:inline">{currentLang}</span>
+                </button>
+                
+                {isMobileMenuOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-40 bg-[#111109]/95 backdrop-blur-md border border-[#1e1a12]/50 rounded-lg shadow-xl z-50">
+                    <div className="py-2">
+                      {languages.map((lang) => (
+                        <button
+                          key={lang.code}
+                          onClick={() => changeLanguage(lang.code)}
+                          className={`w-full text-left px-3 py-1 text-xs sm:text-sm transition-all duration-200 ${
+                            i18n.language === lang.code
+                              ? 'text-amber-500 bg-amber-500/15'
+                              : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
+                          }`}
+                        >
+                          {lang.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Sign In Button */}
+              <Link
+                to="/login"
+                className="hidden lg:block text-xs sm:text-sm text-[#9a9080] hover:text-white transition-colors px-3 py-1 rounded-md hover:bg-[#1a1813]"
+              >
+                {t('header.signIn')}
+              </Link>
+
+              {/* Join Now Button */}
+              <Link
+                to="/register"
+                className="px-2 sm:px-3 py-1 bg-amber-500 hover:bg-amber-400 text-[#09090b] text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 rounded-md shadow-md hover:shadow-lg"
+              >
+                {t('header.joinNow')}
+              </Link>
+
+              {/* Mobile menu toggle */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="lg:hidden text-[#9a9080] hover:text-white transition-colors p-2 rounded-md hover:bg-[#1a1813]"
+              >
+                {isMobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden border-t border-[#1e1a12]/50 py-4">
+              <nav className="flex flex-col space-y-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`text-sm font-medium transition-colors px-2 py-1 ${
+                      window.location.pathname === item.path
+                        ? 'text-amber-500 bg-amber-500/10'
+                        : 'text-[#9a9080] hover:text-white'
+                    }`}
+                  >
+                    {t(item.labelKey)}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+          )}
+        </div>
       </div>
       
       {/* Content */}
-      <div className="relative z-10 text-center px-3 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto w-full">
+      <div className="relative z-10 text-center px-3 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto w-full pt-20 sm:pt-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -27,13 +186,13 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.8, ease: "easeOut" }}
-            className="flex justify-center mb-6 sm:mb-8 md:mb-12"
+            className="flex justify-center mb-8 sm:mb-12"
           >
             <div className="relative group">
               <img 
                 src="/logo.png" 
                 alt="UNA TANTUM VOCE Logo" 
-                className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 object-cover rounded-full border-2 sm:border-4 border-amber-500/20 shadow-xl sm:shadow-2xl transition-all duration-300 group-hover:border-amber-500/40 group-hover:shadow-3xl"
+                className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 object-cover rounded-full border-4 border-amber-500/20 shadow-xl sm:shadow-2xl transition-all duration-300 group-hover:border-amber-500/40 group-hover:shadow-3xl"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.style.display = 'none';
