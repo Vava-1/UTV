@@ -5,10 +5,12 @@ services:
     env: python
     region: ohio
     plan: free
-    # Look at the two lines below - we added utv-platform/
     buildCommand: "pip install -r utv-platform/backend/requirements.txt"
     startCommand: "cd utv-platform/backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
     envVars:
+      # Add this specifically to force Python 3.11
+      - key: PYTHON_VERSION
+        value: 3.11.9
       - key: DATABASE_URL
         fromDatabase:
           name: utv-database
