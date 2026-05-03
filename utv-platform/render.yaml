@@ -2,7 +2,7 @@
 databases:
   # 1. The PostgreSQL Database
   - name: utv-database
-    plan: free # Change to a paid plan later if you need more capacity
+    plan: free
     region: ohio
 
 services:
@@ -22,10 +22,6 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: OPENAI_API_KEY
-        sync: false # You will enter this manually in the dashboard
+        sync: false
       - key: STRIPE_SECRET_KEY
-        sync: false # You will enter this manually in the dashboard
-      - key: AWS_ACCESS_KEY_ID
-        sync: false # You will enter this manually in the dashboard
-      - key: AWS_SECRET_ACCESS_KEY
-        sync: false # You will enter this manually in the dashboard
+        sync: false
