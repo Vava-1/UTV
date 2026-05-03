@@ -45,7 +45,7 @@ export function HeroSection() {
       {/* Top Navigation Bar - Fixed Position */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-[#09090b]/98 backdrop-blur-md border-b border-[#1e1a12]/50 shadow-sm">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-18">
+          <div className="flex items-center justify-between h-16">
             {/* Logo - Top Left */}
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="relative group">
@@ -80,7 +80,7 @@ export function HeroSection() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`text-xs sm:text-sm font-medium transition-all duration-300 px-2 py-1 rounded-md ${
+                  className={`text-xs sm:text-sm font-medium transition-all duration-300 px-3 py-2 rounded-md ${
                     location.pathname === item.path
                       ? 'text-amber-500 bg-amber-500/10'
                       : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
@@ -92,14 +92,14 @@ export function HeroSection() {
             </nav>
 
             {/* Right side buttons */}
-            <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-3">
               {/* Language Switch */}
               <div className="relative">
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="hidden md:flex items-center gap-2 px-2 py-1 text-xs sm:text-sm text-[#9a9080] hover:text-white bg-[#111109]/80 border border-[#1e1a12]/50 rounded-md transition-all duration-300 hover:bg-[#1a1813] hover:border-amber-500/50"
+                  className="hidden md:flex items-center gap-2 px-3 py-2 text-xs sm:text-sm text-[#9a9080] hover:text-white bg-[#111109]/80 border border-[#1e1a12]/50 rounded-md transition-all duration-300 hover:bg-[#1a1813] hover:border-amber-500/50"
                 >
-                  <Globe size={12} className="flex-shrink-0" />
+                  <Globe size={14} className="flex-shrink-0" />
                   <span className="hidden sm:inline">{currentLang}</span>
                 </button>
                 
@@ -110,7 +110,7 @@ export function HeroSection() {
                         <button
                           key={lang.code}
                           onClick={() => changeLanguage(lang.code)}
-                          className={`w-full text-left px-3 py-1 text-xs sm:text-sm transition-all duration-200 ${
+                          className={`w-full text-left px-3 py-2 text-xs sm:text-sm transition-all duration-200 ${
                             i18n.language === lang.code
                               ? 'text-amber-500 bg-amber-500/15'
                               : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
@@ -127,7 +127,7 @@ export function HeroSection() {
               {/* Sign In Button */}
               <Link
                 to="/login"
-                className="hidden lg:block text-xs sm:text-sm text-[#9a9080] hover:text-white transition-colors px-3 py-1 rounded-md hover:bg-[#1a1813]"
+                className="hidden lg:block text-xs sm:text-sm text-[#9a9080] hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-[#1a1813]"
               >
                 {t('header.signIn')}
               </Link>
@@ -135,7 +135,7 @@ export function HeroSection() {
               {/* Join Now Button */}
               <Link
                 to="/register"
-                className="px-2 sm:px-3 py-1 bg-amber-500 hover:bg-amber-400 text-[#09090b] text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 rounded-md shadow-md hover:shadow-lg"
+                className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-[#09090b] text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 rounded-md shadow-md hover:shadow-lg"
               >
                 {t('header.joinNow')}
               </Link>
@@ -145,7 +145,7 @@ export function HeroSection() {
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="lg:hidden text-[#9a9080] hover:text-white transition-colors p-2 rounded-md hover:bg-[#1a1813]"
               >
-                {isMobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+                {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </div>
@@ -159,7 +159,7 @@ export function HeroSection() {
                     key={item.path}
                     to={item.path}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`text-sm font-medium transition-colors px-2 py-1 ${
+                    className={`text-sm font-medium transition-colors px-3 py-2 ${
                       location.pathname === item.path
                         ? 'text-amber-500 bg-amber-500/10'
                         : 'text-[#9a9080] hover:text-white'
