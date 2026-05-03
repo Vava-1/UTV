@@ -126,7 +126,7 @@ class Content(Base):
     
     # Common fields
     tags = Column(JSON, default=list, nullable=True)
-    metadata = Column(JSON, default=dict, nullable=True)
+    meta_data = Column(JSON, default=dict, nullable=True)
     is_published = Column(Boolean, default=True)
     is_featured = Column(Boolean, default=False)
     view_count = Column(Integer, default=0)
@@ -234,7 +234,7 @@ class AnalyticsEvent(Base):
     event_type = Column(String(50), nullable=False)  # page_view, purchase, download, etc.
     user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     content_id = Column(Integer, ForeignKey("contents.id"), nullable=True)
-    metadata = Column(JSON, nullable=True)
+    meta_data = Column(JSON, nullable=True)
     ip_address = Column(String(50), nullable=True)
     user_agent = Column(String(500), nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
