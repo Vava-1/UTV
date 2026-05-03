@@ -3,20 +3,20 @@ import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { UTVLogo } from './UTVLogo';
 import { useTranslation } from 'react-i18next';
-import { Globe, Menu, X } from 'lucide-react';
+import { Globe, Menu, X, User, LogIn, LogOut, Settings } from 'lucide-react';
 
 export function HeroSection() {
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   
   const navItems = [
-    { path: '/discover', labelKey: 'header.discover' },
-    { path: '/books', labelKey: 'header.books' },
-    { path: '/concerts', labelKey: 'header.concerts' },
-    { path: '/artists', labelKey: 'header.artists' },
-    { path: '/library', labelKey: 'header.library' },
-    { path: '/contact', labelKey: 'header.contact' },
+    { path: '/discover', label: 'Discover' },
+    { path: '/books', label: 'Books' },
+    { path: '/concerts', label: 'Concerts' },
+    { path: '/artists', label: 'Artists' },
+    { path: '/library', label: 'Library' },
   ];
 
   const languages = [
@@ -86,7 +86,7 @@ export function HeroSection() {
                       : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
                   }`}
                 >
-                  {t(item.labelKey)}
+                  {item.label}
                 </Link>
               ))}
             </nav>
@@ -124,21 +124,48 @@ export function HeroSection() {
                 )}
               </div>
 
-              {/* Sign In Button */}
-              <Link
-                to="/login"
-                className="hidden lg:block text-xs sm:text-sm text-[#9a9080] hover:text-white transition-colors px-4 py-2 rounded-md hover:bg-[#1a1813]"
-              >
-                {t('header.signIn')}
-              </Link>
-
-              {/* Join Now Button */}
-              <Link
-                to="/register"
-                className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-[#09090b] text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 rounded-md shadow-md hover:shadow-lg"
-              >
-                {t('header.joinNow')}
-              </Link>
+              {/* Profile Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                  className="flex items-center gap-2 px-3 py-2 text-xs sm:text-sm text-[#9a9080] hover:text-white bg-[#111109]/80 border border-[#1e1a12]/50 rounded-md transition-all duration-300 hover:bg-[#1a1813] hover:border-amber-500/50"
+                >
+                  <User size={14} className="flex-shrink-0" />
+                  <span className="hidden sm:inline">Profile</span>
+                </button>
+                
+                {isProfileDropdownOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-[#111109]/95 backdrop-blur-md border border-[#1e1a12]/50 rounded-lg shadow-xl z-50">
+                    <div className="py-2">
+                      <Link
+                        to="/login"
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2 text-xs sm:text-sm text-[#9a9080] hover:text-white hover:bg-[#1a1813] transition-all duration-200"
+                      >
+                        <LogIn size={14} />
+                        Sign In
+                      </Link>
+                      <Link
+                        to="/register"
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2 text-xs sm:text-sm text-[#9a9080] hover:text-white hover:bg-[#1a1813] transition-all duration-200"
+                      >
+                        <User size={14} />
+                        Sign Up
+                      </Link>
+                      <div className="border-t border-[#1e1a12]/50 my-2"></div>
+                      <Link
+                        to="/settings"
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2 text-xs sm:text-sm text-[#9a9080] hover:text-white hover:bg-[#1a1813] transition-all duration-200"
+                      >
+                        <Settings size={14} />
+                        Settings
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
 
               {/* Mobile menu toggle */}
               <button
@@ -165,7 +192,7 @@ export function HeroSection() {
                         : 'text-[#9a9080] hover:text-white'
                     }`}
                   >
-                    {t(item.labelKey)}
+                    {item.label}
                   </Link>
                 ))}
               </nav>
