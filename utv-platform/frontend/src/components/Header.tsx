@@ -5,12 +5,12 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Menu, X, LogIn, User, Globe } from 'lucide-react';
 
 const navItems = [
-  { path: '/discover', label: 'Discover' },
-  { path: '/books', label: 'Books' },
-  { path: '/concerts', label: 'Concerts' },
-  { path: '/artists', label: 'Artists' },
-  { path: '/library', label: 'Library' },
-  { path: '/contact', label: 'Contact' },
+  { path: '/discover', labelKey: 'header.discover' },
+  { path: '/books', labelKey: 'header.books' },
+  { path: '/concerts', labelKey: 'header.concerts' },
+  { path: '/artists', labelKey: 'header.artists' },
+  { path: '/library', labelKey: 'header.library' },
+  { path: '/contact', labelKey: 'header.contact' },
 ];
 
 export function Header() {
@@ -47,7 +47,7 @@ export function Header() {
             <img 
               src="/logo.png" 
               alt="UNA TANTUM VOCE Logo" 
-              className="w-9 h-9 object-contain"
+              className="w-9 h-9 object-cover rounded-full border-2 border-amber-500/30"
               onError={(e) => {
                 // Fallback to text logo if image fails to load
                 const target = e.target as HTMLImageElement;
@@ -77,13 +77,14 @@ export function Header() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`text-sm font-medium transition-colors ${
+                className={`block px-4 py-2 text-sm transition-colors ${
                   location.pathname === item.path
-                    ? 'text-amber-500'
+                    ? 'text-amber-500 bg-amber-500/10'
                     : 'text-[#9a9080] hover:text-white'
                 }`}
+                onClick={() => setIsMobileMenuOpen(false)}
               >
-                {item.label}
+                {t(item.labelKey)}
               </Link>
             ))}
           </nav>
@@ -169,7 +170,7 @@ export function Header() {
                       : 'text-[#9a9080] hover:text-white'
                   }`}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               ))}
               {!isAuthenticated && (

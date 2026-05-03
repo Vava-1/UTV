@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
+import { Footer } from './Footer';
 import { GlobalAudioPlayer } from './GlobalAudioPlayer';
 import { UTVAssistant } from './UTVAssistant';
 
@@ -11,6 +12,7 @@ export function Layout() {
       <main className="pt-16 min-h-screen pb-24">
         <Outlet />
       </main>
+      <Footer />
       <GlobalAudioPlayer />
       <UTVAssistant />
     </div>
