@@ -8,30 +8,29 @@ export function Footer() {
   
   const footerSections = [
     {
-      titleKey: 'header.discover',
+      title: 'Navigation',
       links: [
-        { labelKey: 'header.books', path: '/music', icon: Music },
-        { labelKey: 'header.books', path: '/books', icon: BookOpen },
-        { labelKey: 'header.concerts', path: '/concerts', icon: Calendar },
-        { labelKey: 'header.artists', path: '/artists', icon: Users },
+        { label: 'Discover', path: '/discover', icon: Music },
+        { label: 'Books', path: '/books', icon: BookOpen },
+        { label: 'Concerts', path: '/concerts', icon: Calendar },
+        { label: 'Artists', path: '/artists', icon: Users },
+        { label: 'Library', path: '/library', icon: Music },
       ]
     },
     {
-      titleKey: 'footer.company',
+      title: 'Company',
       links: [
-        { labelKey: 'footer.about', path: '/about' },
-        { labelKey: 'header.contact', path: '/contact' },
-        { labelKey: 'header.library', path: '/library' },
-        { labelKey: 'footer.support', path: '/support' },
+        { label: 'About Us', path: '/about' },
+        { label: 'Contact', path: '/contact' },
+        { label: 'Support', path: '/support' },
       ]
     },
     {
-      titleKey: 'footer.legal',
+      title: 'Legal',
       links: [
-        { labelKey: 'footer.privacy', path: '/privacy' },
-        { labelKey: 'footer.terms', path: '/terms' },
-        { labelKey: 'footer.cookies', path: '/cookies' },
-        { labelKey: 'footer.accessibility', path: '/accessibility' },
+        { label: 'Privacy Policy', path: '/privacy' },
+        { label: 'Terms of Service', path: '/terms' },
+        { label: 'Cookie Policy', path: '/cookies' },
       ]
     }
   ];
@@ -57,7 +56,7 @@ export function Footer() {
           
           {/* Contact Information - Professional Design */}
           <div className="space-y-4">
-            <h3 className="text-lg sm:text-xl font-bold text-amber-500 mb-4 sm:mb-6">{t('footer.contactUs')}</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-amber-500 mb-4 sm:mb-6">Contact Us</h3>
             <div className="space-y-3">
               {contactInfo.map((info, index) => (
                 <a
@@ -69,7 +68,7 @@ export function Footer() {
                     <info.icon size={16} className="text-amber-500" />
                   </div>
                   <div>
-                    <p className="text-xs text-[#6a6055] font-medium">{t(`footer.${info.label.toLowerCase()}`)}</p>
+                    <p className="text-xs text-[#6a6055] font-medium">{info.label}</p>
                     <p className="text-sm group-hover:text-amber-500 transition-colors">{info.value}</p>
                   </div>
                 </a>
@@ -80,7 +79,7 @@ export function Footer() {
           {/* Navigation Sections - Professional Design */}
           {footerSections.map((section, index) => (
             <div key={index} className="space-y-4">
-              <h3 className="text-lg sm:text-xl font-bold text-amber-500 mb-4 sm:mb-6">{t(section.titleKey)}</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-amber-500 mb-4 sm:mb-6">{section.title}</h3>
               <ul className="space-y-2 sm:space-y-3">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
@@ -93,7 +92,7 @@ export function Footer() {
                           <link.icon size={14} className="text-amber-500" />
                         </div>
                       )}
-                      <span className="text-sm sm:text-base">{t(link.labelKey)}</span>
+                      <span className="text-sm sm:text-base">{link.label}</span>
                     </Link>
                   </li>
                 ))}
@@ -108,7 +107,7 @@ export function Footer() {
             
             {/* Social Media Links */}
             <div className="flex items-center gap-4 sm:gap-6">
-              <span className="text-xs sm:text-sm text-[#6a6055] font-medium">{t('footer.followUs')}</span>
+              <span className="text-xs sm:text-sm text-[#6a6055] font-medium">Follow Us</span>
               <div className="flex gap-2 sm:gap-4">
                 {socialLinks.map((social, index) => (
                   <a
@@ -127,15 +126,15 @@ export function Footer() {
 
             {/* Newsletter */}
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-              <span className="text-xs sm:text-sm text-[#6a6055] font-medium">{t('footer.newsletter')}</span>
+              <span className="text-xs sm:text-sm text-[#6a6055] font-medium">Newsletter</span>
               <div className="flex gap-2 w-full sm:w-auto">
                 <input
                   type="email"
-                  placeholder={t('footer.email')}
+                  placeholder="Your email"
                   className="flex-1 sm:flex-none px-3 py-2 bg-[#111109]/60 border border-[#1e1a12]/30 rounded-lg text-white placeholder-[#6a6055]/70 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all duration-300"
                 />
                 <button className="px-3 sm:px-4 py-2 bg-amber-500 hover:bg-amber-400 text-[#09090b] text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 rounded-lg shadow-md hover:shadow-lg">
-                  {t('footer.subscribe', 'Subscribe')}
+                  Subscribe
                 </button>
               </div>
             </div>
@@ -145,7 +144,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-[#1e1a12]/30 text-center">
           <p className="text-xs sm:text-sm text-[#6a6055]/80 leading-relaxed">
-            {t('footer.copyright')}
+            © 2024 UNA TANTUM VOCE. All rights reserved. | Music Development For All
           </p>
         </div>
       </div>
