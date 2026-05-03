@@ -39,125 +39,125 @@ export function Header() {
   const currentLang = languages.find(l => l.code === i18n.language)?.name || 'English';
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#09090b]/95 backdrop-blur-sm border-b border-[#1e1a12]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <img 
-              src="/logo.png" 
-              alt="UNA TANTUM VOCE Logo" 
-              className="w-9 h-9 object-cover rounded-full border-2 border-amber-500/30"
-              onError={(e) => {
-                // Fallback to text logo if image fails to load
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
-                const fallback = target.nextElementSibling as HTMLElement;
-                if (fallback) fallback.style.display = 'flex';
-              }}
-            />
-            <div className="flex items-center" style={{ display: 'none' }}>
-              <div className="w-9 h-9 bg-amber-500 flex items-center justify-center rounded-sm">
-                <span className="text-[#09090b] font-bold text-sm">UTV</span>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#09090b]/98 backdrop-blur-md border-b border-[#1e1a12]/50 shadow-sm">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-18">
+          {/* Logo - Professional Design */}
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
+            <div className="relative">
+              <img 
+                src="/logo.png" 
+                alt="UNA TANTUM VOCE Logo" 
+                className="w-8 h-8 sm:w-10 sm:h-10 object-cover rounded-full border border-amber-500/20 shadow-md transition-all duration-300 group-hover:border-amber-500/40 group-hover:shadow-lg"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const fallback = target.nextElementSibling as HTMLElement;
+                  if (fallback) fallback.style.display = 'flex';
+                }}
+              />
+              <div className="absolute inset-0 w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300" style={{ display: 'none' }}>
+                <span className="text-[#09090b] font-bold text-xs sm:text-sm">UTV</span>
               </div>
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-white tracking-widest font-serif leading-none">
+            <div className="hidden sm:block">
+              <h1 className="text-lg sm:text-xl font-bold text-white tracking-wider font-serif leading-none transition-colors group-hover:text-amber-500">
                 UNA TANTUM VOCE
               </h1>
-              <p className="text-xs text-amber-500 tracking-[0.2em] uppercase mt-0.5">
+              <p className="text-xs sm:text-sm text-amber-500 tracking-[0.15em] uppercase mt-1 font-medium">
                 MUSIC DEVELOPMENT FOR ALL
               </p>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          {/* Desktop Navigation - Clean Design */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`block px-4 py-2 text-sm transition-colors ${
+                className={`text-sm font-medium transition-all duration-300 px-3 py-2 rounded-md ${
                   location.pathname === item.path
                     ? 'text-amber-500 bg-amber-500/10'
-                    : 'text-[#9a9080] hover:text-white'
+                    : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
                 }`}
-                onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t(item.labelKey)}
               </Link>
             ))}
           </nav>
 
-          {/* Right side buttons */}
-          <div className="flex items-center gap-4">
-            {/* Language Switch */}
+          {/* Right side buttons - Professional Layout */}
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* Language Switch - Enhanced */}
             <div className="relative">
               <button
                 onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-                className="hidden lg:flex items-center gap-2 px-3 py-2 text-sm text-[#9a9080] hover:text-white bg-[#111109] border border-[#1e1a12] rounded-sm transition-colors"
+                className="hidden md:flex items-center gap-2 px-3 py-2 text-sm text-[#9a9080] hover:text-white bg-[#111109]/80 border border-[#1e1a12]/50 rounded-md transition-all duration-300 hover:bg-[#1a1813] hover:border-amber-500/50"
               >
-                <Globe size={16} />
-                <span>{currentLang}</span>
+                <Globe size={14} className="flex-shrink-0" />
+                <span className="hidden sm:inline">{currentLang}</span>
               </button>
               
               {isLangDropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-48 bg-[#111109] border border-[#1e1a12] rounded-sm shadow-lg z-50">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => changeLanguage(lang.code)}
-                      className={`w-full text-left px-4 py-2 text-sm transition-colors ${
-                        i18n.language === lang.code
-                          ? 'text-amber-500 bg-amber-500/10'
-                          : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
-                      }`}
-                    >
-                      {lang.name}
-                    </button>
-                  ))}
+                <div className="absolute right-0 top-full mt-2 w-48 bg-[#111109]/95 backdrop-blur-md border border-[#1e1a12]/50 rounded-lg shadow-xl z-50">
+                  <div className="py-2">
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => changeLanguage(lang.code)}
+                        className={`w-full text-left px-4 py-2 text-sm transition-all duration-200 ${
+                          i18n.language === lang.code
+                            ? 'text-amber-500 bg-amber-500/15'
+                            : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
+                        }`}
+                      >
+                        {lang.name}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
 
-            {/* Sign In / User */}
+            {/* Sign In / User - Clean Design */}
             {isAuthenticated ? (
-              <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-[#111109] border border-[#1e1a12] rounded-sm">
-                <User size={16} className="text-amber-500" />
-                <span className="text-sm text-[#c8c0b0]">
+              <div className="hidden md:flex items-center gap-2 px-3 py-2 bg-[#111109]/60 border border-[#1e1a12]/40 rounded-md">
+                <User size={14} className="text-amber-500 flex-shrink-0" />
+                <span className="text-sm text-[#c8c0b0] truncate max-w-24 sm:max-w-none">
                   {user?.first_name || user?.email}
                 </span>
               </div>
             ) : (
               <Link
                 to="/login"
-                className="hidden lg:block text-sm text-[#9a9080] hover:text-white transition-colors"
+                className="hidden md:block text-sm text-[#9a9080] hover:text-white transition-colors px-3 py-2 rounded-md hover:bg-[#1a1813]"
               >
-                Sign in
+                {t('header.signIn')}
               </Link>
             )}
 
-            {/* Join Now Button */}
+            {/* Join Now Button - Professional */}
             <Link
               to="/register"
-              className="px-6 py-2 bg-amber-500 text-[#09090b] text-sm font-bold tracking-wider hover:bg-amber-400 transition-colors rounded-sm"
+              className="px-3 sm:px-4 py-2 bg-amber-500 hover:bg-amber-400 text-[#09090b] text-sm sm:text-xs font-bold tracking-wider transition-all duration-300 rounded-md shadow-md hover:shadow-lg"
             >
-              JOIN NOW
+              {t('header.joinNow')}
             </Link>
 
-            {/* Mobile menu toggle */}
+            {/* Mobile menu toggle - Enhanced */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden text-[#9a9080] hover:text-white transition-colors"
+              className="lg:hidden text-[#9a9080] hover:text-white transition-colors p-2 rounded-md hover:bg-[#1a1813]"
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-[#1e1a12] py-4">
+          <div className="lg:hidden border-t border-[#1e1a12]/50 py-4">
             <nav className="flex flex-col space-y-3">
               {navItems.map((item) => (
                 <Link
@@ -179,7 +179,7 @@ export function Header() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-sm text-[#9a9080] hover:text-white transition-colors px-2 py-1"
                 >
-                  Sign in
+                  {t('header.signIn')}
                 </Link>
               )}
             </nav>

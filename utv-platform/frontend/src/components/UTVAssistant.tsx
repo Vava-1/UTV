@@ -222,24 +222,20 @@ What specific platform management task would you like assistance with? I can pro
 
   return (
     <>
-      {/* Chat button */}
+      {/* Chat button - Professional Design */}
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-8 right-8 z-50 w-16 h-16 bg-amber-500 hover:bg-amber-400 rounded-full shadow-2xl flex items-center justify-center text-[#09090b] transition-all"
+        className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 w-14 h-14 sm:w-16 sm:h-16 bg-amber-500 hover:bg-amber-400 rounded-full shadow-2xl flex items-center justify-center text-[#09090b] transition-all duration-300 group"
       >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={isOpen ? 'close' : 'open'}
-            initial={{ opacity: 0, rotate: -180 }}
-            animate={{ opacity: 1, rotate: 0 }}
-            exit={{ opacity: 0, rotate: 180 }}
-            transition={{ duration: 0.2 }}
-          >
-            {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
-          </motion.div>
-        </AnimatePresence>
+        <MessageCircle size={20} className="sm:size-24" />
+        {isLearning && (
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse">
+            <Brain size={12} className="text-white" />
+          </div>
+        )}
+        {isOpen ? <X size={24} className="sm:size-28" /> : <MessageCircle size={24} className="sm:size-28" />}
       </motion.button>
 
       {/* Chat window */}
@@ -249,8 +245,8 @@ What specific platform management task would you like assistance with? I can pro
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.3 }}
-            className="fixed bottom-32 right-8 z-50 w-96 h-[600px] bg-[#09090b] border border-[#1e1a12] rounded-lg shadow-2xl flex flex-col overflow-hidden"
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed bottom-24 right-6 left-6 right-6 sm:left-auto sm:right-6 w-80 sm:w-96 h-[500px] sm:h-[600px] bg-[#111109] border border-[#1e1a12] rounded-2xl shadow-2xl z-50 overflow-hidden"
           >
             {/* Header */}
             <div className="bg-[#111109] border-b border-[#1e1a12] p-4 flex items-center gap-3">
