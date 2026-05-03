@@ -17,8 +17,6 @@ const resources = {
 };
 
 i18n
-  .use(Backend)
-  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
@@ -32,10 +30,6 @@ i18n
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage']
-    },
-    
-    backend: {
-      loadPath: '/locales/{{lng}}.json'
     }
   });
 
