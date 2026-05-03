@@ -1,13 +1,14 @@
-import React from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { UTVLogo } from './UTVLogo';
 import { useTranslation } from 'react-i18next';
 import { Globe, Menu, X } from 'lucide-react';
 
 export function HeroSection() {
   const { t, i18n } = useTranslation();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const navItems = [
     { path: '/discover', labelKey: 'header.discover' },
@@ -80,7 +81,7 @@ export function HeroSection() {
                   key={item.path}
                   to={item.path}
                   className={`text-xs sm:text-sm font-medium transition-all duration-300 px-2 py-1 rounded-md ${
-                    window.location.pathname === item.path
+                    location.pathname === item.path
                       ? 'text-amber-500 bg-amber-500/10'
                       : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
                   }`}
@@ -159,7 +160,7 @@ export function HeroSection() {
                     to={item.path}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`text-sm font-medium transition-colors px-2 py-1 ${
-                      window.location.pathname === item.path
+                      location.pathname === item.path
                         ? 'text-amber-500 bg-amber-500/10'
                         : 'text-[#9a9080] hover:text-white'
                     }`}
