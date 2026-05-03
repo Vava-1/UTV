@@ -283,7 +283,7 @@ What specific platform management task would you like assistance with? I can pro
                   )}
                   
                   <div
-                    className={`max-w-[75%] px-4 py-3 rounded-lg ${
+                    className={`max-w-[75%] px-5 py-4 rounded-lg ${
                       msg.role === 'user'
                         ? 'bg-amber-500 text-[#09090b]'
                         : 'bg-[#111109] text-[#c8c0b0] border border-[#1e1a12]'

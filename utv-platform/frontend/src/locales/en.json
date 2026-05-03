@@ -19,7 +19,11 @@
   },
   "hero": {
     "title": "WHERE CLASSICAL MEETS GOSPEL",
-    "subtitle": "One Single Platform. All the Music."
+    "subtitle": "One Single Platform. All the Music.",
+    "cta": {
+      "discover": "DISCOVER MUSIC",
+      "explore": "EXPLORE LIBRARY"
+    }
   },
   "mission": {
     "title": "Music & Thought for Human Formation",
@@ -79,6 +83,13 @@
       "collaboration": "Collaboration",
       "music": "Music Related",
       "education": "Education Programs"
+    }
+  },
+  "library": {
+    "empty": {
+      "title": "Your Library is Empty",
+      "description": "Start exploring our collection of classical and gospel music, books, and more to build your personal library.",
+      "cta": "Explore the Catalog"
     }
   }
 }

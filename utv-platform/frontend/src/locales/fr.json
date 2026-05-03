@@ -1,4 +1,12 @@
 {
+  "nav": {
+    "discover": "Découvrir",
+    "books": "Livres",
+    "concerts": "Concerts",
+    "artists": "Artistes",
+    "library": "Bibliothèque",
+    "contact": "Contact"
+  },
   "header": {
     "discover": "Découvrir",
     "books": "Livres",
@@ -11,7 +19,11 @@
   },
   "hero": {
     "title": "OÙ LE CLASSIQUE RENCONTRE LE GOSPEL",
-    "subtitle": "Une Seule Plateforme. Toute la Musique."
+    "subtitle": "Une Seule Plateforme. Toute la Musique.",
+    "cta": {
+      "discover": "DÉCOUVRIR LA MUSIQUE",
+      "explore": "EXPLORER LA BIBLIOTHÈQUE"
+    }
   },
   "mission": {
     "title": "Musique et Pensée pour la Formation Humaine",
@@ -71,6 +83,13 @@
       "collaboration": "Collaboration",
       "music": "Lié à la Musique",
       "education": "Programmes Éducatifs"
+    }
+  },
+  "library": {
+    "empty": {
+      "title": "Votre Bibliothèque est Vide",
+      "description": "Commencez à explorer notre collection de musique classique et gospel, de livres et plus encore pour construire votre bibliothèque personnelle.",
+      "cta": "Explorer le Catalogue"
     }
   }
 }

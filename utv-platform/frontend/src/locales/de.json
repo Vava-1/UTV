@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "discover": "Entdecken",
+    "books": "Bücher",
+    "concerts": "Konzerte",
+    "artists": "Künstler",
+    "library": "Bibliothek",
+    "contact": "Kontakt"
+  },
+  "header": {
+    "discover": "Entdecken",
+    "books": "Bücher",
+    "concerts": "Konzerte",
+    "artists": "Künstler",
+    "library": "Bibliothek",
+    "contact": "Kontakt",
+    "signIn": "Anmelden",
+    "joinNow": "JETZT BEITRETEN"
+  },
+  "hero": {
+    "title": "WO KLASSIK GOSPEL TRIFFT",
+    "subtitle": "Eine Einzige Plattform. All die Musik.",
+    "cta": {
+      "discover": "MUSIK ENTDECKEN",
+      "explore": "BIBLIOTHEK ERKUNDEN"
+    }
+  },
+  "footer": {
+    "contactUs": "Kontaktieren Sie uns",
+    "followUs": "Folgen Sie uns",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "copyright": "© 2024 UNA TANTUM VOCE. Alle Rechte vorbehalten. | Musikentwicklung Für Alle"
+  },
+  "assistant": {
+    "title": "UTV Assistent",
+    "status": "Online 24/7",
+    "placeholder": "Nachricht eingeben...",
+    "send": "Senden"
+  },
+  "library": {
+    "empty": {
+      "title": "Ihre Bibliothek ist leer",
+      "description": "Beginnen Sie mit der Erkundung unserer Sammlung klassischer und Gospel-Musik, Bücher und mehr, um Ihre persönliche Bibliothek aufzubauen.",
+      "cta": "Katalog durchsuchen"
+    }
+  }
+}

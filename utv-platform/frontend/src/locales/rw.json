@@ -18,7 +18,11 @@
   },
   "hero": {
     "title": "AHA CLASSICAL YIHURIRA NA GOSPEL",
-    "subtitle": "Ikigo Kimwe Cyo Gusoma. Umuziki Wose."
+    "subtitle": "Ikigo Kimwe Cyo Gusoma. Umuziki Wose.",
+    "cta": {
+      "discover": "GUSANGA UMUZIKI",
+      "explore": "KUREBA ISOMERO"
+    }
   },
   "mission": {
     "title": "Umuziki n'Ibyo Kwiga ku Bantu",
@@ -70,6 +74,12 @@
       "collaboration": "Gukorana",
       "music": "Ijyanye numuziki",
       "education": "Gahunda z'Uburezi"
+    }
+  },
+  "library": {
+    "empty": {
+      "title": "Isomero Ryawe Ni Ihame",
+      "description": "Tangira gusanga umusaruro wacu w'indirimbo zo muri Classical na Gospel, ibitabo, nibindi byinshi kugirango ubeho isomero ryawe."
     }
   }
 }

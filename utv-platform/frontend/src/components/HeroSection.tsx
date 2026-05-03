@@ -237,7 +237,7 @@ export function HeroSection() {
           {/* Main Title with Professional Animation */}
           <div className="space-y-2 sm:space-y-4">
             <motion.h1 
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-white leading-tight font-serif tracking-tight"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-white leading-tight font-serif tracking-tight transition-opacity duration-300"
               animate={{ opacity: [0.4, 1, 0.4] }}
               transition={{ 
                 duration: 4, 
@@ -245,12 +245,10 @@ export function HeroSection() {
                 ease: "easeInOut"
               }}
             >
-              WHERE <span className="text-amber-500">CLASSICAL</span>{" "}
-              <span className="text-amber-500">MEETS</span>{" "}
-              <span className="text-amber-500">GOSPEL</span>
+              {t('hero.title')}
             </motion.h1>
             <motion.p 
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#c8c0b0] font-light tracking-wide leading-relaxed"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#c8c0b0] font-light tracking-wide leading-relaxed transition-opacity duration-300"
               animate={{ opacity: [0.4, 1, 0.4] }}
               transition={{ 
                 duration: 4, 
@@ -259,7 +257,7 @@ export function HeroSection() {
                 delay: 0.7
               }}
             >
-              One Single Platform. All the Music.
+              {t('hero.subtitle')}
             </motion.p>
           </div>
           
@@ -268,9 +266,9 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-xl md:text-2xl text-[#9a9080] mb-12 leading-relaxed max-w-3xl mx-auto"
+            className="text-xl md:text-2xl text-[#9a9080] mb-12 leading-relaxed max-w-3xl mx-auto transition-opacity duration-300"
           >
-            One Single Platform. All the Music.
+            {t('hero.subtitle')}
           </motion.p>
           
           {/* Call to action buttons */}
@@ -280,12 +278,12 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <button className="px-8 py-4 bg-amber-500 text-[#09090b] text-lg font-bold tracking-wider hover:bg-amber-400 transition-all transform hover:scale-105 rounded-sm">
-              DISCOVER MUSIC
-            </button>
-            <button className="px-8 py-4 border border-[#2a2515] text-[#9a9080] text-lg font-medium tracking-wider hover:text-white hover:border-[#4a3a1a] transition-all rounded-sm">
-              EXPLORE LIBRARY
-            </button>
+            <Link to="/discover" className="px-8 py-4 bg-amber-500 text-[#09090b] text-lg font-bold tracking-wider hover:bg-amber-400 transition-all transform hover:scale-105 rounded-sm">
+              {t('hero.cta.discover', 'DISCOVER MUSIC')}
+            </Link>
+            <Link to="/library" className="px-8 py-4 border border-[#2a2515] text-[#9a9080] text-lg font-medium tracking-wider hover:text-white hover:border-[#4a3a1a] transition-all rounded-sm">
+              {t('hero.cta.explore', 'EXPLORE LIBRARY')}
+            </Link>
           </motion.div>
         </motion.div>
       </div>

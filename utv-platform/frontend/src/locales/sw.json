@@ -18,7 +18,11 @@
   },
   "hero": {
     "title": "HAPA CLASSICAL INAKUTANA NA GOSPEL",
-    "subtitle": "Jukwaa Moja. Muziki Wote."
+    "subtitle": "Jukwaa Moja. Muziki Wote.",
+    "cta": {
+      "discover": "GUNDUA MUZIKI",
+      "explore": "CHUNGUA MAKATABA"
+    }
   },
   "mission": {
     "title": "Muziki na Mawazo kwa Maendeleo ya Binadamu",
@@ -70,6 +74,12 @@
       "collaboration": "Ushirikiano",
       "music": "Kuhusu Muziki",
       "education": "Programu za Kielimu"
+    }
+  },
+  "library": {
+    "empty": {
+      "title": "Maktaba Yako Ni Tupu",
+      "description": "Anza kugundua mkusanyiko wetu wa muziki wa Classical na Gospel, vitabu, na zaidi ili ujenge maktaba yako ya kibinafsi."
     }
   }
 }

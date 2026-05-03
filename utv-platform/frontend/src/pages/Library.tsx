@@ -67,7 +67,29 @@ export function LibraryPage() {
           </motion.div>
         ))}
       </div>
-      {filtered.length === 0 && <div className="text-center py-16"><Library size={48} className="text-slate-700 mx-auto mb-4" /><p className="text-slate-500">No content found</p></div>}
+      {filtered.length === 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col items-center justify-center py-20 px-4"
+        >
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-amber-500/10 to-transparent flex items-center justify-center mb-6">
+            <Library size={48} className="text-amber-500/50" />
+          </div>
+          <h3 className="text-xl font-semibold text-white mb-2">{t('library.empty.title', 'Your Library is Empty')}</h3>
+          <p className="text-slate-400 text-center max-w-md mb-8">
+            {t('library.empty.description', 'Start exploring our collection of classical and gospel music, books, and more to build your personal library.')}
+          </p>
+          <a
+            href="/discover"
+            className="px-6 py-3 bg-amber-500 text-slate-900 rounded-lg font-medium hover:bg-amber-400 transition-all flex items-center gap-2"
+          >
+            <BookOpen size={18} />
+            {t('library.empty.cta', 'Explore the Catalog')}
+          </a>
+        </motion.div>
+      )}
     </div>
   );
 }
