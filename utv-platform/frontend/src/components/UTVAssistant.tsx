@@ -234,7 +234,7 @@ What specific platform management task would you like assistance with? I can pro
             <Brain size={12} className="text-white" />
           </div>
         )}
-        {isOpen ? <X size={20} className="sm:size-24" /> : <MessageCircle size={20} className="sm:size-24" />}
+        {isOpen ? <X size={20} /> : <MessageCircle size={20} />}
       </motion.button>
 
       {/* Chat window */}
@@ -245,7 +245,8 @@ What specific platform management task would you like assistance with? I can pro
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed bottom-24 right-4 sm:right-6 left-4 sm:left-auto w-full sm:w-96 h-[500px] sm:h-[600px] max-w-md bg-[#111109] border border-[#1e1a12] rounded-2xl shadow-2xl z-50 overflow-hidden"
+            className="fixed top-20 sm:top-24 right-4 sm:right-6 left-4 sm:left-auto w-full sm:w-96 max-w-md bg-[#111109] border border-[#1e1a12] rounded-2xl shadow-2xl z-50 overflow-hidden"
+            style={{ height: 'calc(100vh - 10rem)' }}
           >
             {/* Header */}
             <div className="bg-[#111109] border-b border-[#1e1a12] p-4 flex items-center gap-3">

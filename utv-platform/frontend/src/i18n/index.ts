@@ -1,11 +1,11 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import Backend from 'i18next-http-backend';
-import LanguageDetector from 'i18next-browser-languagedetector';
 
 // Import translation files
 import enTranslations from '../locales/en.json';
 import frTranslations from '../locales/fr.json';
+import rwTranslations from '../locales/rw.json';
+import swTranslations from '../locales/sw.json';
 
 const resources = {
   en: {
@@ -13,6 +13,12 @@ const resources = {
   },
   fr: {
     translation: frTranslations
+  },
+  rw: {
+    translation: rwTranslations
+  },
+  sw: {
+    translation: swTranslations
   }
 };
 

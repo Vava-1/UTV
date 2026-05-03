@@ -56,7 +56,7 @@ export function MissionSection() {
               className="text-center group"
             >
               <div className="w-12 h-12 sm:w-16 sm:h-16 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:bg-amber-500/20 transition-all duration-300">
-                <feature.icon size={20} className="sm:size-24 text-amber-500 group-hover:scale-110 transition-transform duration-300" />
+                <feature.icon size={20} className="text-amber-500 group-hover:scale-110 transition-transform duration-300" />
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 group-hover:text-amber-500 transition-colors">{feature.title}</h3>
               <p className="text-sm sm:text-base text-[#9a9080] leading-relaxed px-2">{feature.description}</p>

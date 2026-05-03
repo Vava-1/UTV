@@ -16,6 +16,7 @@ import { LoginPage } from '@/pages/Login';
 import { AdminPage } from '@/pages/Admin';
 import { OrdersPage } from '@/pages/Orders';
 import { TicketsPage } from '@/pages/Tickets';
+import { DiscoverPage } from '@/pages/Discover';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<AboutPage />} />
+            <Route path="discover" element={<DiscoverPage />} />
             <Route path="music" element={<MusicPage />} />
             <Route path="books" element={<BooksPage />} />
             <Route path="videos" element={<VideosPage />} />

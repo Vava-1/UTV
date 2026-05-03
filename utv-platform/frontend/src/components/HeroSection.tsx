@@ -12,11 +12,11 @@ export function HeroSection() {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   
   const navItems = [
-    { path: '/discover', label: 'Discover' },
-    { path: '/books', label: 'Books' },
-    { path: '/concerts', label: 'Concerts' },
-    { path: '/artists', label: 'Artists' },
-    { path: '/library', label: 'Library' },
+    { path: '/discover', labelKey: 'nav.discover' },
+    { path: '/books', labelKey: 'nav.books' },
+    { path: '/concerts', labelKey: 'nav.concerts' },
+    { path: '/artists', labelKey: 'nav.artists' },
+    { path: '/library', labelKey: 'nav.library' },
   ];
 
   const languages = [
@@ -86,7 +86,7 @@ export function HeroSection() {
                       : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
                   }`}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               ))}
             </nav>
@@ -192,7 +192,7 @@ export function HeroSection() {
                         : 'text-[#9a9080] hover:text-white'
                     }`}
                   >
-                    {item.label}
+                    {t(item.labelKey)}
                   </Link>
                 ))}
               </nav>

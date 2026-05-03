@@ -118,7 +118,7 @@ export function Footer() {
                     className="w-8 h-8 sm:w-10 sm:h-10 bg-[#111109]/60 border border-[#1e1a12]/30 rounded-full flex items-center justify-center text-[#9a9080] hover:text-amber-500 hover:border-amber-500/50 hover:bg-amber-500/10 transition-all duration-300 group"
                     aria-label={social.name}
                   >
-                    <social.icon size={14} className="sm:size-16" />
+                    <social.icon size={14} className="sm:w-4 sm:h-4" />
                   </a>
                 ))}
               </div>

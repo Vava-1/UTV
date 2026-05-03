@@ -1,4 +1,12 @@
 {
+  "nav": {
+    "discover": "Discover",
+    "books": "Books",
+    "concerts": "Concerts",
+    "artists": "Artists",
+    "library": "Library",
+    "contact": "Contact"
+  },
   "header": {
     "discover": "Discover",
     "books": "Books",

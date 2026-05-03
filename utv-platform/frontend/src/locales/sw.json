@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "discover": "Gundua",
+    "books": "Vitabu",
+    "concerts": "Tamasha",
+    "artists": "Wasanii",
+    "library": "Maktaba"
+  },
+  "header": {
+    "discover": "Gundua",
+    "books": "Vitabu",
+    "concerts": "Tamasha",
+    "artists": "Wasanii",
+    "library": "Maktaba",
+    "contact": "Wasiliana",
+    "signIn": "Ingia",
+    "joinNow": "JIUNGE SASA"
+  },
+  "hero": {
+    "title": "HAPA CLASSICAL INAKUTANA NA GOSPEL",
+    "subtitle": "Jukwaa Moja. Muziki Wote."
+  },
+  "mission": {
+    "title": "Muziki na Mawazo kwa Maendeleo ya Binadamu",
+    "description": "Mpango wa pambao unaokuza muziki pamoja na fasihi ya kielimu, ukitengeza kazi za kisanii zinazoongoza, kuelimisha, na kubadilisha jamii kupitia ujumbe wa kielimu, wa maadili, na wa kiroho.",
+    "features": {
+      "educationalMusic": "Muziki wa Kielimu",
+      "educationalMusicDesc": "Nyimbo zinazobeba ujumbe wa kielimu, maadili, na kiroho kwa maendeleo ya jumla.",
+      "formativeLiterature": "Fasihi ya Kuelimisha",
+      "formativeLiteratureDesc": "Vitabu vya kifalsafa na kielimu vinasaidia kupitia changamoto za maisha kwa hekima.",
+      "culturalEvents": "Matukio ya Kitamaduni",
+      "culturalEventsDesc": "Matamasha, mafunzo, na matukio ya kitamaduni yanayochochea burudani na elimu.",
+      "musicEducation": "Elimu ya Muziki",
+      "musicEducationDesc": "Programu za mafunzo na shule kwa watoto, vijana, na watu wazima kuendeleza talanta ya muziki."
+    },
+    "vision": "Maono Yetu",
+    "visionDesc": "Kuwa kituo cha uzalishaji wa kisanii na kiakili kinachochangia maendeleo ya kitamaduni, maadili, na kielimu ya jamii kwa kuunganisha muziki na mawazo katika maono moja yenye kuleta mabadiliko."
+  },
+  "footer": {
+    "contactUs": "Wasiliana Nasi",
+    "followUs": "Tufuate",
+    "newsletter": "Jarida",
+    "email": "Barua Pepe",
+    "phone": "Simu",
+    "address": "Anwani",
+    "copyright": "© 2024 UNA TANTUM VOCE. Haki Zote Zimehifadhiwa. | Maendeleo ya Muziki kwa Wote"
+  },
+  "assistant": {
+    "title": "Msaidizi wa UTV",
+    "status": "Online 24/7",
+    "placeholder": "Andika ujumbe wako...",
+    "send": "Tuma"
+  },
+  "contact": {
+    "title": "Wasiliana Nasi",
+    "subtitle": "Tungependa kukutia kisikia. Ikiwa una maswali kuhusu muziki wetu, unataka kushirikiana, au unahitaji msaada, tuko hapa kukusaidia.",
+    "sendMessage": "Tuma Ujumbe",
+    "name": "Jina",
+    "email": "Barua Pepe",
+    "subject": "Mada",
+    "message": "Ujumbe",
+    "contactInfo": "Maelezo ya Mawasiliano",
+    "connectWithUs": "Ungana Nasi",
+    "needSupport": "Unahitaji Msaada?",
+    "supportDesc": "Timu yetu ya msaada inapatikana 24/7 kukusaidia maswali au matatizo yoyote. Usisite kutufikia!",
+    "getSupport": "Pata Msaada",
+    "subjects": {
+      "general": "Swali la Jumla",
+      "support": "Msaada",
+      "collaboration": "Ushirikiano",
+      "music": "Kuhusu Muziki",
+      "education": "Programu za Kielimu"
+    }
+  }
+}

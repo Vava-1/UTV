@@ -1,0 +1,75 @@
+{
+  "nav": {
+    "discover": "Gusanga",
+    "books": "Ibitabo",
+    "concerts": "Ibirori",
+    "artists": "Abahanzi",
+    "library": "Isomero"
+  },
+  "header": {
+    "discover": "Gusanga",
+    "books": "Ibitabo",
+    "concerts": "Ibirori",
+    "artists": "Abahanzi",
+    "library": "Isomero",
+    "contact": "Twandikire",
+    "signIn": "Injira",
+    "joinNow": "IYANDIKISHE"
+  },
+  "hero": {
+    "title": "AHA CLASSICAL YIHURIRA NA GOSPEL",
+    "subtitle": "Ikigo Kimwe Cyo Gusoma. Umuziki Wose."
+  },
+  "mission": {
+    "title": "Umuziki n'Ibyo Kwiga ku Bantu",
+    "description": "Igikorwa gifatanyije guteza imbere umuziki hamwe n'ibitabo by'uburezi, bikora ibikorwa by'ubugeni bishingira, bigisha, no guhindura sosiyete kubufatanye n'ubutumwa bwo kurera, bwo kurinda imico, n'ubw'umwuka.",
+    "features": {
+      "educationalMusic": "Umuziki Wo Kurera",
+      "educationalMusicDesc": "Indirimbo zifite ubutumwa bwo kurera, bwo kurinda imico, n'ubw'umwuka mu iterambere rusange.",
+      "formativeLiterature": "Ibitabo Byo Kurera",
+      "formativeLiteratureDesc": "Ibitabo by'ubwenge n'uburezi by'ubufatanye bikigisha kubona inzira mu nibogamiye.",
+      "culturalEvents": "Ibirori By'Imico",
+      "culturalEventsDesc": "Ibirori byo kuririmba, amahugurwa, n'ibirori by'imico bikungahaza imyidagaduro n'uburezi.",
+      "musicEducation": "Uburezi Bw'Umuziki",
+      "musicEducationDesc": "Gahunda z'amahugurwa n'amashuri y'abana, urubyiruko, n'abakuru mu guteza imbere impano yo kuririmba."
+    },
+    "vision": "Icyerekezo Cyacu",
+    "visionDesc": "Kuba ikigo cy'ubugeni n'ubwenge gikora ibikorwa bitanga umusanzu mu iterambere ry'imico, imico, n'uburezi bwa sosiyete mu guhuza umuziki n'ubwenge mu cyerekezo kimwe gikora ibyiza."
+  },
+  "footer": {
+    "contactUs": "Twandikire",
+    "followUs": "Dukurikire",
+    "newsletter": "Amajwi Yacu",
+    "email": "Email",
+    "phone": "Terefone",
+    "address": "Aderesi",
+    "copyright": "© 2024 UNA TANTUM VOCE. Uburenganzira bwose bwafatiwe. | Iterambere ry'Umuziki ku Bose"
+  },
+  "assistant": {
+    "title": "Umufasha wa UTV",
+    "status": "Kiri Online 24/7",
+    "placeholder": "Andika ubutumwa bwawe...",
+    "send": "Ohereza"
+  },
+  "contact": {
+    "title": "Twandikire",
+    "subtitle": "Twifurije kuva i kure. Niba ufite ibibazo bijyanye numuziki, ushaka gukorana, cyangwa ukeneye ubufasha, turi hano kugufasha.",
+    "sendMessage": "Ohereza Ubutumwa",
+    "name": "Izina",
+    "email": "Email",
+    "subject": "Ingingo",
+    "message": "Ubutumwa",
+    "contactInfo": "Amakuru Y'Igenwa",
+    "connectWithUs": "Duhamagare",
+    "needSupport": "Ukeneye Ubufasha?",
+    "supportDesc": "Itsinda ryacu ry'ubufasha riri hano 24/7 kugufasha mu bibazo waba ufitse. Ntugire ubwoba kutwandikira!",
+    "getSupport": "Shaka Ubufasha",
+    "subjects": {
+      "general": "Ikibazo Rusange",
+      "support": "Ubufasha",
+      "collaboration": "Gukorana",
+      "music": "Ijyanye numuziki",
+      "education": "Gahunda z'Uburezi"
+    }
+  }
+}
