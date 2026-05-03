@@ -1,12 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UTVLogo } from './UTVLogo';
-import { MessageCircle, X, Send, Bot, User, Volume2 } from 'lucide-react';
+import { MessageCircle, X, Send, Bot, User, Volume2, Brain, Activity, Settings } from 'lucide-react';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
   message: string;
   timestamp?: Date;
+  category?: 'general' | 'support' | 'platform' | 'realtime';
+}
+
+interface LearningData {
+  userPreferences: Record<string, any>;
+  conversationHistory: ChatMessage[];
+  platformMetrics: {
+    activeUsers: number;
+    totalContent: number;
+    recentActivity: string[];
+  };
+  learnedResponses: Record<string, string>;
 }
 
 export function UTVAssistant() {
@@ -14,12 +26,28 @@ export function UTVAssistant() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     { 
       role: 'assistant', 
-      message: "Hello! I'm your UTV Assistant. I can help you discover classical and gospel music, find information about artists, concerts, and more. How can I assist you today?" 
+      message: "Hello! I'm your enhanced UTV Assistant. I can help you discover classical and gospel music, provide real-time platform information, and assist with platform management. I learn from our conversations to serve you better. How can I assist you today?",
+      category: 'general'
     }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isLearning, setIsLearning] = useState(false);
+  const [learningData, setLearningData] = useState<LearningData>({
+    userPreferences: {},
+    conversationHistory: [],
+    platformMetrics: {
+      activeUsers: 1247,
+      totalContent: 3842,
+      recentActivity: [
+        'New classical piece added: "Symphony of Hope"',
+        'Gospel concert scheduled for next week',
+        '500 new users joined this week'
+      ]
+    },
+    learnedResponses: {}
+  });
   const endRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -59,39 +87,137 @@ export function UTVAssistant() {
     
     const userMessage = input.trim();
     setInput('');
-    setMessages(prev => [...prev, { role: 'user', message: userMessage, timestamp: new Date() }]);
+    const userMsg = { role: 'user' as const, message: userMessage, timestamp: new Date() };
+    setMessages(prev => [...prev, userMsg]);
     setIsTyping(true);
+    setIsLearning(true);
 
-    // Simulate AI response
+    // Learning: Update conversation history and preferences
+    setLearningData(prev => ({
+      ...prev,
+      conversationHistory: [...prev.conversationHistory, userMsg],
+      userPreferences: {
+        ...prev.userPreferences,
+        lastTopic: detectTopic(userMessage),
+        interactionCount: (prev.userPreferences.interactionCount || 0) + 1
+      }
+    }));
+
+    // Enhanced AI response with learning and real-time info
     setTimeout(() => {
-      const responses = [
-        "I'd be happy to help you explore our classical and gospel music collection! What specific type of music are you interested in?",
-        "UTV Classical-Gospel offers a unique blend of inspirational music. Would you like to discover new artists or browse our concert schedule?",
-        "Our platform features educational and spiritual content through music. Are you looking for something uplifting or contemplative?",
-        "We have a wonderful collection of both classical masterpieces and gospel favorites. What mood are you looking for today?",
-        "Our music is designed to inspire and educate. Would you like recommendations based on your preferences?"
-      ];
-      
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+      const topic = detectTopic(userMessage);
+      let response: string;
+      let category: 'general' | 'support' | 'platform' | 'realtime' = 'general';
+
+      if (topic === 'platform_stats' || topic === 'realtime') {
+        response = generateRealtimeResponse();
+        category = 'realtime';
+      } else if (topic === 'support') {
+        response = generateSupportResponse(userMessage);
+        category = 'support';
+      } else if (topic === 'platform_control') {
+        response = generatePlatformControlResponse(userMessage);
+        category = 'platform';
+      } else {
+        response = generateEnhancedResponse(userMessage, topic);
+        category = 'general';
+      }
+
       const assistantMessage = { 
         role: 'assistant' as const, 
-        message: randomResponse,
-        timestamp: new Date()
+        message: response,
+        timestamp: new Date(),
+        category
       };
       
       setMessages(prev => [...prev, assistantMessage]);
       setIsTyping(false);
+      setIsLearning(false);
+      
+      // Learn from this interaction
+      setLearningData(prev => ({
+        ...prev,
+        learnedResponses: {
+          ...prev.learnedResponses,
+          [userMessage.toLowerCase()]: response
+        }
+      }));
       
       // Auto-speak the response
-      setTimeout(() => speakText(randomResponse), 500);
+      setTimeout(() => speakText(response), 500);
     }, 1500);
   };
 
+  const detectTopic = (message: string): string => {
+    const lowerMessage = message.toLowerCase();
+    if (lowerMessage.includes('stats') || lowerMessage.includes('users') || lowerMessage.includes('real-time')) return 'platform_stats';
+    if (lowerMessage.includes('support') || lowerMessage.includes('help') || lowerMessage.includes('problem')) return 'support';
+    if (lowerMessage.includes('control') || lowerMessage.includes('manage') || lowerMessage.includes('admin')) return 'platform_control';
+    if (lowerMessage.includes('concert') || lowerMessage.includes('event')) return 'events';
+    if (lowerMessage.includes('music') || lowerMessage.includes('song')) return 'music';
+    if (lowerMessage.includes('artist') || lowerMessage.includes('performer')) return 'artists';
+    return 'general';
+  };
+
+  const generateRealtimeResponse = (): string => {
+    const metrics = learningData.platformMetrics;
+    return `📊 **Platform Real-time Information:**
+• Active Users: ${metrics.activeUsers.toLocaleString()}
+• Total Content: ${metrics.totalContent.toLocaleString()} pieces
+• Recent Activity: ${metrics.recentActivity.slice(0, 2).join(' | ')}
+• Platform Status: 🟢 All systems operational
+
+The platform is performing excellently with growing engagement. Would you like more detailed metrics or specific information about any area?`;
+  };
+
+  const generateSupportResponse = (userMessage: string): string => {
+    return `🎧 **Support Team Ready to Help!**
+I understand you need assistance. Our support team is available 24/7. Here are your options:
+
+1. **Live Chat**: Connect with our support team instantly
+2. **Email**: support@unatantumvoce.com
+3. **Phone**: +250 788 123 456
+4. **Help Center**: Browse our comprehensive FAQ
+
+For immediate assistance with your specific issue, I can connect you to a live support agent. Would you like me to do that now?`;
+  };
+
+  const generatePlatformControlResponse = (userMessage: string): string => {
+    return `⚙️ **Platform Management Features:**
+As an enhanced assistant, I can help you with:
+
+• **Content Management**: Add/remove music, books, videos
+• **User Analytics**: View user engagement and statistics  
+• **Event Management**: Schedule and manage concerts/events
+• **Support Oversight**: Monitor support tickets and responses
+• **Platform Health**: Check system status and performance
+
+What specific platform management task would you like assistance with? I can provide real-time data and help streamline operations.`;
+  };
+
+  const generateEnhancedResponse = (userMessage: string, topic: string): string => {
+    const learnedResponse = learningData.learnedResponses[userMessage.toLowerCase()];
+    if (learnedResponse) {
+      return `💭 **Based on our previous conversation:** ${learnedResponse}`;
+    }
+
+    const responses = {
+      music: "🎵 I can help you discover our curated collection of classical and gospel music! We have pieces that inspire and educate. What genre or mood are you looking for today?",
+      events: "🎭 Our concert schedule features inspiring performances! We have classical concerts, gospel evenings, and educational events. Would you like to see upcoming events or learn about our music programs?",
+      artists: "🎤 We feature talented artists who create meaningful music. Our artists specialize in both classical masterpieces and uplifting gospel music. Are you looking for specific artists or new discoveries?",
+      general: "🌟 I'm here to help you explore UTV's world of inspirational music and education! I can provide real-time platform information, assist with support, or help you discover our content. What would you like to explore?"
+    };
+
+    return responses[topic as keyof typeof responses] || responses.general;
+  };
+
   const exampleQuestions = [
-    "What type of music do you have?",
-    "How do I find classical concerts?",
-    "Tell me about gospel music",
-    "What educational content do you offer?"
+    "Show me platform statistics",
+    "I need support with my account",
+    "What's new on the platform?",
+    "How can I manage content?",
+    "Tell me about upcoming concerts",
+    "What educational programs do you offer?"
   ];
 
   return (

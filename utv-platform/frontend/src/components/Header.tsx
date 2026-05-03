@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { UTVLogo } from './UTVLogo';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
-import { Menu, X, LogIn, User } from 'lucide-react';
+import { Menu, X, LogIn, User, Globe } from 'lucide-react';
 
 const navItems = [
   { path: '/discover', label: 'Discover' },
@@ -11,13 +10,33 @@ const navItems = [
   { path: '/concerts', label: 'Concerts' },
   { path: '/artists', label: 'Artists' },
   { path: '/library', label: 'Library' },
+  { path: '/contact', label: 'Contact' },
 ];
 
 export function Header() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const { isAuthenticated, user } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'fr', name: 'Français' },
+    { code: 'es', name: 'Español' },
+    { code: 'de', name: 'Deutsch' },
+    { code: 'it', name: 'Italiano' },
+    { code: 'pt', name: 'Português' },
+    { code: 'rw', name: 'Kinyarwanda' },
+    { code: 'sw', name: 'Kiswahili' },
+  ];
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    setIsLangDropdownOpen(false);
+  };
+
+  const currentLang = languages.find(l => l.code === i18n.language)?.name || 'English';
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#09090b]/95 backdrop-blur-sm border-b border-[#1e1a12]">
@@ -25,13 +44,29 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <UTVLogo size="default" />
+            <img 
+              src="/logo.png" 
+              alt="UNA TANTUM VOCE Logo" 
+              className="w-9 h-9 object-contain"
+              onError={(e) => {
+                // Fallback to text logo if image fails to load
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const fallback = target.nextElementSibling as HTMLElement;
+                if (fallback) fallback.style.display = 'flex';
+              }}
+            />
+            <div className="flex items-center" style={{ display: 'none' }}>
+              <div className="w-9 h-9 bg-amber-500 flex items-center justify-center rounded-sm">
+                <span className="text-[#09090b] font-bold text-sm">UTV</span>
+              </div>
+            </div>
             <div>
               <h1 className="text-xl font-bold text-white tracking-widest font-serif leading-none">
-                UTV CLASSICAL
+                UNA TANTUM VOCE
               </h1>
               <p className="text-xs text-amber-500 tracking-[0.2em] uppercase mt-0.5">
-                GOSPEL
+                MUSIC DEVELOPMENT FOR ALL
               </p>
             </div>
           </Link>
@@ -55,6 +90,35 @@ export function Header() {
 
           {/* Right side buttons */}
           <div className="flex items-center gap-4">
+            {/* Language Switch */}
+            <div className="relative">
+              <button
+                onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
+                className="hidden lg:flex items-center gap-2 px-3 py-2 text-sm text-[#9a9080] hover:text-white bg-[#111109] border border-[#1e1a12] rounded-sm transition-colors"
+              >
+                <Globe size={16} />
+                <span>{currentLang}</span>
+              </button>
+              
+              {isLangDropdownOpen && (
+                <div className="absolute right-0 top-full mt-2 w-48 bg-[#111109] border border-[#1e1a12] rounded-sm shadow-lg z-50">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => changeLanguage(lang.code)}
+                      className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                        i18n.language === lang.code
+                          ? 'text-amber-500 bg-amber-500/10'
+                          : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
+                      }`}
+                    >
+                      {lang.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Sign In / User */}
             {isAuthenticated ? (
               <div className="hidden lg:flex items-center gap-2 px-4 py-2 bg-[#111109] border border-[#1e1a12] rounded-sm">

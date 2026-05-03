@@ -11,6 +11,7 @@ import { ConcertsPage } from '@/pages/Concerts';
 import { GalleryPage } from '@/pages/Gallery';
 import { LibraryPage } from '@/pages/Library';
 import { AboutPage } from '@/pages/About';
+import { Contact } from '@/pages/Contact';
 import { LoginPage } from '@/pages/Login';
 import { AdminPage } from '@/pages/Admin';
 import { OrdersPage } from '@/pages/Orders';
@@ -31,6 +32,7 @@ function App() {
             <Route path="concerts" element={<ConcertsPage />} />
             <Route path="gallery" element={<GalleryPage />} />
             <Route path="library" element={<LibraryPage />} />
+            <Route path="contact" element={<Contact />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="orders" element={<OrdersPage />} />
             <Route path="tickets" element={<TicketsPage />} />
