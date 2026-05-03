@@ -152,7 +152,7 @@ class Order(Base):
     customer_email = Column(String(255), nullable=False)
     customer_name = Column(String(255), nullable=True)
     billing_address = Column(JSON, nullable=True)
-    metadata = Column(JSON, nullable=True)
+    meta_data = Column(JSON, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
