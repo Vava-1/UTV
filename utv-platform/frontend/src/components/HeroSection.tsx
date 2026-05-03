@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { UTVLogo } from './UTVLogo';
 import { useTranslation } from 'react-i18next';
+import { TypewriterText } from './TypewriterText';
 import { Globe, Menu, X, User, LogIn, LogOut, Settings } from 'lucide-react';
 
 export function HeroSection() {
@@ -12,11 +13,11 @@ export function HeroSection() {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   
   const navItems = [
-    { path: '/discover', labelKey: 'nav.discover' },
-    { path: '/books', labelKey: 'nav.books' },
-    { path: '/concerts', labelKey: 'nav.concerts' },
-    { path: '/artists', labelKey: 'nav.artists' },
-    { path: '/library', labelKey: 'nav.library' },
+    { path: '/discover', label: 'Discover' },
+    { path: '/books', label: 'Books' },
+    { path: '/concerts', label: 'Concerts' },
+    { path: '/artists', label: 'Artists' },
+    { path: '/library', label: 'Library' },
   ];
 
   const languages = [
@@ -86,7 +87,7 @@ export function HeroSection() {
                       : 'text-[#9a9080] hover:text-white hover:bg-[#1a1813]'
                   }`}
                 >
-                  {t(item.labelKey)}
+                  {item.label}
                 </Link>
               ))}
             </nav>
@@ -192,7 +193,7 @@ export function HeroSection() {
                         : 'text-[#9a9080] hover:text-white'
                     }`}
                   >
-                    {t(item.labelKey)}
+                    {item.label}
                   </Link>
                 ))}
               </nav>
@@ -234,42 +235,20 @@ export function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Main Title with Professional Animation */}
+          {/* Main Title with Typewriter Animation */}
           <div className="space-y-2 sm:space-y-4">
-            <motion.h1 
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-white leading-tight font-serif tracking-tight transition-opacity duration-300"
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ 
-                duration: 4, 
-                repeat: Infinity, 
-                ease: "easeInOut"
-              }}
-            >
-              {t('hero.title')}
-            </motion.h1>
-            <motion.p 
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#c8c0b0] font-light tracking-wide leading-relaxed transition-opacity duration-300"
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ 
-                duration: 4, 
-                repeat: Infinity, 
-                ease: "easeInOut",
-                delay: 0.7
-              }}
-            >
-              {t('hero.subtitle')}
-            </motion.p>
+            <TypewriterText 
+              text="UNA TANTUM VOCE" 
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-white leading-tight font-serif tracking-tight"
+              delay={0.5}
+            />
+            <TypewriterText 
+              text="music development for all" 
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-amber-500 font-light tracking-wide leading-relaxed"
+              delay={1.5}
+              speed={50}
+            />
           </div>
-          
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-xl md:text-2xl text-[#9a9080] mb-12 leading-relaxed max-w-3xl mx-auto transition-opacity duration-300"
-          >
-            {t('hero.subtitle')}
-          </motion.p>
           
           {/* Call to action buttons */}
           <motion.div
