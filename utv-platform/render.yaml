@@ -1,11 +1,11 @@
 # render.yaml
-services:
+databases:
   # 1. The PostgreSQL Database
-  - type: pgo
-    name: utv-database
+  - name: utv-database
     plan: free # Change to a paid plan later if you need more capacity
     region: ohio
 
+services:
   # 2. The FastAPI Backend
   - type: web
     name: utv-backend
