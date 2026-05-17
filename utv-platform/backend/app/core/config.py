@@ -23,11 +23,13 @@ class Settings(BaseSettings):
     ADMIN_EMAIL: str = "admin@utv.com"
     ADMIN_PASSWORD: str = "utv2025"  # Change in production
 
-    # AWS S3 (optional — falls back to local disk if not set)
+    # AWS S3 / Cloudflare R2 (optional — falls back to local disk if not set)
     AWS_ACCESS_KEY_ID: Optional[str] = None
     AWS_SECRET_ACCESS_KEY: Optional[str] = None
     AWS_REGION: str = "us-east-1"
     S3_BUCKET_NAME: Optional[str] = None
+    S3_ENDPOINT_URL: Optional[str] = None  # Add custom endpoint (e.g. for Cloudflare R2)
+    S3_CUSTOM_DOMAIN: Optional[str] = None  # Public URL domain to serve files (e.g. R2 public bucket URL)
 
     # Stripe
     STRIPE_SECRET_KEY: Optional[str] = None

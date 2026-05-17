@@ -53,12 +53,16 @@ services:
         sync: false
       - key: STRIPE_WEBHOOK_SECRET
         sync: false
-      # AWS S3 (optional — local disk fallback if not set)
+      # S3 / Cloudflare R2 (optional — local disk fallback if not set)
       - key: AWS_ACCESS_KEY_ID
         sync: false
       - key: AWS_SECRET_ACCESS_KEY
         sync: false
       - key: S3_BUCKET_NAME
+        sync: false
+      - key: S3_ENDPOINT_URL
+        sync: false
+      - key: S3_CUSTOM_DOMAIN
         sync: false
       # OpenAI (optional)
       - key: OPENAI_API_KEY

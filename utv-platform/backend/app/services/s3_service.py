@@ -23,16 +23,19 @@ LOCAL_UPLOAD_DIR.mkdir(exist_ok=True)
 
 
 class S3Service:
-    """AWS S3 file upload service"""
+    """AWS S3 / S3-Compatible (Cloudflare R2) file upload service"""
 
     def __init__(self):
         import boto3
-        self.client = boto3.client(
-            "s3",
-            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
-            region_name=settings.AWS_REGION,
-        )
+        client_kwargs = {
+            "aws_access_key_id": settings.AWS_ACCESS_KEY_ID,
+            "aws_secret_access_key": settings.AWS_SECRET_ACCESS_KEY,
+            "region_name": settings.AWS_REGION,
+        }
+        if settings.S3_ENDPOINT_URL:
+            client_kwargs["endpoint_url"] = settings.S3_ENDPOINT_URL
+
+        self.client = boto3.client("s3", **client_kwargs)
         self.bucket = settings.S3_BUCKET_NAME
 
     def upload_file(
@@ -42,7 +45,7 @@ class S3Service:
         folder: str = "uploads",
         content_type: Optional[str] = None
     ) -> str:
-        """Upload file to S3 and return public URL"""
+        """Upload file to S3/R2 and return public URL"""
         ext = Path(filename).suffix
         unique_name = f"{folder}/{uuid.uuid4().hex}{ext}"
 
@@ -52,14 +55,24 @@ class S3Service:
 
         self.client.upload_fileobj(file_obj, self.bucket, unique_name, ExtraArgs=extra_args)
 
-        # Return public URL
+        # Return public URL (Custom domain e.g. R2 public bucket URL, or fallback to standard AWS S3)
+        if settings.S3_CUSTOM_DOMAIN:
+            domain = settings.S3_CUSTOM_DOMAIN.rstrip("/")
+            return f"{domain}/{unique_name}"
+
         region = settings.AWS_REGION
         return f"https://{self.bucket}.s3.{region}.amazonaws.com/{unique_name}"
 
     def delete_file(self, url: str) -> bool:
-        """Delete file from S3 by URL"""
+        """Delete file by URL"""
         try:
-            key = url.split(f"{self.bucket}.s3.{settings.AWS_REGION}.amazonaws.com/")[1]
+            # Parse key from URL
+            if settings.S3_CUSTOM_DOMAIN:
+                domain = settings.S3_CUSTOM_DOMAIN.rstrip("/")
+                key = url.split(f"{domain}/")[1]
+            else:
+                key = url.split(f"{self.bucket}.s3.{settings.AWS_REGION}.amazonaws.com/")[1]
+
             self.client.delete_object(Bucket=self.bucket, Key=key)
             return True
         except Exception as e:
