@@ -80,22 +80,22 @@ class Content(Base):
     description = Column(Text, nullable=True)
     content_type = Column(Enum(ContentType), nullable=False)
     category_id = Column(Integer, ForeignKey("content_categories.id"), nullable=True)
-    
+
     # Media
     cover_image_url = Column(String(500), nullable=True)
     thumbnail_url = Column(String(500), nullable=True)
-    
+
     # For music
     audio_url = Column(String(500), nullable=True)
     duration = Column(Integer, nullable=True)  # in seconds
     artist = Column(String(200), nullable=True)
     album = Column(String(200), nullable=True)
     genre = Column(String(100), nullable=True)
-    
+
     # For videos
     video_url = Column(String(500), nullable=True)  # YouTube embed URL
     platform = Column(String(50), nullable=True)  # youtube, vimeo, etc.
-    
+
     # For books & scores
     pdf_url = Column(String(500), nullable=True)
     file_size = Column(Integer, nullable=True)  # in bytes
@@ -104,14 +104,14 @@ class Content(Base):
     publisher = Column(String(200), nullable=True)
     isbn = Column(String(50), nullable=True)
     language = Column(String(50), nullable=True)
-    
+
     # For e-commerce (books/scores)
     price = Column(Numeric(10, 2), nullable=True)
     currency = Column(String(3), default="USD")
     stock_quantity = Column(Integer, default=0)
     is_downloadable = Column(Boolean, default=False)
     download_count = Column(Integer, default=0)
-    
+
     # For concerts
     venue = Column(String(300), nullable=True)
     venue_address = Column(String(500), nullable=True)
@@ -120,10 +120,10 @@ class Content(Base):
     ticket_price = Column(Numeric(10, 2), nullable=True)
     total_tickets = Column(Integer, nullable=True)
     available_tickets = Column(Integer, nullable=True)
-    
+
     # For gallery
     image_urls = Column(JSON, default=list, nullable=True)
-    
+
     # Common fields
     tags = Column(JSON, default=list, nullable=True)
     meta_data = Column(JSON, default=dict, nullable=True)
@@ -238,3 +238,17 @@ class AnalyticsEvent(Base):
     ip_address = Column(String(50), nullable=True)
     user_agent = Column(String(500), nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class NewsletterSubscriber(Base):
+    """Newsletter subscriber list"""
+    __tablename__ = "newsletter_subscribers"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String(255), unique=True, index=True, nullable=False)
+    name = Column(String(200), nullable=True)
+    language = Column(String(10), default="en")  # preferred language
+    is_active = Column(Boolean, default=True)
+    confirmed = Column(Boolean, default=True)  # double opt-in (set to True for simplicity)
+    subscribed_at = Column(DateTime(timezone=True), server_default=func.now())
+    unsubscribed_at = Column(DateTime(timezone=True), nullable=True)

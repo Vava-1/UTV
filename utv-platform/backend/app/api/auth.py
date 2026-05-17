@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Header
 from sqlalchemy.orm import Session
 from datetime import timedelta
+from typing import Optional
 from app.db.database import get_db
 from app.core.security import verify_password, get_password_hash, create_access_token
 from app.core.config import settings
@@ -14,15 +15,13 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 @router.post("/register", response_model=Token, status_code=status.HTTP_201_CREATED)
 def register(user_data: UserCreate, db: Session = Depends(get_db)):
     """Register a new user"""
-    # Check if user already exists
     existing = db.query(User).filter(User.email == user_data.email).first()
     if existing:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Email already registered"
         )
-    
-    # Create user
+
     db_user = User(
         email=user_data.email,
         hashed_password=get_password_hash(user_data.password),
@@ -33,12 +32,11 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
-    
-    # Create token
+
     access_token = create_access_token(
         data={"sub": str(db_user.id), "role": db_user.role.value}
     )
-    
+
     return {
         "access_token": access_token,
         "token_type": "bearer",
@@ -50,24 +48,24 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
 def login(credentials: UserLogin, db: Session = Depends(get_db)):
     """Login user and return JWT token"""
     user = db.query(User).filter(User.email == credentials.email).first()
-    
+
     if not user or not verify_password(credentials.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     if not user.is_active:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Account is deactivated"
         )
-    
+
     access_token = create_access_token(
         data={"sub": str(user.id), "role": user.role.value}
     )
-    
+
     return {
         "access_token": access_token,
         "token_type": "bearer",
@@ -96,19 +94,39 @@ def update_me(
         current_user.avatar_url = update_data.avatar_url
     if update_data.password is not None:
         current_user.hashed_password = get_password_hash(update_data.password)
-    
+
     db.commit()
     db.refresh(current_user)
     return current_user
 
 
 @router.post("/admin-setup")
-def admin_setup(db: Session = Depends(get_db)):
-    """Create default admin user (run once in production)"""
+def admin_setup(
+    x_setup_secret: Optional[str] = Header(None),
+    db: Session = Depends(get_db)
+):
+    """
+    Create default admin user — PROTECTED by ADMIN_SETUP_SECRET env var.
+    Call once after fresh deployment:
+      curl -X POST /api/auth/admin-setup -H "x-setup-secret: <your-secret>"
+    """
+    # Require the setup secret header
+    if not settings.ADMIN_SETUP_SECRET:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Admin setup is disabled (ADMIN_SETUP_SECRET not configured)"
+        )
+
+    if x_setup_secret != settings.ADMIN_SETUP_SECRET:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Invalid setup secret"
+        )
+
     admin = db.query(User).filter(User.email == settings.ADMIN_EMAIL).first()
     if admin:
-        return {"message": "Admin already exists"}
-    
+        return {"message": "Admin already exists", "email": settings.ADMIN_EMAIL}
+
     db_admin = User(
         email=settings.ADMIN_EMAIL,
         hashed_password=get_password_hash(settings.ADMIN_PASSWORD),
@@ -119,5 +137,5 @@ def admin_setup(db: Session = Depends(get_db)):
     )
     db.add(db_admin)
     db.commit()
-    
-    return {"message": "Admin user created", "email": settings.ADMIN_EMAIL}
+
+    return {"message": "Admin user created successfully", "email": settings.ADMIN_EMAIL}

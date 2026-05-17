@@ -171,14 +171,50 @@ class ContentRead(ContentBase):
 
 
 class ContentUpdate(BaseModel):
+    """Full content update schema — supports all type-specific fields"""
     title: Optional[str] = None
     description: Optional[str] = None
     category_id: Optional[int] = None
     cover_image_url: Optional[str] = None
+    thumbnail_url: Optional[str] = None
     is_published: Optional[bool] = None
     is_featured: Optional[bool] = None
     tags: Optional[List[str]] = None
-    # Can extend for specific field updates
+
+    # Music fields
+    audio_url: Optional[str] = None
+    duration: Optional[int] = None
+    artist: Optional[str] = None
+    album: Optional[str] = None
+    genre: Optional[str] = None
+
+    # Video fields
+    video_url: Optional[str] = None
+    platform: Optional[str] = None
+
+    # Book / Score fields
+    pdf_url: Optional[str] = None
+    file_size: Optional[int] = None
+    pages: Optional[int] = None
+    author: Optional[str] = None
+    publisher: Optional[str] = None
+    isbn: Optional[str] = None
+    language: Optional[str] = None
+    price: Optional[Decimal] = None
+    stock_quantity: Optional[int] = None
+    is_downloadable: Optional[bool] = None
+
+    # Concert fields
+    venue: Optional[str] = None
+    venue_address: Optional[str] = None
+    event_date: Optional[datetime] = None
+    event_end_date: Optional[datetime] = None
+    ticket_price: Optional[Decimal] = None
+    total_tickets: Optional[int] = None
+    available_tickets: Optional[int] = None
+
+    # Gallery fields
+    image_urls: Optional[List[str]] = None
 
 
 class ContentListResponse(BaseModel):
@@ -276,6 +312,34 @@ class CartItemRead(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+# ============== NEWSLETTER SCHEMAS ==============
+
+class NewsletterSubscriberCreate(BaseModel):
+    email: EmailStr
+    name: Optional[str] = None
+    language: str = "en"
+
+
+class NewsletterSubscriberRead(BaseModel):
+    id: int
+    email: str
+    name: Optional[str] = None
+    language: str
+    is_active: bool
+    confirmed: bool
+    subscribed_at: datetime
+    unsubscribed_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+
+class NewsletterSendRequest(BaseModel):
+    subject: str
+    body_html: str
+    body_text: Optional[str] = None
 
 
 # ============== CHAT SCHEMAS ==============

@@ -5,9 +5,13 @@ from app.models.models import Order, OrderItem, OrderStatus, Ticket, TicketStatu
 from app.services.stripe_service import StripeService
 from app.services.pdf_service import generate_watermarked_pdf_for_user
 from app.services.s3_service import get_s3_service
+from app.services.email_service import send_order_confirmation
 from app.core.config import settings
 import json
 import ast
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/webhooks", tags=["Webhooks"])
 
@@ -17,51 +21,53 @@ async def stripe_webhook(request: Request, db: Session = Depends(get_db)):
     """Handle Stripe webhook events"""
     payload = await request.body()
     sig_header = request.headers.get("stripe-signature")
-    
+
     try:
-        if settings.STRIPE_WEBHOOK_SECRET:
+        if settings.STRIPE_WEBHOOK_SECRET and sig_header:
             event = StripeService.construct_event(payload, sig_header, settings.STRIPE_WEBHOOK_SECRET)
         else:
-            # For testing without webhook secret
+            # For testing without webhook secret (dev only)
             event = json.loads(payload)
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Webhook error: {str(e)}")
-    
+
     event_type = event["type"]
-    
+    logger.info(f"[Webhook] Received Stripe event: {event_type}")
+
     if event_type == "checkout.session.completed":
         session = event["data"]["object"]
         metadata = session.get("metadata", {})
         user_id = int(metadata.get("user_id", 0))
-        
-        # Handle product purchases
+
+        # ── Product Purchases ──────────────────────────────────────────────
         if "cart_items" in metadata:
             cart_items_str = metadata["cart_items"]
             try:
                 cart_items_data = ast.literal_eval(cart_items_str)
-            except:
+            except Exception:
                 cart_items_data = []
-            
-            # Create order
+
+            # Create order record
             order = Order(
                 user_id=user_id,
                 stripe_checkout_session_id=session["id"],
                 total_amount=session["amount_total"] / 100,
                 currency=session["currency"].upper(),
                 status=OrderStatus.COMPLETED,
-                customer_email=session["customer_email"],
+                customer_email=session.get("customer_email", ""),
                 customer_name=session.get("customer_details", {}).get("name", ""),
                 stripe_payment_intent_id=session.get("payment_intent")
             )
             db.add(order)
             db.commit()
             db.refresh(order)
-            
+
             # Create order items
+            order_items_for_email = []
             for item_data in cart_items_data:
                 content_id = item_data["content_id"]
                 quantity = item_data["qty"]
-                
+
                 content = db.query(Content).filter(Content.id == content_id).first()
                 if content:
                     order_item = OrderItem(
@@ -72,44 +78,77 @@ async def stripe_webhook(request: Request, db: Session = Depends(get_db)):
                         total_price=(content.price or 0) * quantity
                     )
                     db.add(order_item)
-                    
-                    # Increment download count
                     content.download_count += 1
-            
-            # Clear cart
+
+                    order_items_for_email.append({
+                        "title": content.title,
+                        "price": float(content.price or 0) * quantity
+                    })
+
+            # Clear the user's cart
             db.query(CartItem).filter(CartItem.user_id == user_id).delete()
             db.commit()
-        
-        # Handle concert ticket purchases
+
+            # Send order confirmation email (non-blocking)
+            try:
+                send_order_confirmation(
+                    to_email=order.customer_email,
+                    customer_name=order.customer_name or "Valued Customer",
+                    order_id=order.id,
+                    items=order_items_for_email,
+                    total_amount=float(order.total_amount),
+                    currency=order.currency
+                )
+            except Exception as e:
+                logger.error(f"[Webhook] Failed to send confirmation email: {e}")
+
+        # ── Concert Ticket Purchases ───────────────────────────────────────
         elif "concert_id" in metadata:
             concert_id = int(metadata["concert_id"])
-            quantity = int(metadata["quantity"])
+            quantity = int(metadata.get("quantity", 1))
             seat_info = metadata.get("seat_info", "")
-            
+
             concert = db.query(Content).filter(Content.id == concert_id).first()
             if concert:
-                # Update available tickets
+                # Decrement available tickets
                 if concert.available_tickets is not None:
-                    concert.available_tickets -= quantity
+                    concert.available_tickets = max(0, concert.available_tickets - quantity)
                     db.commit()
-                
-                # Create tickets
+
+                # Create ticket records
                 for i in range(quantity):
                     ticket = Ticket(
                         user_id=user_id,
                         concert_id=concert_id,
-                        ticket_number=f"UTV-{concert_id}-{user_id}-{session['id'][:8]}-{i+1}",
+                        ticket_number=f"UTV-{concert_id}-{user_id}-{session['id'][:8]}-{i + 1}",
                         seat_info=seat_info,
                         price_paid=concert.ticket_price or 0,
                         status=TicketStatus.SOLD,
                         stripe_payment_intent_id=session.get("payment_intent")
                     )
                     db.add(ticket)
-                
+
                 db.commit()
-    
+
+                # Send confirmation email
+                try:
+                    customer_email = session.get("customer_email", "")
+                    customer_name = session.get("customer_details", {}).get("name", "")
+                    if customer_email:
+                        send_order_confirmation(
+                            to_email=customer_email,
+                            customer_name=customer_name or "Valued Customer",
+                            order_id=int(session["id"][:8], 16) if session.get("id") else 0,
+                            items=[{
+                                "title": f"Concert Ticket: {concert.title}",
+                                "price": float(concert.ticket_price or 0) * quantity
+                            }],
+                            total_amount=float(concert.ticket_price or 0) * quantity
+                        )
+                except Exception as e:
+                    logger.error(f"[Webhook] Failed to send ticket confirmation: {e}")
+
     elif event_type == "payment_intent.payment_failed":
-        # Handle failed payment
-        pass
-    
+        logger.warning(f"[Webhook] Payment failed: {event.get('data', {}).get('object', {}).get('id', 'unknown')}")
+
     return {"status": "success"}

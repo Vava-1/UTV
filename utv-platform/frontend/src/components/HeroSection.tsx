@@ -152,7 +152,7 @@ export function HeroSection() {
                         className="flex items-center gap-3 px-4 py-2 text-xs sm:text-sm text-[#9a9080] hover:text-white hover:bg-[#1a1813] transition-all duration-200"
                       >
                         <User size={14} />
-                        Sign Up
+                        Create Account
                       </Link>
                       <div className="border-t border-[#1e1a12]/50 my-2"></div>
                       <Link
