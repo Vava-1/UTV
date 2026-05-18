@@ -43,6 +43,7 @@ app.add_middleware(
         "https://utv-frontend.onrender.com",
         "https://unatantumvoce.vercel.app",
         settings.FRONTEND_URL,
+        "null",  # Allows local file:/// pages (like admin.html) to call endpoints
     ],
     allow_credentials=True,
     allow_methods=["*"],
