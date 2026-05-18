@@ -1,33 +1,51 @@
 import os
+import logging
 from typing import List, Dict, Any, Optional
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain_community.vectorstores import FAISS
-from langchain.chains import RetrievalQA
-from langchain.prompts import PromptTemplate
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.schema import Document
+
+logger = logging.getLogger(__name__)
+
+# Try to import langchain, fall back to simple mock assistant if not available
+try:
+    from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+    from langchain_community.vectorstores import FAISS
+    from langchain.chains import RetrievalQA
+    from langchain.prompts import PromptTemplate
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
+    from langchain.schema import Document
+    HAS_LANGCHAIN = True
+except ImportError:
+    logger.warning("[AI Service] LangChain dependencies not installed. Falling back to rule-based assistant.")
+    HAS_LANGCHAIN = False
+
 from app.core.config import settings
 
 
 class UTVAssistantService:
     def __init__(self):
-        self.embeddings = OpenAIEmbeddings(
-            openai_api_key=settings.OPENAI_API_KEY,
-            model="text-embedding-ada-002"
-        )
-        self.llm = ChatOpenAI(
-            openai_api_key=settings.OPENAI_API_KEY,
-            model="gpt-4-turbo-preview",
-            temperature=0.7,
-            max_tokens=1000
-        )
-        self.vector_store: Optional[FAISS] = None
-        self.qa_chain = None
-        self._initialize_knowledge_base()
-    
+        if HAS_LANGCHAIN and settings.OPENAI_API_KEY:
+            try:
+                self.embeddings = OpenAIEmbeddings(
+                    openai_api_key=settings.OPENAI_API_KEY,
+                    model="text-embedding-ada-002"
+                )
+                self.llm = ChatOpenAI(
+                    openai_api_key=settings.OPENAI_API_KEY,
+                    model="gpt-4-turbo-preview",
+                    temperature=0.7,
+                    max_tokens=1000
+                )
+                self.vector_store: Optional[Any] = None
+                self.qa_chain = None
+                self._initialize_knowledge_base()
+                self.is_mock = False
+                return
+            except Exception as e:
+                logger.error(f"[AI Service] Langchain init failed, using mock assistant: {e}")
+        
+        self.is_mock = True
+
     def _initialize_knowledge_base(self):
         """Initialize the knowledge base with UTV's mission and values"""
-        # Default knowledge about UTV
         utv_knowledge = [
             Document(
                 page_content="""
@@ -148,9 +166,9 @@ class UTVAssistantService:
             chain_type_kwargs={"prompt": custom_prompt}
         )
     
-    def add_documents(self, documents: List[Document]):
-        """Add new documents to the knowledge base (e.g., book contents)"""
-        if self.vector_store:
+    def add_documents(self, documents: List[Any]):
+        """Add new documents to the knowledge base"""
+        if not self.is_mock and self.vector_store:
             text_splitter = RecursiveCharacterTextSplitter(
                 chunk_size=500,
                 chunk_overlap=50
@@ -160,24 +178,43 @@ class UTVAssistantService:
     
     def ask(self, question: str, chat_history: Optional[List[Dict[str, str]]] = None) -> Dict[str, Any]:
         """Ask the UTV Assistant a question"""
-        try:
-            result = self.qa_chain({"query": question})
-            
-            sources = []
-            if "source_documents" in result:
-                for doc in result["source_documents"]:
-                    if "title" in doc.metadata:
-                        sources.append(doc.metadata["title"])
-            
-            return {
-                "answer": result["result"],
-                "sources": list(set(sources)) if sources else []
-            }
-        except Exception as e:
-            return {
-                "answer": f"I apologize, but I'm having trouble accessing my knowledge base at the moment. Please try again later. Error: {str(e)}",
-                "sources": []
-            }
+        if not self.is_mock:
+            try:
+                result = self.qa_chain({"query": question})
+                sources = []
+                if "source_documents" in result:
+                    for doc in result["source_documents"]:
+                        if "title" in doc.metadata:
+                            sources.append(doc.metadata["title"])
+                return {
+                    "answer": result["result"],
+                    "sources": list(set(sources)) if sources else []
+                }
+            except Exception as e:
+                logger.error(f"[AI Service] Chain execution failed: {e}")
+
+        # Intelligent Mock Fallback
+        q = question.lower()
+        if "music" in q or "sing" in q or "song" in q or "audio" in q:
+            ans = "UNA TANTUM VOCE specializes in bridging classical choral works with rich gospel traditions. We have featured recordings and sheet music scores available for SATA, SSA, and TTBB choir arrangements."
+            src = ["UTV Music Collection"]
+        elif "book" in q or "read" in q or "literature" in q or "pdf" in q or "philosophy" in q:
+            ans = "Our digital library features formative philosophical literature aimed at personal and intellectual growth. All purchased books can be downloaded directly from your Library tab as secure watermarked PDFs."
+            src = ["UTV Digital Library"]
+        elif "ticket" in q or "concert" in q or "live" in q or "performance" in q:
+            ans = "You can purchase tickets for all our upcoming live concerts directly under the Concerts tab. Once booked, your digital ticket will automatically appear in your UTV account."
+            src = ["Concert Tickets"]
+        elif "hello" in q or "hi" in q or "hey" in q:
+            ans = "Greetings! I am the UNA TANTUM VOCE Concierge. How may I assist your musical or intellectual development today?"
+            src = ["UTV Mission"]
+        else:
+            ans = "UNA TANTUM VOCE (Latin for 'One Single Voice') is dedicated to bridging the beauty of classical and gospel music with formative literature. Let me know if you would like assistance with sheet music, books, concert tickets, or digital downloads!"
+            src = ["UTV Mission"]
+
+        return {
+            "answer": ans,
+            "sources": src
+        }
 
 
 # Singleton instance
