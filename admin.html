@@ -654,9 +654,90 @@
                         <textarea id="c-description" rows="3" placeholder="Describe this masterpiece..."></textarea>
                     </div>
                     
-                    <div class="input-group full-width">
-                        <label for="c-cover">Cover Image URL</label>
+                    <div class="input-group">
+                        <label for="c-cover-file">Cover Image File</label>
+                        <input type="file" id="c-cover-file" accept="image/*">
+                    </div>
+                    <div class="input-group">
+                        <label for="c-cover">Cover Image URL (Fallback)</label>
                         <input type="text" id="c-cover" placeholder="https://picsum.photos/400/300">
+                    </div>
+
+                    <!-- Type Specific Sections -->
+                    <!-- 1. Music Fields -->
+                    <div id="music-fields-container" class="form-grid full-width" style="display: none; grid-column: span 2; margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px;">
+                        <div class="input-group">
+                            <label for="c-audio-file">Audio MP3 File</label>
+                            <input type="file" id="c-audio-file" accept="audio/*">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-audio-url">Audio URL (Fallback)</label>
+                            <input type="text" id="c-audio-url" placeholder="https://s3.amazonaws.com/...">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-artist">Artist / Performer</label>
+                            <input type="text" id="c-artist" placeholder="UNA TANTUM VOCE">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-album">Album</label>
+                            <input type="text" id="c-album" placeholder="Gospel Hits Vol. 1">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-genre">Genre</label>
+                            <input type="text" id="c-genre" placeholder="Gospel / Classical">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-duration">Duration (Seconds)</label>
+                            <input type="number" id="c-duration" placeholder="180">
+                        </div>
+                    </div>
+
+                    <!-- 2. Book & Score Fields -->
+                    <div id="book-fields-container" class="form-grid full-width" style="display: none; grid-column: span 2; margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px;">
+                        <div class="input-group">
+                            <label for="c-pdf-file">PDF Book / Score File</label>
+                            <input type="file" id="c-pdf-file" accept="application/pdf">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-pdf-url">PDF URL (Fallback)</label>
+                            <input type="text" id="c-pdf-url" placeholder="https://s3.amazonaws.com/...">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-author">Composer / Author</label>
+                            <input type="text" id="c-author" placeholder="Vava Artist">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-publisher">Publisher</label>
+                            <input type="text" id="c-publisher" placeholder="UTV Publications">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-pages">Page Count</label>
+                            <input type="number" id="c-pages" placeholder="24">
+                        </div>
+                        <div class="input-group" style="display: flex; align-items: center; gap: 10px; padding-top: 25px;">
+                            <input type="checkbox" id="c-is-downloadable" style="width: auto;" checked>
+                            <label for="c-is-downloadable" style="margin: 0; text-transform: none;">Enable PDF Download</label>
+                        </div>
+                    </div>
+
+                    <!-- 3. Concert Fields -->
+                    <div id="concert-fields-container" class="form-grid full-width" style="display: none; grid-column: span 2; margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px;">
+                        <div class="input-group">
+                            <label for="c-venue">Concert Venue</label>
+                            <input type="text" id="c-venue" placeholder="Symphony Hall">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-venue-address">Venue Address</label>
+                            <input type="text" id="c-venue-address" placeholder="123 Music Ave, Paris">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-event-date">Concert Date & Time</label>
+                            <input type="datetime-local" id="c-event-date">
+                        </div>
+                        <div class="input-group">
+                            <label for="c-total-tickets">Total Available Tickets</label>
+                            <input type="number" id="c-total-tickets" placeholder="200" value="200">
+                        </div>
                     </div>
                 </div>
 
@@ -718,9 +799,63 @@
         // --- 3. Modal Actions ---
         function openModal(id) {
             document.getElementById(id).style.display = 'flex';
+            if (id === 'create-content-modal') {
+                adjustFormFields();
+            }
         }
         function closeModal(id) {
             document.getElementById(id).style.display = 'none';
+        }
+
+        function adjustFormFields() {
+            const type = document.getElementById('c-type').value;
+            
+            document.getElementById('music-fields-container').style.display = 'none';
+            document.getElementById('book-fields-container').style.display = 'none';
+            document.getElementById('concert-fields-container').style.display = 'none';
+            
+            if (type === 'music') {
+                document.getElementById('music-fields-container').style.display = 'grid';
+            } else if (type === 'score' || type === 'book') {
+                document.getElementById('book-fields-container').style.display = 'grid';
+            } else if (type === 'concert') {
+                document.getElementById('concert-fields-container').style.display = 'grid';
+            }
+        }
+
+        async function uploadFile(inputId, folderName) {
+            const fileInput = document.getElementById(inputId);
+            if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+                return null;
+            }
+            
+            const file = fileInput.files[0];
+            const token = localStorage.getItem('adminToken');
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('folder', folderName);
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/uploads/file?folder=${folderName}`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.url;
+                } else {
+                    const err = await response.json();
+                    console.error('Upload failed:', err);
+                    alert(`Failed to upload ${file.name}: ${err.detail || 'Server error'}`);
+                    return null;
+                }
+            } catch (error) {
+                console.error('Network error during upload:', error);
+                alert(`Network error uploading ${file.name}.`);
+                return null;
+            }
         }
 
         // --- 4. Handle Login (JSON-based matching app/api/auth.py) ---
@@ -842,17 +977,82 @@
         document.getElementById('createContentForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const token = localStorage.getItem('adminToken');
-            const payload = {
-                title: document.getElementById('c-title').value,
-                content_type: document.getElementById('c-type').value,
-                price: parseFloat(document.getElementById('c-price').value),
-                language: document.getElementById('c-language').value,
-                description: document.getElementById('c-description').value,
-                cover_image_url: document.getElementById('c-cover').value || 'https://picsum.photos/400/300',
-                is_published: true
-            };
-
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            
+            // Set loading state
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Uploading assets & publishing...';
+            
             try {
+                // 1. Upload Cover Image if any
+                let coverUrl = document.getElementById('c-cover').value || 'https://picsum.photos/400/300';
+                const uploadedCoverUrl = await uploadFile('c-cover-file', 'covers');
+                if (uploadedCoverUrl) {
+                    coverUrl = uploadedCoverUrl;
+                }
+                
+                const title = document.getElementById('c-title').value;
+                const type = document.getElementById('c-type').value;
+                const price = parseFloat(document.getElementById('c-price').value);
+                const language = document.getElementById('c-language').value;
+                const description = document.getElementById('c-description').value;
+                
+                // Autogenerate slug
+                const slug = title.toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/(^-|-$)+/g, '');
+                
+                const payload = {
+                    title: title,
+                    slug: slug,
+                    content_type: type,
+                    price: price,
+                    language: language,
+                    description: description,
+                    cover_image_url: coverUrl,
+                    is_published: true
+                };
+                
+                // 2. Upload type-specific files & build subfields
+                if (type === 'music') {
+                    let audioUrl = document.getElementById('c-audio-url').value || '';
+                    const uploadedAudio = await uploadFile('c-audio-file', 'music');
+                    if (uploadedAudio) {
+                        audioUrl = uploadedAudio;
+                    }
+                    payload.music_fields = {
+                        audio_url: audioUrl,
+                        duration: parseInt(document.getElementById('c-duration').value) || 0,
+                        artist: document.getElementById('c-artist').value || 'UNA TANTUM VOCE',
+                        album: document.getElementById('c-album').value || '',
+                        genre: document.getElementById('c-genre').value || ''
+                    };
+                } else if (type === 'score' || type === 'book') {
+                    let pdfUrl = document.getElementById('c-pdf-url').value || '';
+                    const uploadedPdf = await uploadFile('c-pdf-file', 'books');
+                    if (uploadedPdf) {
+                        pdfUrl = uploadedPdf;
+                    }
+                    payload.book_fields = {
+                        pdf_url: pdfUrl,
+                        author: document.getElementById('c-author').value || '',
+                        publisher: document.getElementById('c-publisher').value || '',
+                        pages: parseInt(document.getElementById('c-pages').value) || 0,
+                        price: price,
+                        is_downloadable: document.getElementById('c-is-downloadable').checked
+                    };
+                } else if (type === 'concert') {
+                    payload.concert_fields = {
+                        venue: document.getElementById('c-venue').value || '',
+                        venue_address: document.getElementById('c-venue-address').value || '',
+                        event_date: document.getElementById('c-event-date').value ? new Date(document.getElementById('c-event-date').value).toISOString() : new Date().toISOString(),
+                        ticket_price: price,
+                        total_tickets: parseInt(document.getElementById('c-total-tickets').value) || 200,
+                        available_tickets: parseInt(document.getElementById('c-total-tickets').value) || 200
+                    };
+                }
+                
                 const res = await fetch(`${API_BASE}/api/contents`, {
                     method: 'POST',
                     headers: {
@@ -861,16 +1061,22 @@
                     },
                     body: JSON.stringify(payload)
                 });
-
+                
                 if (res.ok) {
                     closeModal('create-content-modal');
                     document.getElementById('createContentForm').reset();
                     fetchContents();
+                    alert('Item published successfully!');
                 } else {
-                    alert('Failed to publish content. Please check input parameters.');
+                    const err = await res.json();
+                    alert(`Failed to publish content: ${err.detail || JSON.stringify(err)}`);
                 }
             } catch (err) {
-                alert('Connection failure: catalog remained unchanged.');
+                console.error(err);
+                alert('Connection failure or error parsing files during publication.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalText;
             }
         });
 
