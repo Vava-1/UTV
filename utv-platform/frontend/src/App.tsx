@@ -19,6 +19,9 @@ import { AdminPage } from '@/pages/Admin';
 import { OrdersPage } from '@/pages/Orders';
 import { TicketsPage } from '@/pages/Tickets';
 import { DiscoverPage } from '@/pages/Discover';
+import { CartPage } from '@/pages/Cart';
+import { OrderSuccessPage } from '@/pages/OrderSuccess';
+import { UnsubscribePage } from '@/pages/Unsubscribe';
 
 function App() {
   return (
@@ -42,6 +45,9 @@ function App() {
               <Route path="register" element={<RegisterPage />} />
               <Route path="orders" element={<OrdersPage />} />
               <Route path="tickets" element={<TicketsPage />} />
+              <Route path="cart" element={<CartPage />} />
+              <Route path="orders/success" element={<OrderSuccessPage />} />
+              <Route path="unsubscribe" element={<UnsubscribePage />} />
               <Route path="admin-secure-portal" element={<AdminPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Route>

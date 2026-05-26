@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import api from '@/utils/api';
 import { Content, User, Order } from '@/types';
@@ -8,10 +8,390 @@ import {
   Shield, Users, ShoppingBag, DollarSign, Ticket, TrendingUp,
   BarChart3, Package, Mail, Plus, Trash2, Edit, Eye, EyeOff,
   RefreshCw, Send, Download, ChevronDown, Music, BookOpen,
-  Video, FileText, Calendar, Image, Library, Settings, X
+  Video, FileText, Calendar, Image, Library, Settings, X,
+  UserCheck, UserX, CheckCircle2
 } from 'lucide-react';
 
-type Tab = 'dashboard' | 'contents' | 'newsletter' | 'orders' | 'settings';
+type Tab = 'dashboard' | 'contents' | 'newsletter' | 'orders' | 'users' | 'settings';
+
+// ─── Content Creation Modal ────────────────────────────────────────────────────
+
+const CONTENT_TYPES = ['music', 'book', 'video', 'score', 'concert', 'gallery', 'library'] as const;
+
+interface ContentFormData {
+  title: string;
+  content_type: string;
+  description: string;
+  price: string;
+  audio_url: string;
+  pdf_url: string;
+  video_url: string;
+  cover_image_url: string;
+  artist: string;
+  author: string;
+  is_featured: boolean;
+  is_published: boolean;
+}
+
+const emptyForm: ContentFormData = {
+  title: '',
+  content_type: 'music',
+  description: '',
+  price: '',
+  audio_url: '',
+  pdf_url: '',
+  video_url: '',
+  cover_image_url: '',
+  artist: '',
+  author: '',
+  is_featured: false,
+  is_published: false,
+};
+
+function AddContentModal({ onClose, onSuccess }: { onClose: () => void; onSuccess: () => void }) {
+  const [form, setForm] = useState<ContentFormData>(emptyForm);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+
+  const set = (field: keyof ContentFormData, value: any) => setForm(f => ({ ...f, [field]: value }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.title) { setError('Title is required'); return; }
+    setSaving(true);
+    setError('');
+    try {
+      await api.post('/contents', {
+        title: form.title,
+        content_type: form.content_type,
+        description: form.description || undefined,
+        price: form.price ? parseFloat(form.price) : undefined,
+        audio_url: form.audio_url || undefined,
+        pdf_url: form.pdf_url || undefined,
+        video_url: form.video_url || undefined,
+        cover_image_url: form.cover_image_url || undefined,
+        artist: form.artist || undefined,
+        author: form.author || undefined,
+        is_featured: form.is_featured,
+        is_published: form.is_published,
+      });
+      onSuccess();
+      onClose();
+    } catch (err: any) {
+      setError(err.response?.data?.detail || 'Failed to create content');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const inputCls = 'w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/60 transition-colors';
+  const labelCls = 'block text-xs text-slate-400 mb-1';
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+        onClick={e => { if (e.target === e.currentTarget) onClose(); }}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: 20 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+          className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
+        >
+          {/* Modal Header */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 sticky top-0 bg-slate-900 z-10">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 bg-amber-500/20 rounded-lg flex items-center justify-center">
+                <Plus size={14} className="text-amber-400" />
+              </div>
+              <h2 className="text-base font-bold text-white">Add Content</h2>
+            </div>
+            <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+              <X size={16} />
+            </button>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="p-6 space-y-5">
+            {/* Title + Type */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className={labelCls}>Title <span className="text-red-400">*</span></label>
+                <input
+                  className={inputCls}
+                  placeholder="Content title"
+                  value={form.title}
+                  onChange={e => set('title', e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label className={labelCls}>Content Type</label>
+                <select
+                  className={inputCls}
+                  value={form.content_type}
+                  onChange={e => set('content_type', e.target.value)}
+                >
+                  {CONTENT_TYPES.map(t => (
+                    <option key={t} value={t} className="bg-slate-800 capitalize">{t.charAt(0).toUpperCase() + t.slice(1)}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Description */}
+            <div>
+              <label className={labelCls}>Description</label>
+              <textarea
+                className={`${inputCls} resize-none`}
+                rows={3}
+                placeholder="Optional description..."
+                value={form.description}
+                onChange={e => set('description', e.target.value)}
+              />
+            </div>
+
+            {/* Price + Cover Image */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className={labelCls}>Price (USD)</label>
+                <input
+                  className={inputCls}
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  placeholder="0.00 (leave blank = free)"
+                  value={form.price}
+                  onChange={e => set('price', e.target.value)}
+                />
+              </div>
+              <div>
+                <label className={labelCls}>Cover Image URL</label>
+                <input
+                  className={inputCls}
+                  placeholder="https://..."
+                  value={form.cover_image_url}
+                  onChange={e => set('cover_image_url', e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* Artist / Author */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className={labelCls}>Artist</label>
+                <input
+                  className={inputCls}
+                  placeholder="Artist name"
+                  value={form.artist}
+                  onChange={e => set('artist', e.target.value)}
+                />
+              </div>
+              <div>
+                <label className={labelCls}>Author</label>
+                <input
+                  className={inputCls}
+                  placeholder="Author name"
+                  value={form.author}
+                  onChange={e => set('author', e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* URLs */}
+            <div className="space-y-3">
+              <p className="text-xs text-slate-500 uppercase tracking-wider font-medium">Media URLs</p>
+              <div>
+                <label className={labelCls}>Audio URL</label>
+                <input className={inputCls} placeholder="https://... (mp3, wav)" value={form.audio_url} onChange={e => set('audio_url', e.target.value)} />
+              </div>
+              <div>
+                <label className={labelCls}>PDF URL</label>
+                <input className={inputCls} placeholder="https://... (pdf)" value={form.pdf_url} onChange={e => set('pdf_url', e.target.value)} />
+              </div>
+              <div>
+                <label className={labelCls}>Video URL</label>
+                <input className={inputCls} placeholder="https://... (mp4, youtube)" value={form.video_url} onChange={e => set('video_url', e.target.value)} />
+              </div>
+            </div>
+
+            {/* Toggles */}
+            <div className="flex items-center gap-6">
+              <label className="flex items-center gap-2.5 cursor-pointer group">
+                <button
+                  type="button"
+                  onClick={() => set('is_featured', !form.is_featured)}
+                  className={`relative w-10 h-5.5 rounded-full transition-colors ${form.is_featured ? 'bg-amber-500' : 'bg-slate-700'}`}
+                  style={{ height: '22px', width: '40px' }}
+                >
+                  <span className={`absolute top-0.5 left-0.5 w-[18px] h-[18px] bg-white rounded-full shadow transition-transform ${form.is_featured ? 'translate-x-[18px]' : ''}`} />
+                </button>
+                <span className="text-sm text-slate-300 group-hover:text-white transition-colors">Featured</span>
+              </label>
+              <label className="flex items-center gap-2.5 cursor-pointer group">
+                <button
+                  type="button"
+                  onClick={() => set('is_published', !form.is_published)}
+                  className={`relative rounded-full transition-colors ${form.is_published ? 'bg-emerald-500' : 'bg-slate-700'}`}
+                  style={{ height: '22px', width: '40px' }}
+                >
+                  <span className={`absolute top-0.5 left-0.5 w-[18px] h-[18px] bg-white rounded-full shadow transition-transform ${form.is_published ? 'translate-x-[18px]' : ''}`} />
+                </button>
+                <span className="text-sm text-slate-300 group-hover:text-white transition-colors">Published</span>
+              </label>
+            </div>
+
+            {error && <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">{error}</p>}
+
+            {/* Submit */}
+            <div className="flex items-center gap-3 pt-1">
+              <button
+                type="submit"
+                disabled={saving}
+                className="flex items-center gap-2 px-6 py-2.5 bg-amber-500 text-slate-900 font-bold rounded-xl text-sm hover:bg-amber-400 transition-colors disabled:opacity-50"
+              >
+                {saving ? <RefreshCw size={14} className="animate-spin" /> : <Plus size={14} />}
+                {saving ? 'Creating...' : 'Create Content'}
+              </button>
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-5 py-2.5 text-sm text-slate-400 hover:text-white border border-slate-700 rounded-xl transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+// ─── Users Tab ────────────────────────────────────────────────────────────────
+
+function UsersTab() {
+  const [users, setUsers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [toggling, setToggling] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
+      const r = await api.get('/admin/users');
+      setUsers(r.data);
+    } catch {}
+    finally { setLoading(false); }
+  };
+
+  const toggleActive = async (userId: number) => {
+    setToggling(userId);
+    try {
+      await api.put(`/admin/users/${userId}/toggle-active`);
+      setUsers(prev => prev.map(u => u.id === userId ? { ...u, is_active: !u.is_active } : u));
+    } catch {}
+    finally { setToggling(null); }
+  };
+
+  if (loading) return (
+    <div className="flex items-center justify-center py-20">
+      <div className="w-7 h-7 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <p className="text-slate-400 text-sm">{users.length} users total</p>
+        <button onClick={fetchUsers} className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+          <RefreshCw size={14} />
+        </button>
+      </div>
+      <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-x-auto">
+        <table className="w-full text-sm min-w-[640px]">
+          <thead>
+            <tr className="border-b border-slate-800 text-left">
+              <th className="px-4 py-3 text-slate-400 font-medium">#</th>
+              <th className="px-4 py-3 text-slate-400 font-medium">Name</th>
+              <th className="px-4 py-3 text-slate-400 font-medium">Email</th>
+              <th className="px-4 py-3 text-slate-400 font-medium">Role</th>
+              <th className="px-4 py-3 text-slate-400 font-medium">Status</th>
+              <th className="px-4 py-3 text-slate-400 font-medium">Joined</th>
+              <th className="px-4 py-3 text-slate-400 font-medium">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(u => (
+              <tr key={u.id} className="border-b border-slate-800/50 hover:bg-slate-800/30">
+                <td className="px-4 py-3 text-slate-500 text-xs">{u.id}</td>
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 bg-slate-700 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-semibold text-white">
+                      {(u.full_name || u.email || '?')[0].toUpperCase()}
+                    </div>
+                    <span className="text-white truncate max-w-[140px]">{u.full_name || '—'}</span>
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-slate-400 text-xs">{u.email}</td>
+                <td className="px-4 py-3">
+                  <span className={`text-xs px-2 py-0.5 rounded-full capitalize ${
+                    u.role === 'admin' ? 'bg-red-500/20 text-red-400' :
+                    u.role === 'moderator' ? 'bg-purple-500/20 text-purple-400' :
+                    'bg-slate-700 text-slate-400'
+                  }`}>{u.role || 'user'}</span>
+                </td>
+                <td className="px-4 py-3">
+                  <span className={`flex items-center gap-1 w-fit text-xs px-2 py-0.5 rounded-full ${u.is_active !== false ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-500'}`}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${u.is_active !== false ? 'bg-emerald-400' : 'bg-slate-600'}`} />
+                    {u.is_active !== false ? 'Active' : 'Inactive'}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-slate-500 text-xs">{new Date(u.created_at || u.joined_at).toLocaleDateString()}</td>
+                <td className="px-4 py-3">
+                  <button
+                    onClick={() => toggleActive(u.id)}
+                    disabled={toggling === u.id}
+                    className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border transition-colors disabled:opacity-50 ${
+                      u.is_active !== false
+                        ? 'border-red-500/30 text-red-400 hover:bg-red-500/10'
+                        : 'border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10'
+                    }`}
+                  >
+                    {toggling === u.id ? (
+                      <RefreshCw size={11} className="animate-spin" />
+                    ) : u.is_active !== false ? (
+                      <UserX size={11} />
+                    ) : (
+                      <UserCheck size={11} />
+                    )}
+                    {u.is_active !== false ? 'Deactivate' : 'Activate'}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {users.length === 0 && (
+          <div className="text-center py-12 text-slate-500">
+            <Users size={32} className="mx-auto mb-3 opacity-50" />
+            <p>No users found</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Admin Page ───────────────────────────────────────────────────────────
 
 export function AdminPage() {
   const navigate = useNavigate();
@@ -22,6 +402,7 @@ export function AdminPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [subscribers, setSubscribers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAddContent, setShowAddContent] = useState(false);
 
   useEffect(() => { if (!isLoading && !isAdmin) navigate('/'); }, [isAdmin, isLoading, navigate]);
   useEffect(() => { if (isAdmin) fetchDashboard(); }, [isAdmin]);
@@ -63,11 +444,20 @@ export function AdminPage() {
     { id: 'contents', label: 'Content', icon: Package },
     { id: 'newsletter', label: 'Newsletter', icon: Mail },
     { id: 'orders', label: 'Orders', icon: ShoppingBag },
+    { id: 'users', label: 'Users', icon: Users },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
   return (
     <div className="space-y-6 p-4 md:p-6">
+      {/* Add Content Modal */}
+      {showAddContent && (
+        <AddContentModal
+          onClose={() => setShowAddContent(false)}
+          onSuccess={() => { if (tab === 'contents') fetchContents(); }}
+        />
+      )}
+
       {/* Header */}
       <div className="flex items-center gap-3">
         <Shield size={28} className="text-red-400" />
@@ -136,10 +526,12 @@ export function AdminPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <p className="text-slate-400 text-sm">{contents.length} items total</p>
-            <a href="/docs#/Contents/create_content_api_contents_post" target="_blank"
-              className="flex items-center gap-2 px-4 py-2 bg-amber-500 text-slate-900 rounded-lg text-sm font-medium hover:bg-amber-400 transition-colors">
-              <Plus size={14} /> Add via API Docs
-            </a>
+            <button
+              onClick={() => setShowAddContent(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-amber-500 text-slate-900 rounded-lg text-sm font-medium hover:bg-amber-400 transition-colors"
+            >
+              <Plus size={14} /> Add Content
+            </button>
           </div>
           <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-x-auto">
             <table className="w-full text-sm min-w-[640px]">
@@ -186,7 +578,7 @@ export function AdminPage() {
             {contents.length === 0 && (
               <div className="text-center py-12 text-slate-500">
                 <Package size={32} className="mx-auto mb-3 opacity-50" />
-                <p>No content yet. Add content via the API or Swagger docs at <code>/docs</code></p>
+                <p>No content yet. Click "Add Content" to get started.</p>
               </div>
             )}
           </div>
@@ -284,6 +676,9 @@ export function AdminPage() {
           )}
         </div>
       )}
+
+      {/* Users Tab */}
+      {tab === 'users' && <UsersTab />}
 
       {/* Settings Tab */}
       {tab === 'settings' && <SettingsTab />}

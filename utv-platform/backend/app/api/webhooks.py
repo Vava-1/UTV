@@ -6,6 +6,7 @@ from app.services.stripe_service import StripeService
 from app.services.pdf_service import generate_watermarked_pdf_for_user
 from app.services.s3_service import get_s3_service
 from app.services.email_service import send_order_confirmation
+from app.services.qr_service import save_qr_to_local
 from app.core.config import settings
 import json
 import ast
@@ -116,6 +117,8 @@ async def stripe_webhook(request: Request, db: Session = Depends(get_db)):
                     db.commit()
 
                 # Create ticket records
+                user = db.query(User).filter(User.id == user_id).first()
+                user_email = user.email if user else session.get("customer_email", "")
                 for i in range(quantity):
                     ticket = Ticket(
                         user_id=user_id,
@@ -126,7 +129,15 @@ async def stripe_webhook(request: Request, db: Session = Depends(get_db)):
                         status=TicketStatus.SOLD,
                         stripe_payment_intent_id=session.get("payment_intent")
                     )
+                    ticket_num = ticket.ticket_number
                     db.add(ticket)
+                    db.flush()  # Flush so ticket gets its ID
+                    try:
+                        qr_url = save_qr_to_local(ticket_num, concert_id, user_email)
+                        if qr_url:
+                            ticket.qr_code_url = qr_url
+                    except Exception as qr_err:
+                        logger.warning(f"[Webhook] QR generation failed for {ticket_num}: {qr_err}")
 
                 db.commit()
 

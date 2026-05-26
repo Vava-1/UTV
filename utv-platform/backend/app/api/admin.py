@@ -47,31 +47,44 @@ def get_analytics(
     }
 
 
-@router.get("/users", response_model=List[UserRead])
+@router.get("/users", tags=["Admin"])
 def list_users(
     skip: int = 0,
-    limit: int = 100,
+    limit: int = 50,
     db: Session = Depends(get_db),
     _: User = Depends(get_current_admin)
 ):
     """List all users — admin only"""
-    return db.query(User).offset(skip).limit(limit).all()
+    users = db.query(User).order_by(User.created_at.desc()).offset(skip).limit(limit).all()
+    return [
+        {
+            "id": u.id,
+            "email": u.email,
+            "first_name": u.first_name,
+            "last_name": u.last_name,
+            "role": u.role.value,
+            "is_active": u.is_active,
+            "created_at": str(u.created_at)
+        }
+        for u in users
+    ]
 
 
-@router.put("/users/{user_id}/toggle-active")
+@router.put("/users/{user_id}/toggle-active", tags=["Admin"])
 def toggle_user_active(
     user_id: int,
     db: Session = Depends(get_db),
-    _: User = Depends(get_current_admin)
+    current_admin: User = Depends(get_current_admin)
 ):
     """Toggle user active status — admin only"""
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-
+    if user.id == current_admin.id:
+        raise HTTPException(status_code=400, detail="Cannot deactivate yourself")
     user.is_active = not user.is_active
     db.commit()
-    return {"message": f"User {'activated' if user.is_active else 'deactivated'}"}
+    return {"message": f"User {'activated' if user.is_active else 'deactivated'}", "is_active": user.is_active}
 
 
 @router.get("/contents", response_model=List[ContentRead])

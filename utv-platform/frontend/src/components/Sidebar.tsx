@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
@@ -21,7 +21,9 @@ import {
   Shield,
   Menu,
   X,
+  ShoppingCart,
 } from "lucide-react";
+import api from "@/utils/api";
 
 const navItems = [
   { path: "/", icon: Home, label: "nav.home" },
@@ -53,6 +55,17 @@ export function Sidebar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setCartCount(0);
+      return;
+    }
+    api.get("/orders/cart")
+      .then((res) => setCartCount(Array.isArray(res.data) ? res.data.length : 0))
+      .catch(() => setCartCount(0));
+  }, [isAuthenticated]);
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -126,11 +139,33 @@ export function Sidebar() {
             );
           })}
 
+          {isAuthenticated && (
+            <Link
+              to="/cart"
+              onClick={() => setIsMobileOpen(false)}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-sm transition-all border-l-2 mt-2 ${
+                location.pathname === "/cart"
+                  ? "border-amber-500 bg-amber-500/8 text-amber-400"
+                  : "border-transparent text-[#6a6055] hover:text-[#c8c0b0] hover:bg-[#1a1813]"
+              }`}
+            >
+              <div className="relative">
+                <ShoppingCart size={16} />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 min-w-[14px] h-[14px] px-0.5 bg-amber-500 text-[#09090b] text-[9px] font-bold rounded-full flex items-center justify-center leading-none">
+                    {cartCount > 99 ? "99+" : cartCount}
+                  </span>
+                )}
+              </div>
+              <span className="text-[13px] font-medium tracking-wide">Cart</span>
+            </Link>
+          )}
+
           {isAdmin && (
             <Link
               to="/admin-secure-portal"
               onClick={() => setIsMobileOpen(false)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-sm transition-all border-l-2 mt-4 ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-sm transition-all border-l-2 mt-2 ${
                 location.pathname.startsWith("/admin")
                   ? "border-red-500 bg-red-500/8 text-red-400"
                   : "border-transparent text-[#6a6055] hover:text-red-400 hover:bg-[#1a1813]"

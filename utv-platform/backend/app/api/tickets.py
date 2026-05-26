@@ -6,7 +6,7 @@ import uuid
 from app.db.database import get_db
 from app.models.models import Content, Ticket, TicketStatus, User
 from app.schemas.schemas import TicketCreate, TicketRead
-from app.core.deps import get_current_user
+from app.core.deps import get_current_user, get_current_admin
 from app.services.stripe_service import StripeService
 from app.core.config import settings
 
@@ -72,3 +72,33 @@ def my_tickets(current_user: User = Depends(get_current_user), db: Session = Dep
     """Get user's purchased tickets"""
     tickets = db.query(Ticket).filter(Ticket.user_id == current_user.id).order_by(Ticket.purchased_at.desc()).all()
     return tickets
+
+
+@router.get("/verify/{ticket_number}")
+def verify_ticket(
+    ticket_number: str,
+    db: Session = Depends(get_db),
+    _: User = Depends(get_current_admin)  # Admin only
+):
+    """Verify a ticket for check-in at the venue — admin only"""
+    ticket = db.query(Ticket).filter(Ticket.ticket_number == ticket_number).first()
+    if not ticket:
+        return {"valid": False, "message": "Ticket not found"}
+    
+    if ticket.checked_in:
+        return {
+            "valid": False,
+            "message": "Ticket already used",
+            "checked_in_at": str(ticket.checked_in_at)
+        }
+    
+    ticket.checked_in = True
+    ticket.checked_in_at = datetime.utcnow()
+    db.commit()
+    
+    return {
+        "valid": True,
+        "message": "Check-in successful",
+        "ticket_number": ticket.ticket_number,
+        "concert_id": ticket.concert_id
+    }
