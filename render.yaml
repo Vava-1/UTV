@@ -11,7 +11,7 @@ services:
     region: ohio
     plan: free
     rootDir: utv-platform/backend
-    buildCommand: "pip install -r requirements.txt"
+    buildCommand: "pip install --no-cache-dir -r requirements.txt"
     startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
     healthCheckPath: /health
     envVars:
@@ -71,7 +71,7 @@ services:
   # ─── Frontend (React + Vite) ─────────────────────────────────────────────────
   - type: web
     name: utv-frontend
-    runtime: static
+    env: static
     rootDir: utv-platform/frontend
     buildCommand: "npm install && npm run build"
     staticPublishPath: dist
