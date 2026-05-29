@@ -7,7 +7,7 @@ from app.models.models import User, UserRole
 from app.schemas.schemas import UserRead
 
 security = HTTPBearer()
-
+optional_security = HTTPBearer(auto_error=False)
 
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
@@ -48,9 +48,11 @@ def get_current_admin(
 
 
 def get_current_user_optional(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
+    credentials: HTTPAuthorizationCredentials = Depends(optional_security),
     db: Session = Depends(get_db)
 ) -> User | None:
+    if not credentials:
+        return None
     try:
         token = credentials.credentials
         payload = decode_access_token(token)
