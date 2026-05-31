@@ -1,0 +1,133 @@
+{
+  "common": {
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Loschen",
+    "edit": "Bearbeiten",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "sort": "Sortieren",
+    "viewAll": "Alle Anzeigen",
+    "addToCart": "In den Warenkorb",
+    "buyNow": "Jetzt Kaufen",
+    "free": "Kostenlos",
+    "price": "Preis",
+    "submit": "Absenden",
+    "close": "Schliessen"
+  },
+  "nav": {
+    "home": "Startseite",
+    "music": "Musik",
+    "books": "Bucher",
+    "events": "Veranstaltungen",
+    "cart": "Warenkorb",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "profile": "Profil",
+    "logout": "Abmelden",
+    "admin": "Admin"
+  },
+  "hero": {
+    "tagline": "UNA TANTUM VOCE",
+    "subtitle": "Eine Stimme, Ein Mal. Entdecken Sie klassische und Gospel-Musik, philosophische Literatur und kulturelle Veranstaltungen aus aller Welt.",
+    "ctaMusic": "Musik Entdecken",
+    "ctaBooks": "Bucher Durchsuchen"
+  },
+  "music": {
+    "title": "Musik",
+    "composer": "Komponist",
+    "performer": "Interpret",
+    "genre": "Genre",
+    "duration": "Dauer",
+    "play": "Abspielen",
+    "pause": "Pause",
+    "stream": "Streamen",
+    "genres": {
+      "classical": "Klassik",
+      "gospel": "Gospel",
+      "sacred": "Sakral",
+      "choral": "Chor",
+      "liturgical": "Liturgisch",
+      "contemporary": "Zeitgenossisch"
+    }
+  },
+  "books": {
+    "title": "Bucher",
+    "author": "Autor",
+    "pages": "Seiten",
+    "language": "Sprache",
+    "isbn": "ISBN",
+    "preview": "Vorschau",
+    "download": "Herunterladen",
+    "purchased": "Gekauft"
+  },
+  "events": {
+    "title": "Veranstaltungen",
+    "venue": "Ort",
+    "date": "Datum",
+    "time": "Uhrzeit",
+    "city": "Stadt",
+    "getTickets": "Tickets",
+    "ticketsLeft": "Tickets ubrig",
+    "soldOut": "Ausverkauft",
+    "attending": "Teilnehmer"
+  },
+  "cart": {
+    "title": "Warenkorb",
+    "empty": "Ihr Warenkorb ist leer",
+    "subtotal": "Zwischensumme",
+    "tax": "Steuer (10%)",
+    "total": "Gesamt",
+    "checkout": "Zur Kasse",
+    "remove": "Entfernen"
+  },
+  "auth": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort Bestatigen",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "username": "Benutzername",
+    "forgotPassword": "Passwort vergessen?",
+    "rememberMe": "Angemeldet bleiben",
+    "noAccount": "Kein Konto?",
+    "hasAccount": "Bereits Konto?",
+    "loginSuccess": "Anmeldung erfolgreich",
+    "registerSuccess": "Registrierung erfolgreich"
+  },
+  "profile": {
+    "title": "Profil",
+    "orders": "Bestellungen",
+    "downloads": "Downloads",
+    "tickets": "Tickets"
+  },
+  "ai": {
+    "title": "UTV Assistent",
+    "subtitle": "24/7 Support",
+    "placeholder": "Fragen Sie mich etwas...",
+    "send": "Senden",
+    "quickQ1": "Welche Musik ist verfugbar?",
+    "quickQ2": "Wie lade ich ein Buch herunter?",
+    "quickQ3": "Kommende Veranstaltungen?",
+    "quickQ4": "Unterstutzte Sprachen?"
+  },
+  "checkout": {
+    "success": "Zahlung erfolgreich!",
+    "thankYou": "Vielen Dank fur Ihren Kauf",
+    "orderNumber": "Bestellnummer",
+    "downloadReady": "Ihre Downloads sind bereit",
+    "ticketReady": "Ihre Tickets sind bereit",
+    "emailSent": "Eine Bestatigungs-E-Mail wurde gesendet"
+  },
+  "errors": {
+    "notFound": "Seite nicht gefunden",
+    "unauthorized": "Bitte melden Sie sich an",
+    "forbidden": "Zugriff verweigert",
+    "serverError": "Serverfehler",
+    "networkError": "Netzwerkfehler"
+  }
+}

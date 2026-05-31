@@ -1,0 +1,133 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "viewAll": "View All",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "free": "Free",
+    "price": "Price",
+    "submit": "Submit",
+    "close": "Close"
+  },
+  "nav": {
+    "home": "Home",
+    "music": "Music",
+    "books": "Books",
+    "events": "Events",
+    "cart": "Cart",
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "logout": "Logout",
+    "admin": "Admin"
+  },
+  "hero": {
+    "tagline": "UNA TANTUM VOCE",
+    "subtitle": "One Voice, One Time. Discover classical and gospel music, philosophical literature, and cultural events from around the world.",
+    "ctaMusic": "Explore Music",
+    "ctaBooks": "Browse Books"
+  },
+  "music": {
+    "title": "Music",
+    "composer": "Composer",
+    "performer": "Performer",
+    "genre": "Genre",
+    "duration": "Duration",
+    "play": "Play",
+    "pause": "Pause",
+    "stream": "Stream",
+    "genres": {
+      "classical": "Classical",
+      "gospel": "Gospel",
+      "sacred": "Sacred",
+      "choral": "Choral",
+      "liturgical": "Liturgical",
+      "contemporary": "Contemporary"
+    }
+  },
+  "books": {
+    "title": "Books",
+    "author": "Author",
+    "pages": "Pages",
+    "language": "Language",
+    "isbn": "ISBN",
+    "preview": "Preview",
+    "download": "Download",
+    "purchased": "Purchased"
+  },
+  "events": {
+    "title": "Events",
+    "venue": "Venue",
+    "date": "Date",
+    "time": "Time",
+    "city": "City",
+    "getTickets": "Get Tickets",
+    "ticketsLeft": "tickets left",
+    "soldOut": "Sold Out",
+    "attending": "Attending"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "tax": "Tax (10%)",
+    "total": "Total",
+    "checkout": "Checkout",
+    "remove": "Remove"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "username": "Username",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember Me",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful"
+  },
+  "profile": {
+    "title": "Profile",
+    "orders": "Orders",
+    "downloads": "Downloads",
+    "tickets": "Tickets"
+  },
+  "ai": {
+    "title": "UTV Assistant",
+    "subtitle": "24/7 Support",
+    "placeholder": "Ask me anything...",
+    "send": "Send",
+    "quickQ1": "What music is available?",
+    "quickQ2": "How to download a book?",
+    "quickQ3": "Upcoming events?",
+    "quickQ4": "Supported languages?"
+  },
+  "checkout": {
+    "success": "Payment Successful!",
+    "thankYou": "Thank you for your purchase",
+    "orderNumber": "Order Number",
+    "downloadReady": "Your downloads are ready",
+    "ticketReady": "Your tickets are ready",
+    "emailSent": "A confirmation email has been sent"
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "unauthorized": "Please log in to continue",
+    "forbidden": "Access denied",
+    "serverError": "Server error occurred",
+    "networkError": "Network connection error"
+  }
+}

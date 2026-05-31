@@ -1,0 +1,369 @@
+UNA TANTUM VOCE (UTV) - KNOWLEDGE BASE
+
+MISSION
+Una Tantum Voce (Latin for "One Voice, One Time") is a digital platform dedicated to preserving and promoting classical music, gospel music, philosophical literature, and cultural arts. We believe in the transformative power of music and ideas to unite people across cultures and generations.
+
+Our platform serves as a bridge between traditional artistic heritage and modern digital distribution, making high-quality classical and gospel content accessible to audiences worldwide.
+
+PLATFORM OVERVIEW
+UTV offers four main content categories:
+1. Music Streaming - Classical, Gospel, Sacred, Choral, Liturgical, and Contemporary genres
+2. Digital Books - Philosophical texts, theological works, music theory, and cultural literature
+3. Musical Scores - Sheet music for various instruments and difficulty levels
+4. Events & Tickets - Live concerts, workshops, masterclasses, and cultural gatherings
+
+We support 8 languages: English, French, Spanish, German, Italian, Portuguese, Kinyarwanda, and Swahili to serve our diverse global community.
+
+CATALOG
+Music: Over 500 tracks from classical masterpieces to contemporary gospel works. Featured composers include Bach, Mozart, Beethoven, Handel, and modern gospel artists.
+
+Books: More than 200 digital books spanning philosophy, theology, music theory, biography, and cultural studies. Works by Plato, Aristotle, Augustine, Aquinas, and modern scholars.
+
+Scores: Sheet music for piano, violin, organ, choir, and orchestra. Difficulty levels from beginner to professional.
+
+Videos: Concert recordings, educational content, artist interviews, and documentary films.
+
+Events: Regular live events including concerts in New York, London, Paris, Kigali, and Nairobi.
+
+PRICING
+- Individual tracks: $0.99 - $2.99
+- Books: $3.99 - $19.99
+- Scores: $1.99 - $9.99
+- Event tickets: $25 - $150
+- Free content available (selected tracks and videos)
+
+All purchases are processed securely via Stripe. We accept major credit cards and support multiple currencies.
+
+DOWNLOAD POLICY
+Purchased books and scores are provided as watermarked PDFs. The watermark includes the purchaser's email and "UNA TANTUM VOCE" branding. This protects intellectual property while ensuring legitimate buyers have permanent access.
+
+Downloads are available for 24 hours via secure presigned URLs. Purchasers can re-download content from their profile page at any time.
+
+WATERMARKING
+All PDF downloads (books and scores) are watermarked with:
+1. Diagonal "UNA TANTUM VOCE" text in gold color
+2. Purchaser email at the bottom of each page
+3. "Not for redistribution" notice
+
+This is an automated process applied during order fulfillment.
+
+REFUND POLICY
+- Full refund within 7 days if download not initiated
+- Partial refund (50%) if download initiated but file not accessed
+- No refund after 30 days
+- Event tickets: refundable up to 48 hours before event
+- Contact support@utv.com for refund requests
+
+ARTIST BIOS
+Maria Callas (1923-1977) - American-Greek soprano, one of the most renowned opera singers of the 20th century.
+Andrea Bocelli - Italian tenor who has brought classical music to international pop charts.
+London Symphony Orchestra - One of the world's leading orchestras, founded in 1904.
+Johann Sebastian Bach (1685-1750) - German composer and musician of the Baroque period.
+Franz Schubert (1797-1828) - Austrian composer of the late Classical and early Romantic eras.
+
+EVENTS
+Regular events include:
+- Classical & Gospel Gala (annual flagship event)
+- Chamber music evenings
+- Choral workshops
+- Masterclasses with visiting artists
+- Philosophy & Music symposiums
+- Community sing-alongs
+
+Events are held in partnership with venues worldwide including Carnegie Hall, Royal Albert Hall, and various cultural centers in Africa and Europe.
+
+SUPPORTED LANGUAGES
+English (en), French (fr), Spanish (es), German (de), Italian (it), Portuguese (pt), Kinyarwanda (rw), Swahili (sw)
+
+FAQ
+Q: How do I create an account?
+A: Click Register and fill in your email, username, and password. Verify your email to unlock full features.
+
+Q: Can I listen to music offline?
+A: Currently streaming is online-only. We are developing a mobile app with offline support.
+
+Q: How do watermarked PDFs work?
+A: When you purchase a book or score, our system automatically adds a subtle watermark with your email. This protects against unauthorized sharing.
+
+Q: What payment methods are accepted?
+A: We accept all major credit cards via Stripe secure payment processing.
+
+Q: How do I get tickets for events?
+A: Browse the Events page, select an event, choose quantity, and checkout. Your tickets will appear in your profile with QR codes.
+
+Q: Can I get a refund?
+A: Yes, within the conditions outlined in our refund policy above.
+
+Q: How do I contact support?
+A: Use the AI assistant chat widget or email support@utv.com.
+
+Q: Is my payment information secure?
+A: Yes, we never store card details. All payments are processed by Stripe, a PCI-compliant payment processor.
+
+Q: Can I change my account language?
+A: Yes, use the language switcher in the navigation bar. This changes the interface language.
+
+Q: What genres of music are available?
+A: Classical, Gospel, Sacred, Choral, Liturgical, and Contemporary.
+
+Q: Do you offer physical books?
+A: Some titles are available in physical format. Check the book details page.
+
+Q: How do I become a featured artist?
+A: Contact our artist relations team at artists@utv.com with your portfolio.
+
+Q: Are there student discounts?
+A: Yes, students get 20% off with valid student ID. Contact support for verification.
+
+Q: Can I share my account?
+A: Account sharing is not permitted. Each account is for individual use.
+
+Q: How do gift cards work?
+A: Gift cards can be purchased on our platform and redeemed at checkout.
+
+UNA TANTUM VOCE (UTV) - KNOWLEDGE BASE
+
+MISSION
+Una Tantum Voce (Latin for "One Voice, One Time") is a digital platform dedicated to preserving and promoting classical music, gospel music, philosophical literature, and cultural arts. We believe in the transformative power of music and ideas to unite people across cultures and generations.
+
+Our platform serves as a bridge between traditional artistic heritage and modern digital distribution, making high-quality classical and gospel content accessible to audiences worldwide.
+
+PLATFORM OVERVIEW
+UTV offers four main content categories:
+1. Music Streaming - Classical, Gospel, Sacred, Choral, Liturgical, and Contemporary genres
+2. Digital Books - Philosophical texts, theological works, music theory, and cultural literature
+3. Musical Scores - Sheet music for various instruments and difficulty levels
+4. Events & Tickets - Live concerts, workshops, masterclasses, and cultural gatherings
+
+We support 8 languages: English, French, Spanish, German, Italian, Portuguese, Kinyarwanda, and Swahili to serve our diverse global community.
+
+CATALOG
+Music: Over 500 tracks from classical masterpieces to contemporary gospel works. Featured composers include Bach, Mozart, Beethoven, Handel, and modern gospel artists.
+
+Books: More than 200 digital books spanning philosophy, theology, music theory, biography, and cultural studies. Works by Plato, Aristotle, Augustine, Aquinas, and modern scholars.
+
+Scores: Sheet music for piano, violin, organ, choir, and orchestra. Difficulty levels from beginner to professional.
+
+Videos: Concert recordings, educational content, artist interviews, and documentary films.
+
+Events: Regular live events including concerts in New York, London, Paris, Kigali, and Nairobi.
+
+PRICING
+- Individual tracks: $0.99 - $2.99
+- Books: $3.99 - $19.99
+- Scores: $1.99 - $9.99
+- Event tickets: $25 - $150
+- Free content available (selected tracks and videos)
+
+All purchases are processed securely via Stripe. We accept major credit cards and support multiple currencies.
+
+DOWNLOAD POLICY
+Purchased books and scores are provided as watermarked PDFs. The watermark includes the purchaser's email and "UNA TANTUM VOCE" branding. This protects intellectual property while ensuring legitimate buyers have permanent access.
+
+Downloads are available for 24 hours via secure presigned URLs. Purchasers can re-download content from their profile page at any time.
+
+WATERMARKING
+All PDF downloads (books and scores) are watermarked with:
+1. Diagonal "UNA TANTUM VOCE" text in gold color
+2. Purchaser email at the bottom of each page
+3. "Not for redistribution" notice
+
+This is an automated process applied during order fulfillment.
+
+REFUND POLICY
+- Full refund within 7 days if download not initiated
+- Partial refund (50%) if download initiated but file not accessed
+- No refund after 30 days
+- Event tickets: refundable up to 48 hours before event
+- Contact support@utv.com for refund requests
+
+ARTIST BIOS
+Maria Callas (1923-1977) - American-Greek soprano, one of the most renowned opera singers of the 20th century.
+Andrea Bocelli - Italian tenor who has brought classical music to international pop charts.
+London Symphony Orchestra - One of the world's leading orchestras, founded in 1904.
+Johann Sebastian Bach (1685-1750) - German composer and musician of the Baroque period.
+Franz Schubert (1797-1828) - Austrian composer of the late Classical and early Romantic eras.
+
+EVENTS
+Regular events include:
+- Classical & Gospel Gala (annual flagship event)
+- Chamber music evenings
+- Choral workshops
+- Masterclasses with visiting artists
+- Philosophy & Music symposiums
+- Community sing-alongs
+
+Events are held in partnership with venues worldwide including Carnegie Hall, Royal Albert Hall, and various cultural centers in Africa and Europe.
+
+SUPPORTED LANGUAGES
+English (en), French (fr), Spanish (es), German (de), Italian (it), Portuguese (pt), Kinyarwanda (rw), Swahili (sw)
+
+FAQ
+Q: How do I create an account?
+A: Click Register and fill in your email, username, and password. Verify your email to unlock full features.
+
+Q: Can I listen to music offline?
+A: Currently streaming is online-only. We are developing a mobile app with offline support.
+
+Q: How do watermarked PDFs work?
+A: When you purchase a book or score, our system automatically adds a subtle watermark with your email. This protects against unauthorized sharing.
+
+Q: What payment methods are accepted?
+A: We accept all major credit cards via Stripe secure payment processing.
+
+Q: How do I get tickets for events?
+A: Browse the Events page, select an event, choose quantity, and checkout. Your tickets will appear in your profile with QR codes.
+
+Q: Can I get a refund?
+A: Yes, within the conditions outlined in our refund policy above.
+
+Q: How do I contact support?
+A: Use the AI assistant chat widget or email support@utv.com.
+
+Q: Is my payment information secure?
+A: Yes, we never store card details. All payments are processed by Stripe, a PCI-compliant payment processor.
+
+Q: Can I change my account language?
+A: Yes, use the language switcher in the navigation bar. This changes the interface language.
+
+Q: What genres of music are available?
+A: Classical, Gospel, Sacred, Choral, Liturgical, and Contemporary.
+
+Q: Do you offer physical books?
+A: Some titles are available in physical format. Check the book details page.
+
+Q: How do I become a featured artist?
+A: Contact our artist relations team at artists@utv.com with your portfolio.
+
+Q: Are there student discounts?
+A: Yes, students get 20% off with valid student ID. Contact support for verification.
+
+Q: Can I share my account?
+A: Account sharing is not permitted. Each account is for individual use.
+
+Q: How do gift cards work?
+A: Gift cards can be purchased on our platform and redeemed at checkout.
+
+UNA TANTUM VOCE (UTV) - KNOWLEDGE BASE
+
+MISSION
+Una Tantum Voce (Latin for "One Voice, One Time") is a digital platform dedicated to preserving and promoting classical music, gospel music, philosophical literature, and cultural arts. We believe in the transformative power of music and ideas to unite people across cultures and generations.
+
+Our platform serves as a bridge between traditional artistic heritage and modern digital distribution, making high-quality classical and gospel content accessible to audiences worldwide.
+
+PLATFORM OVERVIEW
+UTV offers four main content categories:
+1. Music Streaming - Classical, Gospel, Sacred, Choral, Liturgical, and Contemporary genres
+2. Digital Books - Philosophical texts, theological works, music theory, and cultural literature
+3. Musical Scores - Sheet music for various instruments and difficulty levels
+4. Events & Tickets - Live concerts, workshops, masterclasses, and cultural gatherings
+
+We support 8 languages: English, French, Spanish, German, Italian, Portuguese, Kinyarwanda, and Swahili to serve our diverse global community.
+
+CATALOG
+Music: Over 500 tracks from classical masterpieces to contemporary gospel works. Featured composers include Bach, Mozart, Beethoven, Handel, and modern gospel artists.
+
+Books: More than 200 digital books spanning philosophy, theology, music theory, biography, and cultural studies. Works by Plato, Aristotle, Augustine, Aquinas, and modern scholars.
+
+Scores: Sheet music for piano, violin, organ, choir, and orchestra. Difficulty levels from beginner to professional.
+
+Videos: Concert recordings, educational content, artist interviews, and documentary films.
+
+Events: Regular live events including concerts in New York, London, Paris, Kigali, and Nairobi.
+
+PRICING
+- Individual tracks: $0.99 - $2.99
+- Books: $3.99 - $19.99
+- Scores: $1.99 - $9.99
+- Event tickets: $25 - $150
+- Free content available (selected tracks and videos)
+
+All purchases are processed securely via Stripe. We accept major credit cards and support multiple currencies.
+
+DOWNLOAD POLICY
+Purchased books and scores are provided as watermarked PDFs. The watermark includes the purchaser's email and "UNA TANTUM VOCE" branding. This protects intellectual property while ensuring legitimate buyers have permanent access.
+
+Downloads are available for 24 hours via secure presigned URLs. Purchasers can re-download content from their profile page at any time.
+
+WATERMARKING
+All PDF downloads (books and scores) are watermarked with:
+1. Diagonal "UNA TANTUM VOCE" text in gold color
+2. Purchaser email at the bottom of each page
+3. "Not for redistribution" notice
+
+This is an automated process applied during order fulfillment.
+
+REFUND POLICY
+- Full refund within 7 days if download not initiated
+- Partial refund (50%) if download initiated but file not accessed
+- No refund after 30 days
+- Event tickets: refundable up to 48 hours before event
+- Contact support@utv.com for refund requests
+
+ARTIST BIOS
+Maria Callas (1923-1977) - American-Greek soprano, one of the most renowned opera singers of the 20th century.
+Andrea Bocelli - Italian tenor who has brought classical music to international pop charts.
+London Symphony Orchestra - One of the world's leading orchestras, founded in 1904.
+Johann Sebastian Bach (1685-1750) - German composer and musician of the Baroque period.
+Franz Schubert (1797-1828) - Austrian composer of the late Classical and early Romantic eras.
+
+EVENTS
+Regular events include:
+- Classical & Gospel Gala (annual flagship event)
+- Chamber music evenings
+- Choral workshops
+- Masterclasses with visiting artists
+- Philosophy & Music symposiums
+- Community sing-alongs
+
+Events are held in partnership with venues worldwide including Carnegie Hall, Royal Albert Hall, and various cultural centers in Africa and Europe.
+
+SUPPORTED LANGUAGES
+English (en), French (fr), Spanish (es), German (de), Italian (it), Portuguese (pt), Kinyarwanda (rw), Swahili (sw)
+
+FAQ
+Q: How do I create an account?
+A: Click Register and fill in your email, username, and password. Verify your email to unlock full features.
+
+Q: Can I listen to music offline?
+A: Currently streaming is online-only. We are developing a mobile app with offline support.
+
+Q: How do watermarked PDFs work?
+A: When you purchase a book or score, our system automatically adds a subtle watermark with your email. This protects against unauthorized sharing.
+
+Q: What payment methods are accepted?
+A: We accept all major credit cards via Stripe secure payment processing.
+
+Q: How do I get tickets for events?
+A: Browse the Events page, select an event, choose quantity, and checkout. Your tickets will appear in your profile with QR codes.
+
+Q: Can I get a refund?
+A: Yes, within the conditions outlined in our refund policy above.
+
+Q: How do I contact support?
+A: Use the AI assistant chat widget or email support@utv.com.
+
+Q: Is my payment information secure?
+A: Yes, we never store card details. All payments are processed by Stripe, a PCI-compliant payment processor.
+
+Q: Can I change my account language?
+A: Yes, use the language switcher in the navigation bar. This changes the interface language.
+
+Q: What genres of music are available?
+A: Classical, Gospel, Sacred, Choral, Liturgical, and Contemporary.
+
+Q: Do you offer physical books?
+A: Some titles are available in physical format. Check the book details page.
+
+Q: How do I become a featured artist?
+A: Contact our artist relations team at artists@utv.com with your portfolio.
+
+Q: Are there student discounts?
+A: Yes, students get 20% off with valid student ID. Contact support for verification.
+
+Q: Can I share my account?
+A: Account sharing is not permitted. Each account is for individual use.
+
+Q: How do gift cards work?
+A: Gift cards can be purchased on our platform and redeemed at checkout.
+

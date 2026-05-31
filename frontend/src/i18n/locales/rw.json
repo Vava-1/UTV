@@ -1,0 +1,133 @@
+{
+  "common": {
+    "loading": "Birafasgwa...",
+    "error": "Ikosa ryabaye",
+    "save": "Kubika",
+    "cancel": "Guhagarika",
+    "delete": "Gusiba",
+    "edit": "Guhindura",
+    "search": "Gushaka",
+    "filter": "Kuringaniza",
+    "sort": "Gutondeka",
+    "viewAll": "Reba Byose",
+    "addToCart": "Ongera mu Gakiriro",
+    "buyNow": "Gura Nonaha",
+    "free": "Ubuntu",
+    "price": "Igiciro",
+    "submit": "Ohereza",
+    "close": "Gufunga"
+  },
+  "nav": {
+    "home": "Ahabanza",
+    "music": "Umuziki",
+    "books": "Ibitabo",
+    "events": "Ibikorwa",
+    "cart": "Gakiriro",
+    "login": "Kwinjira",
+    "register": "Kwiyandikisha",
+    "profile": "Umwirondoro",
+    "logout": "Gusohoka",
+    "admin": "Ubuyobozi"
+  },
+  "hero": {
+    "tagline": "UNA TANTUM VOCE",
+    "subtitle": "Ijwi Rimwe, Inshuro Imwe. Menya umuziki wa kera na gospel, ibitabo bya filozofiya, n'ibikorwa by'umuco bivuye ku isi yose.",
+    "ctaMusic": "Shaka Umuziki",
+    "ctaBooks": "Shaka Ibitabo"
+  },
+  "music": {
+    "title": "Umuziki",
+    "composer": "Umuhanzi",
+    "performer": "Ucuranga",
+    "genre": "Ubwoko",
+    "duration": "Igihe",
+    "play": "Kina",
+    "pause": "Guhagarika",
+    "stream": "Umuvuduko",
+    "genres": {
+      "classical": "Wa kera",
+      "gospel": "Gospel",
+      "sacred": "Utwobo",
+      "choral": "Chorale",
+      "liturgical": "Liturgique",
+      "contemporary": "Ubu"
+    }
+  },
+  "books": {
+    "title": "Ibitabo",
+    "author": "Umwanditsi",
+    "pages": "Impapuro",
+    "language": "Ururimi",
+    "isbn": "ISBN",
+    "preview": "Reba",
+    "download": "Kuramo",
+    "purchased": "Yaguze"
+  },
+  "events": {
+    "title": "Ibikorwa",
+    "venue": "Ahabera",
+    "date": "Itariki",
+    "time": "Isaha",
+    "city": "Umujyi",
+    "getTickets": "Tiketi",
+    "ticketsLeft": "tiketi zisigaye",
+    "soldOut": "Zishize",
+    "attending": "Abitabiriye"
+  },
+  "cart": {
+    "title": "Gakiriro",
+    "empty": "Gakiriro kawe kirimo ubusa",
+    "subtotal": "Igiteranyo",
+    "tax": "Umutigo (10%)",
+    "total": "Igiteranyo cyose",
+    "checkout": "Kwishyura",
+    "remove": "Gukuramo"
+  },
+  "auth": {
+    "login": "Kwinjira",
+    "register": "Kwiyandikisha",
+    "email": "Imeyili",
+    "password": "Ijambobanga",
+    "confirmPassword": "Emeza Ijambobanga",
+    "firstName": "Izina",
+    "lastName": "Irindi zina",
+    "username": "Izina ryo gukoresha",
+    "forgotPassword": "Wibagiwe ijambobanga?",
+    "rememberMe": "Unyibuke",
+    "noAccount": "Nta konti ufite?",
+    "hasAccount": "Ufite konti?",
+    "loginSuccess": "Winjiranye neza",
+    "registerSuccess": "Kwiyandikisha byagenze neza"
+  },
+  "profile": {
+    "title": "Umwirondoro",
+    "orders": "Ibyo yaguze",
+    "downloads": "Ibyo yakuye",
+    "tickets": "Tiketi"
+  },
+  "ai": {
+    "title": "Umufasha UTV",
+    "subtitle": "Ubufasha 24/7",
+    "placeholder": "Mbabaza ikintu cyose...",
+    "send": "Ohereza",
+    "quickQ1": "Ni ubuhe muziki uhari?",
+    "quickQ2": "Nigute nkura igitabo?",
+    "quickQ3": "Ibikorwa biri imbere?",
+    "quickQ4": "Indimi zifatirwa?"
+  },
+  "checkout": {
+    "success": "Kwishyura byagenze neza!",
+    "thankYou": "Urakoze kugura",
+    "orderNumber": "Nimero y'icyo waguzwe",
+    "downloadReady": "Ibyo gukuramo byiteguye",
+    "ticketReady": "Tiketi zawe ziteguye",
+    "emailSent": "Imeyili yemeza yoherejwe"
+  },
+  "errors": {
+    "notFound": "Paji ntibonetse",
+    "unauthorized": "Nyamuneka winjire",
+    "forbidden": "Byanze",
+    "serverError": "Ikosa ry'urusomero",
+    "networkError": "Ikosa ry'ihuza"
+  }
+}

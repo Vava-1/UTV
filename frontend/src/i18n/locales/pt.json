@@ -1,0 +1,133 @@
+{
+  "common": {
+    "loading": "Carregando...",
+    "error": "Ocorreu um erro",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "search": "Pesquisar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "viewAll": "Ver Tudo",
+    "addToCart": "Adicionar ao Carrinho",
+    "buyNow": "Comprar",
+    "free": "Gratis",
+    "price": "Preco",
+    "submit": "Enviar",
+    "close": "Fechar"
+  },
+  "nav": {
+    "home": "Inicio",
+    "music": "Musica",
+    "books": "Livros",
+    "events": "Eventos",
+    "cart": "Carrinho",
+    "login": "Entrar",
+    "register": "Cadastrar",
+    "profile": "Perfil",
+    "logout": "Sair",
+    "admin": "Admin"
+  },
+  "hero": {
+    "tagline": "UNA TANTUM VOCE",
+    "subtitle": "Uma Voz, Uma Vez. Descubra musica classica e gospel, literatura filosofica e eventos culturais de todo o mundo.",
+    "ctaMusic": "Explorar Musica",
+    "ctaBooks": "Navegar Livros"
+  },
+  "music": {
+    "title": "Musica",
+    "composer": "Compositor",
+    "performer": "Interprete",
+    "genre": "Genero",
+    "duration": "Duracao",
+    "play": "Tocar",
+    "pause": "Pausa",
+    "stream": "Ouvir",
+    "genres": {
+      "classical": "Classica",
+      "gospel": "Gospel",
+      "sacred": "Sagrada",
+      "choral": "Coral",
+      "liturgical": "Liturgica",
+      "contemporary": "Contemporanea"
+    }
+  },
+  "books": {
+    "title": "Livros",
+    "author": "Autor",
+    "pages": "Paginas",
+    "language": "Idioma",
+    "isbn": "ISBN",
+    "preview": "Visualizar",
+    "download": "Baixar",
+    "purchased": "Comprado"
+  },
+  "events": {
+    "title": "Eventos",
+    "venue": "Local",
+    "date": "Data",
+    "time": "Horario",
+    "city": "Cidade",
+    "getTickets": "Ingressos",
+    "ticketsLeft": "ingressos restantes",
+    "soldOut": "Esgotado",
+    "attending": "Participantes"
+  },
+  "cart": {
+    "title": "Carrinho",
+    "empty": "Seu carrinho esta vazio",
+    "subtotal": "Subtotal",
+    "tax": "Imposto (10%)",
+    "total": "Total",
+    "checkout": "Finalizar",
+    "remove": "Remover"
+  },
+  "auth": {
+    "login": "Entrar",
+    "register": "Cadastrar",
+    "email": "Email",
+    "password": "Senha",
+    "confirmPassword": "Confirmar Senha",
+    "firstName": "Nome",
+    "lastName": "Sobrenome",
+    "username": "Usuario",
+    "forgotPassword": "Esqueceu a senha?",
+    "rememberMe": "Lembrar-me",
+    "noAccount": "Nao tem conta?",
+    "hasAccount": "Ja tem conta?",
+    "loginSuccess": "Login realizado",
+    "registerSuccess": "Cadastro realizado"
+  },
+  "profile": {
+    "title": "Perfil",
+    "orders": "Pedidos",
+    "downloads": "Downloads",
+    "tickets": "Ingressos"
+  },
+  "ai": {
+    "title": "Assistente UTV",
+    "subtitle": "Suporte 24/7",
+    "placeholder": "Pergunte algo...",
+    "send": "Enviar",
+    "quickQ1": "Qual musica esta disponivel?",
+    "quickQ2": "Como baixar um livro?",
+    "quickQ3": "Proximos eventos?",
+    "quickQ4": "Idiomas suportados?"
+  },
+  "checkout": {
+    "success": "Pagamento bem-sucedido!",
+    "thankYou": "Obrigado pela compra",
+    "orderNumber": "Numero do pedido",
+    "downloadReady": "Seus downloads estao prontos",
+    "ticketReady": "Seus ingressos estao prontos",
+    "emailSent": "Um email de confirmacao foi enviado"
+  },
+  "errors": {
+    "notFound": "Pagina nao encontrada",
+    "unauthorized": "Por favor faca login",
+    "forbidden": "Acesso negado",
+    "serverError": "Erro no servidor",
+    "networkError": "Erro de conexao"
+  }
+}

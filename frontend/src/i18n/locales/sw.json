@@ -1,0 +1,133 @@
+{
+  "common": {
+    "loading": "Inapakia...",
+    "error": "Hitilafu imetokea",
+    "save": "Hifadhi",
+    "cancel": "Ghairi",
+    "delete": "Futa",
+    "edit": "Hariri",
+    "search": "Tafuta",
+    "filter": "Chuja",
+    "sort": "Panga",
+    "viewAll": "Tazama Yote",
+    "addToCart": "Ongeza kwenye Kikapu",
+    "buyNow": "Nunua Sasa",
+    "free": "Bure",
+    "price": "Bei",
+    "submit": "Wasiliana",
+    "close": "Funga"
+  },
+  "nav": {
+    "home": "Nyumbani",
+    "music": "Muziki",
+    "books": "Vitabu",
+    "events": "Matukio",
+    "cart": "Kikapu",
+    "login": "Ingia",
+    "register": "Jiandikishe",
+    "profile": "Wasifu",
+    "logout": "Toka",
+    "admin": "Usimamizi"
+  },
+  "hero": {
+    "tagline": "UNA TANTUM VOCE",
+    "subtitle": "Sauti Moja, Mara Moja. Gundua muziki wa classical na gospel, fasihi ya falsafa, na matukio ya kitamaduni kutoka duniani kote.",
+    "ctaMusic": "Chunguza Muziki",
+    "ctaBooks": "Vinjari Vitabu"
+  },
+  "music": {
+    "title": "Muziki",
+    "composer": "Mtunzi",
+    "performer": "Mwigizaji",
+    "genre": "Aina",
+    "duration": "Muda",
+    "play": "Cheza",
+    "pause": "Sitisha",
+    "stream": "Sikiliza",
+    "genres": {
+      "classical": "Classical",
+      "gospel": "Injili",
+      "sacred": "Takatafu",
+      "choral": "Kwaya",
+      "liturgical": "Liturujia",
+      "contemporary": "Kisasa"
+    }
+  },
+  "books": {
+    "title": "Vitabu",
+    "author": "Mwandishi",
+    "pages": "Kurasa",
+    "language": "Lugha",
+    "isbn": "ISBN",
+    "preview": "Hakiki",
+    "download": "Pakua",
+    "purchased": "Imenunuliwa"
+  },
+  "events": {
+    "title": "Matukio",
+    "venue": "Mahali",
+    "date": "Tarehe",
+    "time": "Saa",
+    "city": "Jiji",
+    "getTickets": "Tiketi",
+    "ticketsLeft": "tiketi zilizobaki",
+    "soldOut": "Zimeisha",
+    "attending": "Washiriki"
+  },
+  "cart": {
+    "title": "Kikapu",
+    "empty": "Kikapu chako ni tupu",
+    "subtotal": "Jumla ndogo",
+    "tax": "Kodi (10%)",
+    "total": "Jumla",
+    "checkout": "Lipa",
+    "remove": "Ondoa"
+  },
+  "auth": {
+    "login": "Ingia",
+    "register": "Jiandikishe",
+    "email": "Barua pepe",
+    "password": "Nenosiri",
+    "confirmPassword": "Thibitisha Nenosiri",
+    "firstName": "Jina la Kwanza",
+    "lastName": "Jina la Ukoo",
+    "username": "Jina la Mtumiaji",
+    "forgotPassword": "Umesahau nenosiri?",
+    "rememberMe": "Nikumbuke",
+    "noAccount": "Huna akaunti?",
+    "hasAccount": "Una akaunti?",
+    "loginSuccess": "Umeingia vizuri",
+    "registerSuccess": "Usajili umefanikiwa"
+  },
+  "profile": {
+    "title": "Wasifu",
+    "orders": "Maagizo",
+    "downloads": "Vilivyopakuliwa",
+    "tickets": "Tiketi"
+  },
+  "ai": {
+    "title": "Msaidizi UTV",
+    "subtitle": "Msaada 24/7",
+    "placeholder": "Nuliza chochote...",
+    "send": "Tuma",
+    "quickQ1": "Muziki upi upo?",
+    "quickQ2": "Jinsi ya kupakua kitabu?",
+    "quickQ3": "Matukio yajayo?",
+    "quickQ4": "Lugha zinazoauniwa?"
+  },
+  "checkout": {
+    "success": "Malipo yamefaulu!",
+    "thankYou": "Asante kununua",
+    "orderNumber": "Namba ya agizo",
+    "downloadReady": "Vipakuzi vyako viko tayari",
+    "ticketReady": "Tiketi zako ziko tayari",
+    "emailSent": "Barua pepe ya uthibitisho imetumwa"
+  },
+  "errors": {
+    "notFound": "Ukurasa haujapatikana",
+    "unauthorized": "Tafadhali ingia",
+    "forbidden": "Huruhusiwi",
+    "serverError": "Hitilafu ya seva",
+    "networkError": "Hitilafu ya mtandao"
+  }
+}

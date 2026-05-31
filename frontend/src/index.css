@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 7%;
+    --foreground: 220 20% 85%;
+    --card: 222 35% 12%;
+    --card-foreground: 220 20% 85%;
+    --popover: 222 35% 12%;
+    --popover-foreground: 220 20% 85%;
+    --primary: 43 45% 54%;
+    --primary-foreground: 222 47% 7%;
+    --secondary: 222 35% 16%;
+    --secondary-foreground: 220 20% 85%;
+    --muted: 222 35% 16%;
+    --muted-foreground: 220 15% 60%;
+    --accent: 43 45% 54%;
+    --accent-foreground: 222 47% 7%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 222 35% 16%;
+    --input: 222 35% 16%;
+    --ring: 43 45% 54%;
+    --radius: 0.5rem;
+  }
+
+  body {
+    @apply bg-utv-bg text-utv-body font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-utv-cream;
+  }
+
+  * {
+    @apply border-utv-border;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
