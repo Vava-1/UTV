@@ -10,7 +10,7 @@ services:
     env: python
     region: ohio
     plan: free
-    rootDir: utv-platform/backend
+    rootDir: backend
     buildCommand: "pip install --no-cache-dir -r requirements.txt"
     startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
     healthCheckPath: /health
@@ -72,12 +72,17 @@ services:
       # OpenAI (optional — enables AI assistant)
       - key: OPENAI_API_KEY
         sync: false
+      # YouTube Data API v3 (optional — enables channel video sync)
+      - key: YOUTUBE_API_KEY
+        sync: false
+      - key: YOUTUBE_CHANNEL_ID
+        sync: false
 
   # ─── Frontend (React + Vite) ─────────────────────────────────────────────────
   - type: web
     name: utv-frontend
     runtime: static
-    rootDir: utv-platform/frontend
+    rootDir: frontend
     buildCommand: "npm install && npm run build"
     staticPublishPath: dist
     envVars:
