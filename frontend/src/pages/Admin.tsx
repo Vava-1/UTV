@@ -9,10 +9,10 @@ import {
   BarChart3, Package, Mail, Plus, Trash2, Edit, Eye, EyeOff,
   RefreshCw, Send, Download, ChevronDown, Music, BookOpen,
   Video, FileText, Calendar, Image, Library, Settings, X,
-  UserCheck, UserX, CheckCircle2
+  UserCheck, UserX, CheckCircle2, Youtube, Upload, Link2
 } from 'lucide-react';
 
-type Tab = 'dashboard' | 'contents' | 'newsletter' | 'orders' | 'users' | 'settings';
+type Tab = 'dashboard' | 'contents' | 'videos' | 'newsletter' | 'orders' | 'users' | 'settings';
 
 // ─── Content Creation Modal ────────────────────────────────────────────────────
 
@@ -391,6 +391,230 @@ function UsersTab() {
   );
 }
 
+// ─── Videos Tab (YouTube sync + upload + URL paste) ──────────────────────────
+
+function VideosTab() {
+  const [videos, setVideos] = useState<Content[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
+  const [syncResult, setSyncResult] = useState<string | null>(null);
+  const [showAddVideo, setShowAddVideo] = useState(false);
+  const [videoUrl, setVideoUrl] = useState('');
+  const [videoTitle, setVideoTitle] = useState('');
+  const [videoDesc, setVideoDesc] = useState('');
+  const [adding, setAdding] = useState(false);
+
+  const fetchVideos = async () => {
+    setLoading(true);
+    try {
+      const r = await api.get('/admin/contents', { params: { content_type: 'video' } });
+      setVideos(r.data);
+    } catch {}
+    finally { setLoading(false); }
+  };
+
+  useEffect(() => { fetchVideos(); }, []);
+
+  const syncYouTube = async () => {
+    setSyncing(true);
+    setSyncResult(null);
+    try {
+      const r = await api.post('/youtube/sync', null, { params: { max_results: 50 } });
+      setSyncResult(`Sync complete: ${r.data.created} new, ${r.data.synced - r.data.created} updated, ${r.data.errors} errors.`);
+      fetchVideos();
+    } catch (err: any) {
+      setSyncResult(err?.response?.data?.detail || 'Sync failed. Is YOUTUBE_API_KEY configured?');
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  const addVideoByUrl = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!videoUrl.trim()) return;
+    setAdding(true);
+    try {
+      // Extract YouTube ID or use URL directly
+      let youtubeId: string | undefined;
+      let platform = 'direct';
+      const ytMatch = videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/);
+      if (ytMatch) {
+        youtubeId = ytMatch[1];
+        platform = 'youtube';
+      }
+
+      await api.post('/contents', {
+        title: videoTitle || (platform === 'youtube' ? `YouTube Video ${youtubeId}` : 'Untitled Video'),
+        slug: `video-${Date.now()}`,
+        content_type: 'video',
+        description: videoDesc || undefined,
+        video_url: videoUrl,
+        platform,
+        youtube_id: youtubeId,
+        is_published: true,
+        is_featured: false,
+      });
+      setShowAddVideo(false);
+      setVideoUrl(''); setVideoTitle(''); setVideoDesc('');
+      fetchVideos();
+    } catch (err: any) {
+      alert(err?.response?.data?.detail || 'Failed to add video');
+    } finally {
+      setAdding(false);
+    }
+  };
+
+  const deleteVideo = async (id: number) => {
+    if (!confirm('Delete this video?')) return;
+    try {
+      await api.delete(`/contents/${id}`);
+      fetchVideos();
+    } catch {}
+  };
+
+  if (loading) return (
+    <div className="flex items-center justify-center py-20">
+      <div className="w-7 h-7 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+
+  return (
+    <div className="space-y-4">
+      {/* YouTube Sync Section */}
+      <div className="bg-slate-900 rounded-xl border border-slate-800 p-5">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center">
+              <Youtube size={20} className="text-red-400" />
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-white">YouTube Channel Sync</h3>
+              <p className="text-xs text-slate-400">Sync videos from @UNATANTUMVOCEOFFICIAL</p>
+            </div>
+          </div>
+          <button
+            onClick={syncYouTube}
+            disabled={syncing}
+            className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+          >
+            {syncing ? <RefreshCw size={14} className="animate-spin" /> : <RefreshCw size={14} />}
+            {syncing ? 'Syncing...' : 'Sync Now'}
+          </button>
+        </div>
+        {syncResult && (
+          <div className="mt-3 p-3 bg-slate-800/50 rounded-lg text-sm text-slate-300">
+            {syncResult}
+          </div>
+        )}
+        <p className="text-xs text-slate-500 mt-2">
+          Requires YOUTUBE_API_KEY in backend .env. Get a key at{' '}
+          <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">
+            Google Cloud Console
+          </a>.
+        </p>
+      </div>
+
+      {/* Add Video by URL */}
+      <div className="bg-slate-900 rounded-xl border border-slate-800 p-5">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center">
+              <Link2 size={20} className="text-amber-400" />
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-white">Add Video by URL</h3>
+              <p className="text-xs text-slate-400">Paste a YouTube, Vimeo, or direct video URL</p>
+            </div>
+          </div>
+          <button
+            onClick={() => setShowAddVideo(!showAddVideo)}
+            className="flex items-center gap-2 px-4 py-2 bg-amber-500 text-slate-900 rounded-lg text-sm font-medium hover:bg-amber-400 transition-colors"
+          >
+            <Plus size={14} /> Add Video
+          </button>
+        </div>
+        {showAddVideo && (
+          <form onSubmit={addVideoByUrl} className="mt-4 space-y-3">
+            <input
+              type="url"
+              placeholder="https://www.youtube.com/watch?v=..."
+              value={videoUrl}
+              onChange={e => setVideoUrl(e.target.value)}
+              required
+              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/60"
+            />
+            <input
+              type="text"
+              placeholder="Video title (optional — auto-generated for YouTube)"
+              value={videoTitle}
+              onChange={e => setVideoTitle(e.target.value)}
+              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/60"
+            />
+            <textarea
+              placeholder="Description (optional)"
+              value={videoDesc}
+              onChange={e => setVideoDesc(e.target.value)}
+              rows={2}
+              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/60 resize-none"
+            />
+            <button
+              type="submit"
+              disabled={adding}
+              className="flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-400 transition-colors disabled:opacity-50"
+            >
+              {adding ? <RefreshCw size={14} className="animate-spin" /> : <Plus size={14} />}
+              {adding ? 'Adding...' : 'Add Video'}
+            </button>
+          </form>
+        )}
+      </div>
+
+      {/* Video List */}
+      <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
+        <div className="px-4 py-3 border-b border-slate-800">
+          <h3 className="text-sm font-semibold text-white">All Videos ({videos.length})</h3>
+        </div>
+        <div className="divide-y divide-slate-800/60">
+          {videos.map(v => (
+            <div key={v.id} className="flex items-center gap-3 px-4 py-3">
+              <div className="w-16 h-10 rounded bg-slate-800 flex-shrink-0 overflow-hidden">
+                {v.thumbnail_url || v.cover_image_url ? (
+                  <img src={(v.thumbnail_url || v.cover_image_url) || undefined} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <Youtube size={16} className="text-slate-600" />
+                  </div>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-white truncate">{v.title}</p>
+                <p className="text-xs text-slate-500">
+                  {v.platform === 'youtube' ? 'YouTube' : v.platform || 'Direct'} · {v.youtube_id || 'No ID'}
+                </p>
+              </div>
+              <span className={`text-xs px-2 py-0.5 rounded-full ${v.is_published ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'}`}>
+                {v.is_published ? 'Published' : 'Draft'}
+              </span>
+              <button
+                onClick={() => deleteVideo(v.id)}
+                className="p-1.5 text-red-400 hover:bg-red-500/10 rounded transition-colors"
+              >
+                <Trash2 size={13} />
+              </button>
+            </div>
+          ))}
+          {videos.length === 0 && (
+            <div className="text-center py-10 text-slate-500">
+              <Youtube size={24} className="mx-auto mb-2 opacity-50" />
+              <p>No videos yet. Sync from YouTube or add by URL.</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Main Admin Page ───────────────────────────────────────────────────────────
 
 export function AdminPage() {
@@ -442,6 +666,7 @@ export function AdminPage() {
   const tabs: { id: Tab; label: string; icon: any }[] = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'contents', label: 'Content', icon: Package },
+    { id: 'videos', label: 'Videos', icon: Youtube },
     { id: 'newsletter', label: 'Newsletter', icon: Mail },
     { id: 'orders', label: 'Orders', icon: ShoppingBag },
     { id: 'users', label: 'Users', icon: Users },
@@ -520,6 +745,9 @@ export function AdminPage() {
           </div>
         </div>
       )}
+
+      {/* Videos Tab */}
+      {tab === 'videos' && <VideosTab />}
 
       {/* Contents Tab */}
       {tab === 'contents' && (

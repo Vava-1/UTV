@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Footer } from './Footer';
 import { GlobalAudioPlayer } from './GlobalAudioPlayer';
-import { UTVAssistant } from './UTVAssistant';
+import { ChatWidget } from './ChatWidget';
 
 export function Layout() {
   return (
@@ -12,7 +12,7 @@ export function Layout() {
       </main>
       <Footer />
       <GlobalAudioPlayer />
-      <UTVAssistant />
+      <ChatWidget />
     </div>
   );
 }

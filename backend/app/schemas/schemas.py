@@ -92,8 +92,10 @@ class MusicFields(BaseModel):
 
 
 class VideoFields(BaseModel):
-    video_url: Optional[str] = None
-    platform: Optional[str] = None
+    video_url: Optional[str] = None  # Direct URL or YouTube/Vimeo URL
+    platform: Optional[str] = None  # youtube, vimeo, direct
+    youtube_id: Optional[str] = None  # YouTube video ID (auto-extracted if not set)
+    duration_seconds: Optional[int] = None
 
 
 class BookFields(BaseModel):
@@ -129,6 +131,28 @@ class ContentCreate(ContentBase):
     book_fields: Optional[BookFields] = None
     concert_fields: Optional[ConcertFields] = None
     gallery_fields: Optional[GalleryFields] = None
+    # Allow flat video fields (for convenience — admin frontend sends these at top level)
+    video_url: Optional[str] = None
+    platform: Optional[str] = None
+    youtube_id: Optional[str] = None
+    duration_seconds: Optional[int] = None
+    # Allow flat audio fields (for convenience)
+    audio_url: Optional[str] = None
+    duration: Optional[int] = None
+    artist: Optional[str] = None
+    album: Optional[str] = None
+    genre: Optional[str] = None
+    # Allow flat book fields (for convenience)
+    pdf_url: Optional[str] = None
+    author: Optional[str] = None
+    price: Optional[Decimal] = None
+    is_downloadable: Optional[bool] = None
+    # Allow flat concert fields (for convenience)
+    venue: Optional[str] = None
+    event_date: Optional[datetime] = None
+    ticket_price: Optional[Decimal] = None
+    total_tickets: Optional[int] = None
+    available_tickets: Optional[int] = None
 
 
 class ContentRead(ContentBase):
@@ -140,6 +164,8 @@ class ContentRead(ContentBase):
     genre: Optional[str] = None
     video_url: Optional[str] = None
     platform: Optional[str] = None
+    youtube_id: Optional[str] = None
+    duration_seconds: Optional[int] = None
     pdf_url: Optional[str] = None
     file_size: Optional[int] = None
     pages: Optional[int] = None
@@ -161,7 +187,7 @@ class ContentRead(ContentBase):
     available_tickets: Optional[int] = None
     image_urls: Optional[List[str]] = None
     view_count: int = 0
-    metadata: Optional[Dict[str, Any]] = None
+    meta_data: Optional[Dict[str, Any]] = None
     created_at: datetime
     updated_at: Optional[datetime] = None
     category: Optional[ContentCategoryRead] = None
@@ -191,6 +217,8 @@ class ContentUpdate(BaseModel):
     # Video fields
     video_url: Optional[str] = None
     platform: Optional[str] = None
+    youtube_id: Optional[str] = None
+    duration_seconds: Optional[int] = None
 
     # Book / Score fields
     pdf_url: Optional[str] = None

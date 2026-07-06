@@ -42,6 +42,8 @@ export interface Content {
   genre: string | null;
   video_url: string | null;
   platform: string | null;
+  youtube_id: string | null;
+  duration_seconds: number | null;
   pdf_url: string | null;
   file_size: number | null;
   pages: number | null;

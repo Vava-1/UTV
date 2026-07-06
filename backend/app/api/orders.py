@@ -1,16 +1,22 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Request
+"""
+Orders & cart API.
+
+Refactored to use lazy StripeService (no module-level stripe.api_key assignment).
+Returns 503 if Stripe isn't configured.
+"""
+
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
-from datetime import datetime
 import uuid
 import json
 from app.db.database import get_db
 from app.models.models import Order, OrderItem, OrderStatus, Content, CartItem, User, PendingOrder
 from app.schemas.schemas import (
-    OrderCreate, OrderRead, CheckoutSessionResponse, CartItemCreate, CartItemRead
+    OrderRead, CheckoutSessionResponse, CartItemCreate, CartItemRead
 )
 from app.core.deps import get_current_user
-from app.services.stripe_service import StripeService
+from app.services.stripe_service import StripeService, is_stripe_enabled
 from app.core.config import settings
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
@@ -19,42 +25,35 @@ router = APIRouter(prefix="/orders", tags=["Orders"])
 @router.get("/cart", response_model=List[CartItemRead])
 def get_cart(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     """Get user's cart"""
-    cart_items = db.query(CartItem).filter(CartItem.user_id == current_user.id).all()
-    return cart_items
+    return db.query(CartItem).filter(CartItem.user_id == current_user.id).all()
 
 
 @router.post("/cart", response_model=CartItemRead)
 def add_to_cart(
     item: CartItemCreate,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
-    """Add item to cart"""
-    # Validate quantity
-    if item.quantity <= 0:
-        raise HTTPException(status_code=400, detail="Quantity must be greater than 0")
-    
-    # Check if content exists
+    """Add item to cart (quantity > 0 enforced by schema)"""
     content = db.query(Content).filter(Content.id == item.content_id).first()
     if not content:
         raise HTTPException(status_code=404, detail="Content not found")
-    
-    # Check if already in cart
+
     existing = db.query(CartItem).filter(
         CartItem.user_id == current_user.id,
-        CartItem.content_id == item.content_id
+        CartItem.content_id == item.content_id,
     ).first()
-    
+
     if existing:
         existing.quantity += item.quantity
         db.commit()
         db.refresh(existing)
         return existing
-    
+
     cart_item = CartItem(
         user_id=current_user.id,
         content_id=item.content_id,
-        quantity=item.quantity
+        quantity=item.quantity,
     )
     db.add(cart_item)
     db.commit()
@@ -66,17 +65,15 @@ def add_to_cart(
 def remove_from_cart(
     cart_item_id: int,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     """Remove item from cart"""
     cart_item = db.query(CartItem).filter(
         CartItem.id == cart_item_id,
-        CartItem.user_id == current_user.id
+        CartItem.user_id == current_user.id,
     ).first()
-    
     if not cart_item:
         raise HTTPException(status_code=404, detail="Cart item not found")
-    
     db.delete(cart_item)
     db.commit()
     return {"message": "Item removed from cart"}
@@ -85,22 +82,23 @@ def remove_from_cart(
 @router.post("/checkout", response_model=CheckoutSessionResponse)
 def create_checkout_session(
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     """Create Stripe checkout session for cart items.
-    
-    SECURITY FIX: Instead of serializing the entire cart into Stripe metadata
-    (which has a 500-character limit per key), we:
-    1. Create a PendingOrder record server-side with the cart contents
-    2. Store only the PendingOrder UUID in Stripe metadata
-    3. The webhook retrieves the full cart from the PendingOrder
+
+    Uses PendingOrder to store cart server-side (avoids Stripe's 500-char
+    metadata limit). Returns 503 if Stripe isn't configured.
     """
+    if not is_stripe_enabled():
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Payments are not configured. Set STRIPE_SECRET_KEY to enable checkout.",
+        )
+
     cart_items = db.query(CartItem).filter(CartItem.user_id == current_user.id).all()
-    
     if not cart_items:
         raise HTTPException(status_code=400, detail="Cart is empty")
-    
-    # Build cart data and line items
+
     items = []
     cart_data = []
     for cart_item in cart_items:
@@ -109,65 +107,72 @@ def create_checkout_session(
             continue
         items.append({
             "name": content.title,
-            "description": content.description[:200] if content.description else "",
+            "description": (content.description or "")[:200],
             "price": float(content.price),
-            "currency": content.currency.lower() or "usd",
+            "currency": (content.currency or "usd").lower(),
             "quantity": cart_item.quantity,
-            "image": content.cover_image_url
+            "image": content.cover_image_url,
         })
         cart_data.append({
             "content_id": cart_item.content_id,
-            "qty": cart_item.quantity
+            "qty": cart_item.quantity,
         })
-    
+
     if not items:
         raise HTTPException(status_code=400, detail="No purchasable items in cart")
-    
-    # Create a PendingOrder to store cart data server-side
+
+    # Create PendingOrder to store cart server-side
     pending_order_id = str(uuid.uuid4())
     pending_order = PendingOrder(
         id=pending_order_id,
         user_id=current_user.id,
         cart_data=json.dumps(cart_data),
-        status="pending"
+        status="pending",
     )
     db.add(pending_order)
     db.commit()
-    
-    # Store ONLY the pending_order_id in metadata (well under 500 chars)
+
     success_url = f"{settings.FRONTEND_URL}/orders/success?session_id={{CHECKOUT_SESSION_ID}}"
     cancel_url = f"{settings.FRONTEND_URL}/cart"
-    
-    metadata = {
-        "user_id": str(current_user.id),
-        "pending_order_id": pending_order_id
-    }
-    
+
     session = StripeService.create_checkout_session(
         items=items,
         customer_email=current_user.email,
         success_url=success_url,
         cancel_url=cancel_url,
-        metadata=metadata
+        metadata={
+            "user_id": str(current_user.id),
+            "pending_order_id": pending_order_id,
+        },
     )
-    
-    # Update pending order with Stripe session ID
+
     pending_order.stripe_session_id = session["session_id"]
     db.commit()
-    
+
     return session
 
 
 @router.get("", response_model=List[OrderRead])
 def list_orders(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     """Get user's orders"""
-    return db.query(Order).filter(Order.user_id == current_user.id).order_by(Order.created_at.desc()).all()
+    return (
+        db.query(Order)
+        .filter(Order.user_id == current_user.id)
+        .order_by(Order.created_at.desc())
+        .all()
+    )
 
 
 @router.get("/{order_id}", response_model=OrderRead)
-def get_order(order_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def get_order(
+    order_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     """Get order details"""
-    order = db.query(Order).filter(Order.id == order_id, Order.user_id == current_user.id).first()
+    order = db.query(Order).filter(
+        Order.id == order_id, Order.user_id == current_user.id
+    ).first()
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
     return order

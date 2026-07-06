@@ -12,8 +12,8 @@ export function Footer() {
       links: [
         { label: 'Discover', path: '/discover', icon: Music },
         { label: 'Books', path: '/books', icon: BookOpen },
+        { label: 'Videos', path: '/videos', icon: BookOpen },
         { label: 'Concerts', path: '/concerts', icon: Calendar },
-        { label: 'Artists', path: '/artists', icon: Users },
         { label: 'Library', path: '/library', icon: Music },
       ]
     },
@@ -22,17 +22,8 @@ export function Footer() {
       links: [
         { label: 'About Us', path: '/about' },
         { label: 'Contact', path: '/contact' },
-        { label: 'Support', path: '/support' },
       ]
     },
-    {
-      title: 'Legal',
-      links: [
-        { label: 'Privacy Policy', path: '/privacy' },
-        { label: 'Terms of Service', path: '/terms' },
-        { label: 'Cookie Policy', path: '/cookies' },
-      ]
-    }
   ];
 
   const socialLinks = [

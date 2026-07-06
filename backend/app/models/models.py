@@ -93,8 +93,10 @@ class Content(Base):
     genre = Column(String(100), nullable=True)
 
     # For videos
-    video_url = Column(String(500), nullable=True)  # YouTube embed URL
-    platform = Column(String(50), nullable=True)  # youtube, vimeo, etc.
+    video_url = Column(String(500), nullable=True)  # Direct video URL OR YouTube/Vimeo URL
+    platform = Column(String(50), nullable=True)  # youtube, vimeo, direct, etc.
+    youtube_id = Column(String(50), nullable=True, index=True)  # YouTube video ID for embeds
+    duration_seconds = Column(Integer, nullable=True)  # Video duration in seconds
 
     # For books & scores
     pdf_url = Column(String(500), nullable=True)
@@ -143,9 +145,9 @@ class Order(Base):
     __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    stripe_payment_intent_id = Column(String(255), nullable=True)
-    stripe_checkout_session_id = Column(String(255), nullable=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    stripe_payment_intent_id = Column(String(255), nullable=True, index=True)
+    stripe_checkout_session_id = Column(String(255), nullable=True, index=True)
     total_amount = Column(Numeric(10, 2), nullable=False)
     currency = Column(String(3), default="USD")
     status = Column(Enum(OrderStatus), default=OrderStatus.PENDING)
@@ -153,7 +155,7 @@ class Order(Base):
     customer_name = Column(String(255), nullable=True)
     billing_address = Column(JSON, nullable=True)
     meta_data = Column(JSON, nullable=True)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     # Relationships
@@ -165,8 +167,8 @@ class OrderItem(Base):
     __tablename__ = "order_items"
 
     id = Column(Integer, primary_key=True, index=True)
-    order_id = Column(Integer, ForeignKey("orders.id"), nullable=False)
-    content_id = Column(Integer, ForeignKey("contents.id"), nullable=False)
+    order_id = Column(Integer, ForeignKey("orders.id"), nullable=False, index=True)
+    content_id = Column(Integer, ForeignKey("contents.id"), nullable=False, index=True)
     quantity = Column(Integer, default=1)
     unit_price = Column(Numeric(10, 2), nullable=False)
     total_price = Column(Numeric(10, 2), nullable=False)
@@ -182,13 +184,13 @@ class Ticket(Base):
     __tablename__ = "tickets"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    concert_id = Column(Integer, ForeignKey("contents.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    concert_id = Column(Integer, ForeignKey("contents.id"), nullable=False, index=True)
     ticket_number = Column(String(100), unique=True, nullable=False)
     seat_info = Column(String(100), nullable=True)
     price_paid = Column(Numeric(10, 2), nullable=False)
     status = Column(Enum(TicketStatus), default=TicketStatus.AVAILABLE)
-    stripe_payment_intent_id = Column(String(255), nullable=True)
+    stripe_payment_intent_id = Column(String(255), nullable=True, index=True)
     qr_code_url = Column(String(500), nullable=True)
     checked_in = Column(Boolean, default=False)
     checked_in_at = Column(DateTime(timezone=True), nullable=True)
@@ -202,8 +204,8 @@ class CartItem(Base):
     __tablename__ = "cart_items"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    content_id = Column(Integer, ForeignKey("contents.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    content_id = Column(Integer, ForeignKey("contents.id"), nullable=False, index=True)
     quantity = Column(Integer, default=1)
     added_at = Column(DateTime(timezone=True), server_default=func.now())
 

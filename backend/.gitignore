@@ -3,6 +3,7 @@ __pycache__/
 *$py.class
 *.so
 .env
+.env.local
 .venv
 env/
 venv/
@@ -13,3 +14,8 @@ dist/
 .mypy_cache/
 .dmypy.json
 *.log
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+test.db

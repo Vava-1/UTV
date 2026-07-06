@@ -1,6 +1,12 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Header, Request
+"""
+Authentication API — register, login, profile, admin bootstrap.
+
+Rate limiting: shared in-memory rate limiter (see services/rate_limit.py).
+For production with multiple workers, swap to Redis-backed slowapi.
+"""
+
+from fastapi import APIRouter, Depends, HTTPException, status, Request, Header
 from sqlalchemy.orm import Session
-from datetime import timedelta
 from typing import Optional
 from app.db.database import get_db
 from app.core.security import verify_password, get_password_hash, create_access_token
@@ -8,51 +14,44 @@ from app.core.config import settings
 from app.models.models import User, UserRole
 from app.schemas.schemas import UserCreate, UserRead, UserLogin, Token, UserUpdate
 from app.core.deps import get_current_user, get_current_admin
+from app.services.rate_limit import check_rate_limit
 import logging
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
-# ─── Rate Limiting (Simple In-Memory) ────────────────────────────────────────
-# For production, replace with Redis-backed slowapi
-from collections import defaultdict
-import time
-
-_rate_limit_store = defaultdict(list)  # key -> list of timestamps
-
-
-def _check_rate_limit(key: str, max_requests: int = 5, window_seconds: int = 900) -> bool:
-    """Check if the key has exceeded rate limit. Returns True if allowed."""
-    now = time.time()
-    # Clean old entries
-    _rate_limit_store[key] = [
-        ts for ts in _rate_limit_store[key]
-        if now - ts < window_seconds
-    ]
-    if len(_rate_limit_store[key]) >= max_requests:
-        return False
-    _rate_limit_store[key].append(now)
-    return True
+# Dummy hash used for constant-time login failure (prevents timing attacks)
+_DUMMY_HASH = "$2b$12$invalidinvalidinvalidinvalidinvalidinvalidinvalidinvalid"
 
 
 @router.post("/register", response_model=Token, status_code=status.HTTP_201_CREATED)
-def register(user_data: UserCreate, db: Session = Depends(get_db)):
-    """Register a new user — rate limited to 5 attempts per 15 min per email."""
-    # Rate limit by email
-    if not _check_rate_limit(f"register:{user_data.email}", max_requests=3, window_seconds=3600):
+def register(
+    user_data: UserCreate,
+    request: Request,
+    db: Session = Depends(get_db),
+):
+    """Register a new user — rate limited by IP (5/hr) and email (3/hr)."""
+    client_ip = request.client.host if request.client else "unknown"
+
+    if not check_rate_limit(f"register:ip:{client_ip}", max_requests=5, window_seconds=3600):
         raise HTTPException(
             status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail="Too many registration attempts. Please try again later."
+            detail="Too many registration attempts from this IP. Please try again later.",
         )
-    
-    # Rate limit by IP could be added here with Request dependency
-    
+
+    if not check_rate_limit(f"register:email:{user_data.email}", max_requests=3, window_seconds=3600):
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail="Too many registration attempts for this email. Please try again later.",
+        )
+
     existing = db.query(User).filter(User.email == user_data.email).first()
     if existing:
+        # Don't disclose that email exists
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email already registered"
+            detail="Unable to register with these credentials.",
         )
 
     db_user = User(
@@ -60,7 +59,7 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
         hashed_password=get_password_hash(user_data.password),
         first_name=user_data.first_name,
         last_name=user_data.last_name,
-        role=UserRole.USER
+        role=UserRole.USER,
     )
     db.add(db_user)
     db.commit()
@@ -70,28 +69,43 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
         data={"sub": str(db_user.id), "role": db_user.role.value}
     )
 
+    logger.info(f"[Auth] New user registered: {db_user.email}")
     return {
         "access_token": access_token,
         "token_type": "bearer",
-        "user": db_user
+        "user": db_user,
     }
 
 
 @router.post("/login", response_model=Token)
-def login(credentials: UserLogin, db: Session = Depends(get_db)):
-    """Login user and return JWT token — rate limited to 5 attempts per 15 min per email."""
-    # Rate limit by email
-    if not _check_rate_limit(f"login:{credentials.email}", max_requests=5, window_seconds=900):
+def login(
+    credentials: UserLogin,
+    request: Request,
+    db: Session = Depends(get_db),
+):
+    """Login user and return JWT — rate limited by IP (20/15min) and email (5/15min)."""
+    client_ip = request.client.host if request.client else "unknown"
+
+    if not check_rate_limit(f"login:ip:{client_ip}", max_requests=20, window_seconds=900):
         raise HTTPException(
             status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail="Too many login attempts. Please try again in 15 minutes."
+            detail="Too many login attempts from this IP. Please try again in 15 minutes.",
+        )
+
+    if not check_rate_limit(f"login:email:{credentials.email}", max_requests=5, window_seconds=900):
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail="Too many login attempts for this account. Please try again in 15 minutes.",
         )
 
     user = db.query(User).filter(User.email == credentials.email).first()
 
-    if not user or not verify_password(credentials.password, user.hashed_password):
-        # Log failed attempt for security monitoring
-        logger.warning(f"[Auth] Failed login attempt for email: {credentials.email}")
+    # Always run bcrypt even if user doesn't exist — prevents timing attacks
+    stored_hash = user.hashed_password if user else _DUMMY_HASH
+    if not user or not verify_password(credentials.password, stored_hash):
+        logger.warning(
+            f"[Auth] Failed login for email={credentials.email} ip={client_ip}"
+        )
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",
@@ -101,7 +115,7 @@ def login(credentials: UserLogin, db: Session = Depends(get_db)):
     if not user.is_active:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Account is deactivated"
+            detail="Account is deactivated",
         )
 
     access_token = create_access_token(
@@ -112,7 +126,7 @@ def login(credentials: UserLogin, db: Session = Depends(get_db)):
     return {
         "access_token": access_token,
         "token_type": "bearer",
-        "user": user
+        "user": user,
     }
 
 
@@ -126,7 +140,7 @@ def get_me(current_user: User = Depends(get_current_user)):
 def update_me(
     update_data: UserUpdate,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     """Update current user profile"""
     if update_data.first_name is not None:
@@ -146,31 +160,29 @@ def update_me(
 @router.post("/admin-setup")
 def admin_setup(
     x_setup_secret: Optional[str] = Header(None),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
-    """
-    Create default admin user — PROTECTED by ADMIN_SETUP_SECRET env var.
+    """Create default admin user — PROTECTED by ADMIN_SETUP_SECRET env var.
+
     Call once after fresh deployment:
       curl -X POST /api/auth/admin-setup -H "x-setup-secret: <your-secret>"
     """
-    # Require the setup secret header
     if not settings.ADMIN_SETUP_SECRET:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Admin setup is disabled (ADMIN_SETUP_SECRET not configured)"
+            detail="Admin setup is disabled (ADMIN_SETUP_SECRET not configured)",
         )
 
     if x_setup_secret != settings.ADMIN_SETUP_SECRET:
-        # Rate limit failed setup attempts
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Invalid setup secret"
+            detail="Invalid setup secret",
         )
-    
+
     if not settings.ADMIN_EMAIL or not settings.ADMIN_PASSWORD:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="ADMIN_EMAIL and ADMIN_PASSWORD must be configured"
+            detail="ADMIN_EMAIL and ADMIN_PASSWORD must be configured",
         )
 
     admin = db.query(User).filter(User.email == settings.ADMIN_EMAIL).first()
@@ -183,7 +195,7 @@ def admin_setup(
         first_name="UTV",
         last_name="Administrator",
         role=UserRole.ADMIN,
-        is_active=True
+        is_active=True,
     )
     db.add(db_admin)
     db.commit()
