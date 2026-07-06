@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "discover": "Descubrir",
+    "books": "Libros",
+    "concerts": "Conciertos",
+    "artists": "Artistas",
+    "library": "Biblioteca",
+    "contact": "Contacto"
+  },
+  "header": {
+    "discover": "Descubrir",
+    "books": "Libros",
+    "concerts": "Conciertos",
+    "artists": "Artistas",
+    "library": "Biblioteca",
+    "contact": "Contacto",
+    "signIn": "Iniciar sesión",
+    "joinNow": "ÚNETE AHORA"
+  },
+  "hero": {
+    "title": "DONDE LO CLÁSICO ENCUENTRA EL GOSPEL",
+    "subtitle": "Una Única Plataforma. Toda la Música.",
+    "cta": {
+      "discover": "DESCUBRIR MÚSICA",
+      "explore": "EXPLORAR BIBLIOTECA"
+    }
+  },
+  "mission": {
+    "title": "Música y Pensamiento para la Formación Humana",
+    "description": "Una iniciativa integrada que promueve la música junto con la literatura formativa, creando obras artísticas que inspiran, educan y transforman la sociedad a través de mensajes educativos, morales y espirituales.",
+    "features": {
+      "educationalMusic": "Música Educativa",
+      "educationalMusicDesc": "Composiciones musicales que llevan mensajes educativos, morales y espirituales para el desarrollo holístico.",
+      "formativeLiterature": "Literatura Formativa",
+      "formativeLiteratureDesc": "Libros filosóficos y educativos que ayudan a navegar los desafíos de la vida con sabiduría.",
+      "culturalEvents": "Eventos Culturales",
+      "culturalEventsDesc": "Conciertos, talleres y eventos culturales que fomentan tanto el entretenimiento como la educación.",
+      "musicEducation": "Educación Musical",
+      "musicEducationDesc": "Programas de formación y escuelas para niños, jóvenes y adultos para desarrollar el talento musical."
+    },
+    "vision": "Nuestra Visión",
+    "visionDesc": "Convertirnos en un centro de producción artística e intelectual que contribuya al desarrollo cultural, moral y educativo de la sociedad uniendo la música y el pensamiento en una sola visión transformadora."
+  },
+  "footer": {
+    "contactUs": "Contáctenos",
+    "followUs": "Síganos",
+    "newsletter": "Boletín",
+    "email": "Correo",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "copyright": "© 2024 UNA TANTUM VOCE. Todos los derechos reservados. | Desarrollo Musical Para Todos"
+  },
+  "assistant": {
+    "title": "Asistente UTV",
+    "status": "En línea 24/7",
+    "placeholder": "Escribe tu mensaje...",
+    "send": "Enviar"
+  },
+  "contact": {
+    "title": "Contáctenos",
+    "subtitle": "Nos encantaría saber de ti. Ya sea que tengas preguntas sobre nuestra música, quieras colaborar o necesites apoyo, estamos aquí para ayudarte.",
+    "sendMessage": "Envíenos un mensaje",
+    "name": "Nombre",
+    "email": "Correo",
+    "subject": "Asunto",
+    "message": "Mensaje",
+    "contactInfo": "Información de Contacto",
+    "connectWithUs": "Conecte con nosotros",
+    "needSupport": "¿Necesita Ayuda?",
+    "supportDesc": "Nuestro equipo de soporte dedicado está disponible 24/7 para ayudarte con cualquier pregunta o problema. ¡No dudes en contactarnos!",
+    "getSupport": "Obtener Ayuda",
+    "subjects": {
+      "general": "Consulta General",
+      "support": "Necesita Ayuda",
+      "collaboration": "Colaboración",
+      "music": "Relacionado con Música",
+      "education": "Programas Educativos"
+    }
+  },
+  "library": {
+    "empty": {
+      "title": "Tu Biblioteca está Vacía",
+      "description": "Comienza a explorar nuestra colección de música clásica y gospel, libros y más para construir tu biblioteca personal.",
+      "cta": "Explorar el Catálogo"
+    }
+  }
+}

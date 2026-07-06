@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "discover": "Discover",
+    "books": "Books",
+    "concerts": "Concerts",
+    "artists": "Artists",
+    "library": "Library",
+    "contact": "Contact"
+  },
+  "header": {
+    "discover": "Discover",
+    "books": "Books",
+    "concerts": "Concerts",
+    "artists": "Artists",
+    "library": "Library",
+    "contact": "Contact",
+    "signIn": "Sign in",
+    "joinNow": "JOIN NOW"
+  },
+  "hero": {
+    "title": "WHERE CLASSICAL MEETS GOSPEL",
+    "subtitle": "One Single Platform. All the Music.",
+    "cta": {
+      "discover": "DISCOVER MUSIC",
+      "explore": "EXPLORE LIBRARY"
+    }
+  },
+  "mission": {
+    "title": "Music & Thought for Human Formation",
+    "description": "An integrated initiative that promotes music alongside formative literature, creating artistic works that inspire, educate, and transform society through educational, moral, and spiritual messages.",
+    "features": {
+      "educationalMusic": "Educational Music",
+      "educationalMusicDesc": "Musical compositions that carry educational, moral, and spiritual messages for holistic development.",
+      "formativeLiterature": "Formative Literature",
+      "formativeLiteratureDesc": "Philosophical and educational books that help navigate life's challenges with wisdom.",
+      "culturalEvents": "Cultural Events",
+      "culturalEventsDesc": "Concerts, workshops, and cultural events that foster both entertainment and education.",
+      "musicEducation": "Music Education",
+      "musicEducationDesc": "Training programs and schools for children, youth, and adults to develop musical talent."
+    },
+    "vision": "Our Vision",
+    "visionDesc": "To become a center of artistic and intellectual production that contributes to the cultural, moral, and educational development of society by uniting music and thought in a single, transformative vision."
+  },
+  "footer": {
+    "contactUs": "Contact Us",
+    "followUs": "Follow Us:",
+    "newsletter": "Newsletter:",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "copyright": "© 2024 UNA TANTUM VOCE. All rights reserved. | Music Development For All"
+  },
+  "assistant": {
+    "title": "UTV Assistant",
+    "status": "Online 24/7",
+    "placeholder": "Type your message...",
+    "send": "Send",
+    "examples": {
+      "stats": "Show me platform statistics",
+      "support": "I need support with my account",
+      "new": "What's new on platform?",
+      "manage": "How can I manage content?",
+      "concerts": "Tell me about upcoming concerts",
+      "education": "What educational programs do you offer?"
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "We'd love to hear from you. Whether you have questions about our music, want to collaborate, or need support, we're here to help.",
+    "sendMessage": "Send us a Message",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "contactInfo": "Contact Information",
+    "connectWithUs": "Connect With Us",
+    "needSupport": "Need for Support?",
+    "supportDesc": "Our dedicated support team is available 24/7 to help you with any questions or issues. Don't hesitate to reach out!",
+    "getSupport": "Get Support",
+    "subjects": {
+      "general": "General Inquiry",
+      "support": "Need for Support",
+      "collaboration": "Collaboration",
+      "music": "Music Related",
+      "education": "Education Programs"
+    }
+  },
+  "library": {
+    "empty": {
+      "title": "Your Library is Empty",
+      "description": "Start exploring our collection of classical and gospel music, books, and more to build your personal library.",
+      "cta": "Explore the Catalog"
+    }
+  },
+  "books": {
+    "title": "Books",
+    "subtitle": "Explore our collection of educational and formative literature",
+    "searchPlaceholder": "Search books by title or author...",
+    "addToCart": "Add to Cart",
+    "download": "Download",
+    "errorLoading": "Failed to load books. Please try again.",
+    "errorAdding": "Failed to add to cart. Please try again.",
+    "addedToCart": "Added to cart successfully!",
+    "loginRequired": "Please sign in to add items to your cart",
+    "empty": {
+      "title": "No Books Found",
+      "description": "Our book collection is being curated. Check back soon for educational and formative literature.",
+      "search": "No books match your search criteria.",
+      "clearSearch": "Clear Search"
+    }
+  },
+  "concerts": {
+    "title": "Concerts",
+    "subtitle": "Upcoming classical and gospel music events",
+    "searchPlaceholder": "Search concerts by title or venue...",
+    "buyTickets": "Buy Tickets",
+    "soldOut": "Sold Out",
+    "ticketsLeft": "tickets left",
+    "errorLoading": "Failed to load concerts. Please try again.",
+    "errorPurchasing": "Failed to purchase tickets. Please try again.",
+    "loginRequired": "Please sign in to purchase tickets",
+    "empty": {
+      "title": "No Upcoming Concerts",
+      "description": "Stay tuned for upcoming classical and gospel music concerts in your area.",
+      "search": "No concerts match your search.",
+      "clearSearch": "Clear Search"
+    }
+  },
+  "auth": {
+    "login": "Sign In",
+    "register": "Create Account",
+    "email": "Email Address",
+    "password": "Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "discover": "Découvrir",
+    "books": "Livres",
+    "concerts": "Concerts",
+    "artists": "Artistes",
+    "library": "Bibliothèque",
+    "contact": "Contact"
+  },
+  "header": {
+    "discover": "Découvrir",
+    "books": "Livres",
+    "concerts": "Concerts",
+    "artists": "Artistes",
+    "library": "Bibliothèque",
+    "contact": "Contact",
+    "signIn": "Se connecter",
+    "joinNow": "REJOIGNEZ-VOUS"
+  },
+  "hero": {
+    "title": "OÙ LE CLASSIQUE RENCONTRE LE GOSPEL",
+    "subtitle": "Une Seule Plateforme. Toute la Musique.",
+    "cta": {
+      "discover": "DÉCOUVRIR LA MUSIQUE",
+      "explore": "EXPLORER LA BIBLIOTHÈQUE"
+    }
+  },
+  "mission": {
+    "title": "Musique et Pensée pour la Formation Humaine",
+    "description": "Une initiative intégrée qui promeut la musique aux côtés de la littérature formatrice, créant des œuvres artistiques qui inspirent, éduquent et transforment la société par des messages éducatifs, moraux et spirituels.",
+    "features": {
+      "educationalMusic": "Musique Éducative",
+      "educationalMusicDesc": "Compositions musicales qui portent des messages éducatifs, moraux et spirituels pour un développement holistique.",
+      "formativeLiterature": "Littérature Formatrice",
+      "formativeLiteratureDesc": "Livres philosophiques et éducatifs qui aident à naviguer les défis de la vie avec sagesse.",
+      "culturalEvents": "Événements Culturels",
+      "culturalEventsDesc": "Concerts, ateliers et événements culturels qui favorisent à la fois le divertissement et l'éducation.",
+      "musicEducation": "Éducation Musicale",
+      "musicEducationDesc": "Programmes de formation et écoles pour enfants, jeunes et adultes pour développer le talent musical."
+    },
+    "vision": "Notre Vision",
+    "visionDesc": "Devenir un centre de production artistique et intellectuelle qui contribue au développement culturel, moral et éducatif de la société en unissant la musique et la pensée dans une seule vision transformatrice."
+  },
+  "footer": {
+    "contactUs": "Contactez-nous",
+    "followUs": "Suivez-nous:",
+    "newsletter": "Newsletter:",
+    "email": "Email",
+    "phone": "Téléphone",
+    "address": "Adresse",
+    "copyright": "© 2024 UNA TANTUM VOCE. Tous droits réservés. | Développement Musical Pour Tous"
+  },
+  "assistant": {
+    "title": "Assistant UTV",
+    "status": "En ligne 24/7",
+    "placeholder": "Tapez votre message...",
+    "send": "Envoyer",
+    "examples": {
+      "stats": "Montrez-moi les statistiques de la plateforme",
+      "support": "J'ai besoin d'aide avec mon compte",
+      "new": "Quoi de neuf sur la plateforme?",
+      "manage": "Comment puis-je gérer le contenu?",
+      "concerts": "Parlez-moi des concerts à venir",
+      "education": "Quels programmes éducatifs offrez-vous?"
+    }
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Nous aimerions avoir de vos nouvelles. Que vous ayez des questions sur notre musique, vouloir collaborer ou avoir besoin d'aide, nous sommes là pour vous.",
+    "sendMessage": "Envoyez-nous un message",
+    "name": "Nom",
+    "email": "Email",
+    "subject": "Sujet",
+    "message": "Message",
+    "contactInfo": "Informations de Contact",
+    "connectWithUs": "Connectez-vous avec nous",
+    "needSupport": "Besoin de Support?",
+    "supportDesc": "Notre équipe de support dédiée est disponible 24/7 pour vous aider avec toutes questions ou problèmes. N'hésitez pas à nous contacter!",
+    "getSupport": "Obtenir du Support",
+    "subjects": {
+      "general": "Demande Générale",
+      "support": "Besoin de Support",
+      "collaboration": "Collaboration",
+      "music": "Lié à la Musique",
+      "education": "Programmes Éducatifs"
+    }
+  },
+  "library": {
+    "empty": {
+      "title": "Votre Bibliothèque est Vide",
+      "description": "Commencez à explorer notre collection de musique classique et gospel, de livres et plus encore pour construire votre bibliothèque personnelle.",
+      "cta": "Explorer le Catalogue"
+    }
+  }
+}

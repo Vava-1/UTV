@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "discover": "Descobrir",
+    "books": "Livros",
+    "concerts": "Concertos",
+    "artists": "Artistas",
+    "library": "Biblioteca",
+    "contact": "Contato"
+  },
+  "header": {
+    "discover": "Descobrir",
+    "books": "Livros",
+    "concerts": "Concertos",
+    "artists": "Artistas",
+    "library": "Biblioteca",
+    "contact": "Contato",
+    "signIn": "Entrar",
+    "joinNow": "JUNTE-SE AGORA"
+  },
+  "hero": {
+    "title": "ONDE O CLÁSSICO ENCONTRA O GOSPEL",
+    "subtitle": "Uma Única Plataforma. Toda a Música.",
+    "cta": {
+      "discover": "DESCUBRA A MÚSICA",
+      "explore": "EXPLORAR BIBLIOTECA"
+    }
+  },
+  "footer": {
+    "contactUs": "Fale Conosco",
+    "followUs": "Siga-nos",
+    "email": "Email",
+    "phone": "Telefone",
+    "address": "Endereço",
+    "copyright": "© 2024 UNA TANTUM VOCE. Todos os direitos reservados. | Desenvolvimento Musical Para Todos"
+  },
+  "assistant": {
+    "title": "Assistente UTV",
+    "status": "Online 24/7",
+    "placeholder": "Digite sua mensagem...",
+    "send": "Enviar"
+  },
+  "library": {
+    "empty": {
+      "title": "Sua Biblioteca está Vazia",
+      "description": "Comece a explorar nossa coleção de música clássica e gospel, livros e mais para construir sua biblioteca pessoal.",
+      "cta": "Explorar o Catálogo"
+    }
+  }
+}

@@ -1,0 +1,102 @@
+databases:
+  - name: utv-database
+    plan: free
+    databaseName: utv_db
+
+services:
+  # ─── Backend (FastAPI + PostgreSQL) ─────────────────────────────────────────
+  - type: web
+    name: utv-backend
+    env: python
+    region: ohio
+    plan: free
+    rootDir: utv-platform/backend
+    buildCommand: "pip install --no-cache-dir -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DATABASE_URL
+        fromDatabase:
+          name: utv-database
+          property: connectionString
+      # SECURITY: All secrets below with `generateValue: true` are auto-generated
+      # on first deploy. Rotate them via the Render dashboard.
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_SETUP_SECRET
+        generateValue: true
+      # ADMIN_EMAIL and ADMIN_PASSWORD: SET THESE IN RENDER DASHBOARD
+      # Do NOT use defaults. Generate a strong admin password.
+      - key: ADMIN_EMAIL
+        sync: false  # Must be set in Render dashboard
+      - key: ADMIN_PASSWORD
+        sync: false  # Must be set in Render dashboard
+      - key: APP_ENV
+        value: production
+      - key: DEBUG
+        value: "False"
+      - key: FRONTEND_URL
+        value: https://utv-frontend.onrender.com
+      # Email (configure in Render dashboard)
+      - key: EMAIL_HOST
+        value: smtp.gmail.com
+      - key: EMAIL_PORT
+        value: "587"
+      - key: EMAIL_ENABLED
+        value: "False"
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      # Stripe (configure in Render dashboard — REQUIRED for payments)
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      # S3 / Cloudflare R2 (configure in Render dashboard — REQUIRED for production)
+      # Local disk is ephemeral on Render; without this, uploaded files WILL be lost.
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: S3_BUCKET_NAME
+        sync: false
+      - key: S3_ENDPOINT_URL
+        sync: false
+      - key: S3_CUSTOM_DOMAIN
+        sync: false
+      # OpenAI (optional — enables AI assistant)
+      - key: OPENAI_API_KEY
+        sync: false
+
+  # ─── Frontend (React + Vite) ─────────────────────────────────────────────────
+  - type: web
+    name: utv-frontend
+    runtime: static
+    rootDir: utv-platform/frontend
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://utv-backend.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /sitemap.xml
+        name: Content-Type
+        value: application/xml
