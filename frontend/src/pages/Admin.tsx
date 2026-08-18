@@ -84,8 +84,8 @@ function AddContentModal({ onClose, onSuccess }: { onClose: () => void; onSucces
     }
   };
 
-  const inputCls = 'w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/60 transition-colors';
-  const labelCls = 'block text-xs text-slate-400 mb-1';
+  const inputCls = 'w-full bg-blue-800 border border-blue-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-yellow-400/60 transition-colors';
+  const labelCls = 'block text-xs text-blue-200 mb-1';
 
   return (
     <AnimatePresence>
@@ -101,17 +101,17 @@ function AddContentModal({ onClose, onSuccess }: { onClose: () => void; onSucces
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-          className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
+          className="bg-blue-900 border border-blue-600 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
         >
           {/* Modal Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 sticky top-0 bg-slate-900 z-10">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-blue-700 sticky top-0 bg-blue-900 z-10">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 bg-amber-500/20 rounded-lg flex items-center justify-center">
-                <Plus size={14} className="text-amber-400" />
+              <div className="w-7 h-7 bg-yellow-400/20 rounded-lg flex items-center justify-center">
+                <Plus size={14} className="text-yellow-500" />
               </div>
               <h2 className="text-base font-bold text-white">Add Content</h2>
             </div>
-            <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+            <button onClick={onClose} className="p-1.5 text-blue-200 hover:text-yellow-400 hover:bg-blue-800 rounded-lg transition-colors">
               <X size={16} />
             </button>
           </div>
@@ -138,7 +138,7 @@ function AddContentModal({ onClose, onSuccess }: { onClose: () => void; onSucces
                   onChange={e => set('content_type', e.target.value)}
                 >
                   {CONTENT_TYPES.map(t => (
-                    <option key={t} value={t} className="bg-slate-800 capitalize">{t.charAt(0).toUpperCase() + t.slice(1)}</option>
+                    <option key={t} value={t} className="bg-blue-800 capitalize">{t.charAt(0).toUpperCase() + t.slice(1)}</option>
                   ))}
                 </select>
               </div>
@@ -205,7 +205,7 @@ function AddContentModal({ onClose, onSuccess }: { onClose: () => void; onSucces
 
             {/* URLs */}
             <div className="space-y-3">
-              <p className="text-xs text-slate-500 uppercase tracking-wider font-medium">Media URLs</p>
+              <p className="text-xs text-blue-300 uppercase tracking-wider font-medium">Media URLs</p>
               <div>
                 <label className={labelCls}>Audio URL</label>
                 <input className={inputCls} placeholder="https://... (mp3, wav)" value={form.audio_url} onChange={e => set('audio_url', e.target.value)} />
@@ -226,23 +226,23 @@ function AddContentModal({ onClose, onSuccess }: { onClose: () => void; onSucces
                 <button
                   type="button"
                   onClick={() => set('is_featured', !form.is_featured)}
-                  className={`relative w-10 h-5.5 rounded-full transition-colors ${form.is_featured ? 'bg-amber-500' : 'bg-slate-700'}`}
+                  className={`relative w-10 h-5.5 rounded-full transition-colors ${form.is_featured ? 'bg-yellow-400' : 'bg-blue-700'}`}
                   style={{ height: '22px', width: '40px' }}
                 >
                   <span className={`absolute top-0.5 left-0.5 w-[18px] h-[18px] bg-white rounded-full shadow transition-transform ${form.is_featured ? 'translate-x-[18px]' : ''}`} />
                 </button>
-                <span className="text-sm text-slate-300 group-hover:text-white transition-colors">Featured</span>
+                <span className="text-sm text-blue-100 group-hover:text-yellow-400 transition-colors">Featured</span>
               </label>
               <label className="flex items-center gap-2.5 cursor-pointer group">
                 <button
                   type="button"
                   onClick={() => set('is_published', !form.is_published)}
-                  className={`relative rounded-full transition-colors ${form.is_published ? 'bg-emerald-500' : 'bg-slate-700'}`}
+                  className={`relative rounded-full transition-colors ${form.is_published ? 'bg-emerald-500' : 'bg-blue-700'}`}
                   style={{ height: '22px', width: '40px' }}
                 >
                   <span className={`absolute top-0.5 left-0.5 w-[18px] h-[18px] bg-white rounded-full shadow transition-transform ${form.is_published ? 'translate-x-[18px]' : ''}`} />
                 </button>
-                <span className="text-sm text-slate-300 group-hover:text-white transition-colors">Published</span>
+                <span className="text-sm text-blue-100 group-hover:text-yellow-400 transition-colors">Published</span>
               </label>
             </div>
 
@@ -253,7 +253,7 @@ function AddContentModal({ onClose, onSuccess }: { onClose: () => void; onSucces
               <button
                 type="submit"
                 disabled={saving}
-                className="flex items-center gap-2 px-6 py-2.5 bg-amber-500 text-slate-900 font-bold rounded-xl text-sm hover:bg-amber-400 transition-colors disabled:opacity-50"
+                className="flex items-center gap-2 px-6 py-2.5 bg-yellow-400 text-slate-900 font-bold rounded-xl text-sm hover:bg-yellow-500 transition-colors disabled:opacity-50"
               >
                 {saving ? <RefreshCw size={14} className="animate-spin" /> : <Plus size={14} />}
                 {saving ? 'Creating...' : 'Create Content'}
@@ -261,7 +261,7 @@ function AddContentModal({ onClose, onSuccess }: { onClose: () => void; onSucces
               <button
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2.5 text-sm text-slate-400 hover:text-white border border-slate-700 rounded-xl transition-colors"
+                className="px-5 py-2.5 text-sm text-blue-200 hover:text-yellow-400 border border-blue-600 rounded-xl transition-colors"
               >
                 Cancel
               </button>
@@ -304,58 +304,58 @@ function UsersTab() {
 
   if (loading) return (
     <div className="flex items-center justify-center py-20">
-      <div className="w-7 h-7 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
+      <div className="w-7 h-7 border-2 border-yellow-400 border-t-transparent rounded-full animate-spin" />
     </div>
   );
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <p className="text-slate-400 text-sm">{users.length} users total</p>
-        <button onClick={fetchUsers} className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+        <p className="text-blue-200 text-sm">{users.length} users total</p>
+        <button onClick={fetchUsers} className="p-2 text-blue-200 hover:text-yellow-400 hover:bg-blue-800 rounded-lg transition-colors">
           <RefreshCw size={14} />
         </button>
       </div>
-      <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-x-auto">
+      <div className="bg-blue-900 rounded-xl border border-blue-700 overflow-x-auto">
         <table className="w-full text-sm min-w-[640px]">
           <thead>
-            <tr className="border-b border-slate-800 text-left">
-              <th className="px-4 py-3 text-slate-400 font-medium">#</th>
-              <th className="px-4 py-3 text-slate-400 font-medium">Name</th>
-              <th className="px-4 py-3 text-slate-400 font-medium">Email</th>
-              <th className="px-4 py-3 text-slate-400 font-medium">Role</th>
-              <th className="px-4 py-3 text-slate-400 font-medium">Status</th>
-              <th className="px-4 py-3 text-slate-400 font-medium">Joined</th>
-              <th className="px-4 py-3 text-slate-400 font-medium">Action</th>
+            <tr className="border-b border-blue-700 text-left">
+              <th className="px-4 py-3 text-blue-200 font-medium">#</th>
+              <th className="px-4 py-3 text-blue-200 font-medium">Name</th>
+              <th className="px-4 py-3 text-blue-200 font-medium">Email</th>
+              <th className="px-4 py-3 text-blue-200 font-medium">Role</th>
+              <th className="px-4 py-3 text-blue-200 font-medium">Status</th>
+              <th className="px-4 py-3 text-blue-200 font-medium">Joined</th>
+              <th className="px-4 py-3 text-blue-200 font-medium">Action</th>
             </tr>
           </thead>
           <tbody>
             {users.map(u => (
-              <tr key={u.id} className="border-b border-slate-800/50 hover:bg-slate-800/30">
-                <td className="px-4 py-3 text-slate-500 text-xs">{u.id}</td>
+              <tr key={u.id} className="border-b border-blue-700/50 hover:bg-blue-800/30">
+                <td className="px-4 py-3 text-blue-300 text-xs">{u.id}</td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 bg-slate-700 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-semibold text-white">
+                    <div className="w-7 h-7 bg-blue-700 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-semibold text-white">
                       {(u.full_name || u.email || '?')[0].toUpperCase()}
                     </div>
                     <span className="text-white truncate max-w-[140px]">{u.full_name || '—'}</span>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-slate-400 text-xs">{u.email}</td>
+                <td className="px-4 py-3 text-blue-200 text-xs">{u.email}</td>
                 <td className="px-4 py-3">
                   <span className={`text-xs px-2 py-0.5 rounded-full capitalize ${
                     u.role === 'admin' ? 'bg-red-500/20 text-red-400' :
                     u.role === 'moderator' ? 'bg-purple-500/20 text-purple-400' :
-                    'bg-slate-700 text-slate-400'
+                    'bg-blue-700 text-blue-200'
                   }`}>{u.role || 'user'}</span>
                 </td>
                 <td className="px-4 py-3">
-                  <span className={`flex items-center gap-1 w-fit text-xs px-2 py-0.5 rounded-full ${u.is_active !== false ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-500'}`}>
+                  <span className={`flex items-center gap-1 w-fit text-xs px-2 py-0.5 rounded-full ${u.is_active !== false ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-700 text-blue-300'}`}>
                     <span className={`w-1.5 h-1.5 rounded-full ${u.is_active !== false ? 'bg-emerald-400' : 'bg-slate-600'}`} />
                     {u.is_active !== false ? 'Active' : 'Inactive'}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-slate-500 text-xs">{new Date(u.created_at || u.joined_at).toLocaleDateString()}</td>
+                <td className="px-4 py-3 text-blue-300 text-xs">{new Date(u.created_at || u.joined_at).toLocaleDateString()}</td>
                 <td className="px-4 py-3">
                   <button
                     onClick={() => toggleActive(u.id)}
@@ -381,7 +381,7 @@ function UsersTab() {
           </tbody>
         </table>
         {users.length === 0 && (
-          <div className="text-center py-12 text-slate-500">
+          <div className="text-center py-12 text-blue-300">
             <Users size={32} className="mx-auto mb-3 opacity-50" />
             <p>No users found</p>
           </div>
@@ -474,14 +474,14 @@ function VideosTab() {
 
   if (loading) return (
     <div className="flex items-center justify-center py-20">
-      <div className="w-7 h-7 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
+      <div className="w-7 h-7 border-2 border-yellow-400 border-t-transparent rounded-full animate-spin" />
     </div>
   );
 
   return (
     <div className="space-y-4">
       {/* YouTube Sync Section */}
-      <div className="bg-slate-900 rounded-xl border border-slate-800 p-5">
+      <div className="bg-blue-900 rounded-xl border border-blue-700 p-5">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center">
@@ -489,7 +489,7 @@ function VideosTab() {
             </div>
             <div>
               <h3 className="text-base font-semibold text-white">YouTube Channel Sync</h3>
-              <p className="text-xs text-slate-400">Sync videos from @UNATANTUMVOCEOFFICIAL</p>
+              <p className="text-xs text-blue-200">Sync videos from @UNATANTUMVOCEOFFICIAL</p>
             </div>
           </div>
           <button
@@ -502,33 +502,33 @@ function VideosTab() {
           </button>
         </div>
         {syncResult && (
-          <div className="mt-3 p-3 bg-slate-800/50 rounded-lg text-sm text-slate-300">
+          <div className="mt-3 p-3 bg-blue-800/50 rounded-lg text-sm text-blue-100">
             {syncResult}
           </div>
         )}
-        <p className="text-xs text-slate-500 mt-2">
+        <p className="text-xs text-blue-300 mt-2">
           Requires YOUTUBE_API_KEY in backend .env. Get a key at{' '}
-          <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">
+          <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank" rel="noopener noreferrer" className="text-yellow-500 hover:underline">
             Google Cloud Console
           </a>.
         </p>
       </div>
 
       {/* Add Video by URL */}
-      <div className="bg-slate-900 rounded-xl border border-slate-800 p-5">
+      <div className="bg-blue-900 rounded-xl border border-blue-700 p-5">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center">
-              <Link2 size={20} className="text-amber-400" />
+            <div className="w-10 h-10 bg-yellow-400/20 rounded-lg flex items-center justify-center">
+              <Link2 size={20} className="text-yellow-500" />
             </div>
             <div>
               <h3 className="text-base font-semibold text-white">Add Video by URL</h3>
-              <p className="text-xs text-slate-400">Paste a YouTube, Vimeo, or direct video URL</p>
+              <p className="text-xs text-blue-200">Paste a YouTube, Vimeo, or direct video URL</p>
             </div>
           </div>
           <button
             onClick={() => setShowAddVideo(!showAddVideo)}
-            className="flex items-center gap-2 px-4 py-2 bg-amber-500 text-slate-900 rounded-lg text-sm font-medium hover:bg-amber-400 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-yellow-400 text-slate-900 rounded-lg text-sm font-medium hover:bg-yellow-500 transition-colors"
           >
             <Plus size={14} /> Add Video
           </button>
@@ -541,21 +541,21 @@ function VideosTab() {
               value={videoUrl}
               onChange={e => setVideoUrl(e.target.value)}
               required
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/60"
+              className="w-full bg-blue-800 border border-blue-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-yellow-400/60"
             />
             <input
               type="text"
               placeholder="Video title (optional — auto-generated for YouTube)"
               value={videoTitle}
               onChange={e => setVideoTitle(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/60"
+              className="w-full bg-blue-800 border border-blue-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-yellow-400/60"
             />
             <textarea
               placeholder="Description (optional)"
               value={videoDesc}
               onChange={e => setVideoDesc(e.target.value)}
               rows={2}
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/60 resize-none"
+              className="w-full bg-blue-800 border border-blue-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-yellow-400/60 resize-none"
             />
             <button
               type="submit"
@@ -570,29 +570,29 @@ function VideosTab() {
       </div>
 
       {/* Video List */}
-      <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
-        <div className="px-4 py-3 border-b border-slate-800">
+      <div className="bg-blue-900 rounded-xl border border-blue-700 overflow-hidden">
+        <div className="px-4 py-3 border-b border-blue-700">
           <h3 className="text-sm font-semibold text-white">All Videos ({videos.length})</h3>
         </div>
         <div className="divide-y divide-slate-800/60">
           {videos.map(v => (
             <div key={v.id} className="flex items-center gap-3 px-4 py-3">
-              <div className="w-16 h-10 rounded bg-slate-800 flex-shrink-0 overflow-hidden">
+              <div className="w-16 h-10 rounded bg-blue-800 flex-shrink-0 overflow-hidden">
                 {v.thumbnail_url || v.cover_image_url ? (
                   <img src={(v.thumbnail_url || v.cover_image_url) || undefined} alt="" className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <Youtube size={16} className="text-slate-600" />
+                    <Youtube size={16} className="text-blue-400" />
                   </div>
                 )}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-white truncate">{v.title}</p>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-blue-300">
                   {v.platform === 'youtube' ? 'YouTube' : v.platform || 'Direct'} · {v.youtube_id || 'No ID'}
                 </p>
               </div>
-              <span className={`text-xs px-2 py-0.5 rounded-full ${v.is_published ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'}`}>
+              <span className={`text-xs px-2 py-0.5 rounded-full ${v.is_published ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-700 text-blue-200'}`}>
                 {v.is_published ? 'Published' : 'Draft'}
               </span>
               <button
@@ -604,7 +604,7 @@ function VideosTab() {
             </div>
           ))}
           {videos.length === 0 && (
-            <div className="text-center py-10 text-slate-500">
+            <div className="text-center py-10 text-blue-300">
               <Youtube size={24} className="mx-auto mb-2 opacity-50" />
               <p>No videos yet. Sync from YouTube or add by URL.</p>
             </div>
@@ -688,16 +688,16 @@ export function AdminPage() {
         <Shield size={28} className="text-red-400" />
         <div>
           <h1 className="text-2xl font-bold text-white">Admin Portal</h1>
-          <p className="text-sm text-slate-400">Logged in as {user?.email}</p>
+          <p className="text-sm text-blue-200">Logged in as {user?.email}</p>
         </div>
       </div>
 
       {/* Tab Bar */}
-      <div className="flex gap-1 border-b border-slate-800 pb-0 overflow-x-auto">
+      <div className="flex gap-1 border-b border-blue-700 pb-0 overflow-x-auto">
         {tabs.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
             className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium whitespace-nowrap border-b-2 -mb-px transition-colors ${
-              tab === t.id ? 'border-amber-500 text-amber-400' : 'border-transparent text-slate-400 hover:text-white'
+              tab === t.id ? 'border-yellow-400 text-yellow-500' : 'border-transparent text-blue-200 hover:text-yellow-400'
             }`}>
             <t.icon size={15} />{t.label}
           </button>
@@ -710,34 +710,34 @@ export function AdminPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <StatCard title="Users" value={analytics.total_users} icon={Users} color="text-blue-400" bg="bg-blue-500/10" />
             <StatCard title="Orders" value={analytics.total_orders} icon={ShoppingBag} color="text-emerald-400" bg="bg-emerald-500/10" />
-            <StatCard title="Revenue" value={`$${Number(analytics.total_revenue).toFixed(2)}`} icon={DollarSign} color="text-amber-400" bg="bg-amber-500/10" />
+            <StatCard title="Revenue" value={`$${Number(analytics.total_revenue).toFixed(2)}`} icon={DollarSign} color="text-yellow-500" bg="bg-yellow-400/10" />
             <StatCard title="Tickets Sold" value={analytics.total_tickets_sold} icon={Ticket} color="text-rose-400" bg="bg-rose-500/10" />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-slate-900 rounded-xl border border-slate-800 p-5">
+            <div className="bg-blue-900 rounded-xl border border-blue-700 p-5">
               <h3 className="text-base font-semibold text-white mb-4">Recent Orders</h3>
               <div className="space-y-2">
                 {analytics.recent_orders?.slice(0, 6).map((o: any) => (
-                  <div key={o.id} className="flex items-center justify-between py-2 border-b border-slate-800/60 last:border-0">
-                    <div><p className="text-sm text-white">Order #{o.id}</p><p className="text-xs text-slate-500">{o.customer_email}</p></div>
+                  <div key={o.id} className="flex items-center justify-between py-2 border-b border-blue-700/60 last:border-0">
+                    <div><p className="text-sm text-white">Order #{o.id}</p><p className="text-xs text-blue-300">{o.customer_email}</p></div>
                     <div className="text-right">
                       <p className="text-sm font-medium text-emerald-400">${o.total_amount}</p>
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${o.status === 'completed' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'}`}>{o.status}</span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${o.status === 'completed' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-700 text-blue-200'}`}>{o.status}</span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-slate-900 rounded-xl border border-slate-800 p-5">
+            <div className="bg-blue-900 rounded-xl border border-blue-700 p-5">
               <h3 className="text-base font-semibold text-white mb-4">Popular Content</h3>
               <div className="space-y-2">
                 {analytics.popular_content?.slice(0, 6).map((c: any) => (
-                  <div key={c.id} className="flex items-center gap-3 py-2 border-b border-slate-800/60 last:border-0">
-                    <div className="w-8 h-8 rounded bg-slate-800 flex-shrink-0 overflow-hidden">
-                      {c.cover_image_url ? <img src={c.cover_image_url} alt="" className="w-full h-full object-cover" /> : <Music size={14} className="m-auto text-slate-600 mt-1.5" />}
+                  <div key={c.id} className="flex items-center gap-3 py-2 border-b border-blue-700/60 last:border-0">
+                    <div className="w-8 h-8 rounded bg-blue-800 flex-shrink-0 overflow-hidden">
+                      {c.cover_image_url ? <img src={c.cover_image_url} alt="" className="w-full h-full object-cover" /> : <Music size={14} className="m-auto text-blue-400 mt-1.5" />}
                     </div>
-                    <div className="flex-1 min-w-0"><p className="text-sm text-white truncate">{c.title}</p><p className="text-xs text-slate-500 capitalize">{c.content_type}</p></div>
-                    <span className="text-xs text-slate-500 flex items-center gap-1"><TrendingUp size={10} />{c.view_count}</span>
+                    <div className="flex-1 min-w-0"><p className="text-sm text-white truncate">{c.title}</p><p className="text-xs text-blue-300 capitalize">{c.content_type}</p></div>
+                    <span className="text-xs text-blue-300 flex items-center gap-1"><TrendingUp size={10} />{c.view_count}</span>
                   </div>
                 ))}
               </div>
@@ -753,46 +753,46 @@ export function AdminPage() {
       {tab === 'contents' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <p className="text-slate-400 text-sm">{contents.length} items total</p>
+            <p className="text-blue-200 text-sm">{contents.length} items total</p>
             <button
               onClick={() => setShowAddContent(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-amber-500 text-slate-900 rounded-lg text-sm font-medium hover:bg-amber-400 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-yellow-400 text-slate-900 rounded-lg text-sm font-medium hover:bg-yellow-500 transition-colors"
             >
               <Plus size={14} /> Add Content
             </button>
           </div>
-          <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-x-auto">
+          <div className="bg-blue-900 rounded-xl border border-blue-700 overflow-x-auto">
             <table className="w-full text-sm min-w-[640px]">
               <thead>
-                <tr className="border-b border-slate-800 text-left">
-                  <th className="px-4 py-3 text-slate-400 font-medium">Title</th>
-                  <th className="px-4 py-3 text-slate-400 font-medium">Type</th>
-                  <th className="px-4 py-3 text-slate-400 font-medium">Price</th>
-                  <th className="px-4 py-3 text-slate-400 font-medium">Status</th>
-                  <th className="px-4 py-3 text-slate-400 font-medium">Views</th>
-                  <th className="px-4 py-3 text-slate-400 font-medium">Actions</th>
+                <tr className="border-b border-blue-700 text-left">
+                  <th className="px-4 py-3 text-blue-200 font-medium">Title</th>
+                  <th className="px-4 py-3 text-blue-200 font-medium">Type</th>
+                  <th className="px-4 py-3 text-blue-200 font-medium">Price</th>
+                  <th className="px-4 py-3 text-blue-200 font-medium">Status</th>
+                  <th className="px-4 py-3 text-blue-200 font-medium">Views</th>
+                  <th className="px-4 py-3 text-blue-200 font-medium">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {contents.map(c => (
-                  <tr key={c.id} className="border-b border-slate-800/50 hover:bg-slate-800/30">
+                  <tr key={c.id} className="border-b border-blue-700/50 hover:bg-blue-800/30">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded bg-slate-800 flex-shrink-0 overflow-hidden">
+                        <div className="w-8 h-8 rounded bg-blue-800 flex-shrink-0 overflow-hidden">
                           {c.cover_image_url ? <img src={c.cover_image_url} alt="" className="w-full h-full object-cover" /> : <ContentIcon type={c.content_type} />}
                         </div>
                         <span className="text-white truncate max-w-[180px]">{c.title}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-slate-400 capitalize">{c.content_type}</td>
-                    <td className="px-4 py-3 text-slate-400">{c.price ? `$${c.price}` : 'Free'}</td>
+                    <td className="px-4 py-3 text-blue-200 capitalize">{c.content_type}</td>
+                    <td className="px-4 py-3 text-blue-200">{c.price ? `$${c.price}` : 'Free'}</td>
                     <td className="px-4 py-3">
                       <button onClick={() => togglePublish(c)}
-                        className={`text-xs px-2 py-0.5 rounded-full flex items-center gap-1 ${c.is_published ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'}`}>
+                        className={`text-xs px-2 py-0.5 rounded-full flex items-center gap-1 ${c.is_published ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-700 text-blue-200'}`}>
                         {c.is_published ? <><Eye size={10} />Published</> : <><EyeOff size={10} />Draft</>}
                       </button>
                     </td>
-                    <td className="px-4 py-3 text-slate-400">{c.view_count}</td>
+                    <td className="px-4 py-3 text-blue-200">{c.view_count}</td>
                     <td className="px-4 py-3">
                       <button onClick={() => deleteContent(c.id)}
                         className="p-1.5 text-red-400 hover:bg-red-500/10 rounded transition-colors">
@@ -804,7 +804,7 @@ export function AdminPage() {
               </tbody>
             </table>
             {contents.length === 0 && (
-              <div className="text-center py-12 text-slate-500">
+              <div className="text-center py-12 text-blue-300">
                 <Package size={32} className="mx-auto mb-3 opacity-50" />
                 <p>No content yet. Click "Add Content" to get started.</p>
               </div>
@@ -817,22 +817,22 @@ export function AdminPage() {
       {tab === 'newsletter' && (
         <div className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center">
+            <div className="bg-blue-900 border border-blue-700 rounded-xl p-5 text-center">
               <p className="text-2xl font-bold text-white">{subscribers.length}</p>
-              <p className="text-sm text-slate-400 mt-1">Total Subscribers</p>
+              <p className="text-sm text-blue-200 mt-1">Total Subscribers</p>
             </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center">
+            <div className="bg-blue-900 border border-blue-700 rounded-xl p-5 text-center">
               <p className="text-2xl font-bold text-emerald-400">{subscribers.filter(s => s.is_active).length}</p>
-              <p className="text-sm text-slate-400 mt-1">Active</p>
+              <p className="text-sm text-blue-200 mt-1">Active</p>
             </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center">
-              <p className="text-2xl font-bold text-slate-400">{subscribers.filter(s => !s.is_active).length}</p>
-              <p className="text-sm text-slate-400 mt-1">Unsubscribed</p>
+            <div className="bg-blue-900 border border-blue-700 rounded-xl p-5 text-center">
+              <p className="text-2xl font-bold text-blue-200">{subscribers.filter(s => !s.is_active).length}</p>
+              <p className="text-sm text-blue-200 mt-1">Unsubscribed</p>
             </div>
           </div>
           <NewsletterComposer />
-          <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
-            <div className="px-4 py-3 border-b border-slate-800">
+          <div className="bg-blue-900 rounded-xl border border-blue-700 overflow-hidden">
+            <div className="px-4 py-3 border-b border-blue-700">
               <h3 className="text-sm font-semibold text-white">Subscribers</h3>
             </div>
             <div className="divide-y divide-slate-800/60">
@@ -840,10 +840,10 @@ export function AdminPage() {
                 <div key={s.id} className="flex items-center justify-between px-4 py-3">
                   <div>
                     <p className="text-sm text-white">{s.name || s.email}</p>
-                    <p className="text-xs text-slate-500">{s.email} · {s.language}</p>
+                    <p className="text-xs text-blue-300">{s.email} · {s.language}</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${s.is_active ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'}`}>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${s.is_active ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-700 text-blue-200'}`}>
                       {s.is_active ? 'Active' : 'Unsubscribed'}
                     </span>
                     <button onClick={() => deleteSubscriber(s.id)} className="p-1.5 text-red-400 hover:bg-red-500/10 rounded transition-colors">
@@ -853,7 +853,7 @@ export function AdminPage() {
                 </div>
               ))}
               {subscribers.length === 0 && (
-                <div className="text-center py-10 text-slate-500"><Mail size={24} className="mx-auto mb-2 opacity-50" /><p>No subscribers yet</p></div>
+                <div className="text-center py-10 text-blue-300"><Mail size={24} className="mx-auto mb-2 opacity-50" /><p>No subscribers yet</p></div>
               )}
             </div>
           </div>
@@ -862,35 +862,35 @@ export function AdminPage() {
 
       {/* Orders Tab */}
       {tab === 'orders' && (
-        <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-x-auto">
+        <div className="bg-blue-900 rounded-xl border border-blue-700 overflow-x-auto">
           <table className="w-full text-sm min-w-[640px]">
             <thead>
-              <tr className="border-b border-slate-800 text-left">
-                <th className="px-4 py-3 text-slate-400 font-medium">#</th>
-                <th className="px-4 py-3 text-slate-400 font-medium">Customer</th>
-                <th className="px-4 py-3 text-slate-400 font-medium">Amount</th>
-                <th className="px-4 py-3 text-slate-400 font-medium">Status</th>
-                <th className="px-4 py-3 text-slate-400 font-medium">Date</th>
-                <th className="px-4 py-3 text-slate-400 font-medium">Action</th>
+              <tr className="border-b border-blue-700 text-left">
+                <th className="px-4 py-3 text-blue-200 font-medium">#</th>
+                <th className="px-4 py-3 text-blue-200 font-medium">Customer</th>
+                <th className="px-4 py-3 text-blue-200 font-medium">Amount</th>
+                <th className="px-4 py-3 text-blue-200 font-medium">Status</th>
+                <th className="px-4 py-3 text-blue-200 font-medium">Date</th>
+                <th className="px-4 py-3 text-blue-200 font-medium">Action</th>
               </tr>
             </thead>
             <tbody>
               {orders.map(o => (
-                <tr key={o.id} className="border-b border-slate-800/50 hover:bg-slate-800/30">
-                  <td className="px-4 py-3 text-slate-400">#{o.id}</td>
-                  <td className="px-4 py-3"><p className="text-white">{o.customer_name || '—'}</p><p className="text-xs text-slate-500">{o.customer_email}</p></td>
+                <tr key={o.id} className="border-b border-blue-700/50 hover:bg-blue-800/30">
+                  <td className="px-4 py-3 text-blue-200">#{o.id}</td>
+                  <td className="px-4 py-3"><p className="text-white">{o.customer_name || '—'}</p><p className="text-xs text-blue-300">{o.customer_email}</p></td>
                   <td className="px-4 py-3 font-medium text-emerald-400">${o.total_amount}</td>
                   <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-0.5 rounded-full ${
                       o.status === 'completed' ? 'bg-emerald-500/20 text-emerald-400' :
                       o.status === 'refunded' ? 'bg-blue-500/20 text-blue-400' :
-                      'bg-amber-500/20 text-amber-400'
+                      'bg-yellow-400/20 text-yellow-500'
                     }`}>{o.status}</span>
                   </td>
-                  <td className="px-4 py-3 text-slate-400 text-xs">{new Date(o.created_at).toLocaleDateString()}</td>
+                  <td className="px-4 py-3 text-blue-200 text-xs">{new Date(o.created_at).toLocaleDateString()}</td>
                   <td className="px-4 py-3">
                     {o.status === 'completed' && (
-                      <button onClick={() => refundOrder(o.id)} className="text-xs px-3 py-1 bg-slate-800 text-slate-300 rounded hover:bg-slate-700 transition-colors">
+                      <button onClick={() => refundOrder(o.id)} className="text-xs px-3 py-1 bg-blue-800 text-blue-100 rounded hover:bg-blue-700 transition-colors">
                         Refund
                       </button>
                     )}
@@ -900,7 +900,7 @@ export function AdminPage() {
             </tbody>
           </table>
           {orders.length === 0 && (
-            <div className="text-center py-12 text-slate-500"><ShoppingBag size={32} className="mx-auto mb-3 opacity-50" /><p>No orders yet</p></div>
+            <div className="text-center py-12 text-blue-300"><ShoppingBag size={32} className="mx-auto mb-3 opacity-50" /><p>No orders yet</p></div>
           )}
         </div>
       )}
@@ -935,15 +935,15 @@ function NewsletterComposer() {
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
-      <h3 className="text-base font-semibold text-white flex items-center gap-2"><Send size={16} className="text-amber-500" />Compose Newsletter</h3>
+    <div className="bg-blue-900 border border-blue-700 rounded-xl p-5 space-y-4">
+      <h3 className="text-base font-semibold text-white flex items-center gap-2"><Send size={16} className="text-yellow-400" />Compose Newsletter</h3>
       <input value={subject} onChange={e => setSubject(e.target.value)} placeholder="Subject line..."
-        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/50" />
+        className="w-full bg-blue-800 border border-blue-600 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-yellow-400/50" />
       <textarea value={body} onChange={e => setBody(e.target.value)} rows={6} placeholder="Email body (HTML supported)..."
-        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/50 resize-none font-mono" />
+        className="w-full bg-blue-800 border border-blue-600 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-yellow-400/50 resize-none font-mono" />
       <div className="flex items-center gap-3">
         <button onClick={send} disabled={status === 'sending' || !subject || !body}
-          className="flex items-center gap-2 px-5 py-2.5 bg-amber-500 text-slate-900 font-bold rounded-lg text-sm hover:bg-amber-400 transition-colors disabled:opacity-50">
+          className="flex items-center gap-2 px-5 py-2.5 bg-yellow-400 text-slate-900 font-bold rounded-lg text-sm hover:bg-yellow-500 transition-colors disabled:opacity-50">
           <Send size={14} />{status === 'sending' ? 'Sending...' : 'Send to All Subscribers'}
         </button>
         {status === 'done' && result && <p className="text-sm text-emerald-400">Sent: {result.sent} · Failed: {result.failed}</p>}
@@ -974,26 +974,26 @@ function SettingsTab() {
 
   return (
     <div className="space-y-6 max-w-xl">
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
-        <h3 className="text-base font-semibold text-white flex items-center gap-2"><Settings size={16} className="text-amber-500" />Change Password</h3>
+      <div className="bg-blue-900 border border-blue-700 rounded-xl p-5 space-y-4">
+        <h3 className="text-base font-semibold text-white flex items-center gap-2"><Settings size={16} className="text-yellow-400" />Change Password</h3>
         <div className="space-y-3">
           <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="New password"
-            className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/50" />
+            className="w-full bg-blue-800 border border-blue-600 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-yellow-400/50" />
           <input type="password" value={confirm} onChange={e => setConfirm(e.target.value)} placeholder="Confirm new password"
-            className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/50" />
+            className="w-full bg-blue-800 border border-blue-600 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-yellow-400/50" />
         </div>
         {msg && <p className={`text-sm ${msg.includes('successfully') ? 'text-emerald-400' : 'text-red-400'}`}>{msg}</p>}
         <button onClick={changePassword} disabled={saving}
-          className="px-5 py-2.5 bg-amber-500 text-slate-900 font-bold rounded-lg text-sm hover:bg-amber-400 transition-colors disabled:opacity-50">
+          className="px-5 py-2.5 bg-yellow-400 text-slate-900 font-bold rounded-lg text-sm hover:bg-yellow-500 transition-colors disabled:opacity-50">
           {saving ? 'Saving...' : 'Update Password'}
         </button>
       </div>
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-2">
-        <h3 className="text-base font-semibold text-white flex items-center gap-2"><Shield size={16} className="text-amber-500" />API Configuration</h3>
-        <p className="text-sm text-slate-400">Configure payment and storage keys via environment variables on Render.com dashboard.</p>
+      <div className="bg-blue-900 border border-blue-700 rounded-xl p-5 space-y-2">
+        <h3 className="text-base font-semibold text-white flex items-center gap-2"><Shield size={16} className="text-yellow-400" />API Configuration</h3>
+        <p className="text-sm text-blue-200">Configure payment and storage keys via environment variables on Render.com dashboard.</p>
         <div className="grid grid-cols-2 gap-2 mt-3 text-xs">
           {['STRIPE_SECRET_KEY','STRIPE_PUBLISHABLE_KEY','AWS_ACCESS_KEY_ID','EMAIL_USER','EMAIL_PASS','OPENAI_API_KEY'].map(k => (
-            <div key={k} className="bg-slate-800 rounded px-3 py-2 font-mono text-slate-400">{k}</div>
+            <div key={k} className="bg-blue-800 rounded px-3 py-2 font-mono text-blue-200">{k}</div>
           ))}
         </div>
       </div>
@@ -1004,22 +1004,22 @@ function SettingsTab() {
 function ContentIcon({ type }: { type: string }) {
   const icons: Record<string, any> = { music: Music, book: BookOpen, video: Video, score: FileText, concert: Calendar, gallery: Image, library: Library };
   const Icon = icons[type] || Package;
-  return <Icon size={14} className="text-slate-600 m-auto mt-1.5" />;
+  return <Icon size={14} className="text-blue-400 m-auto mt-1.5" />;
 }
 
 function StatCard({ title, value, icon: Icon, color, bg }: any) {
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-slate-900 rounded-xl border border-slate-800 p-5">
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-blue-900 rounded-xl border border-blue-700 p-5">
       <div className="flex items-center justify-between mb-3">
         <div className={`w-9 h-9 ${bg} rounded-lg flex items-center justify-center`}><Icon size={18} className={color} /></div>
-        <TrendingUp size={14} className="text-slate-700" />
+        <TrendingUp size={14} className="text-blue-500" />
       </div>
       <p className="text-2xl font-bold text-white">{value}</p>
-      <p className="text-sm text-slate-400 mt-1">{title}</p>
+      <p className="text-sm text-blue-200 mt-1">{title}</p>
     </motion.div>
   );
 }
 
 function Spinner() {
-  return <div className="flex items-center justify-center h-96"><div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" /></div>;
+  return <div className="flex items-center justify-center h-96"><div className="w-8 h-8 border-2 border-yellow-400 border-t-transparent rounded-full animate-spin" /></div>;
 }

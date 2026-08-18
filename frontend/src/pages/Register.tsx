@@ -49,10 +49,10 @@ export function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#09090b] px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-[#ffffff] px-4 py-12">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/3 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-yellow-400/3 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-amber-600/5 rounded-full blur-2xl" />
       </div>
 
@@ -63,16 +63,16 @@ export function RegisterPage() {
         className="relative w-full max-w-md"
       >
         {/* Card */}
-        <div className="bg-[#0f0e0c] border border-[#2a2515] rounded-2xl p-8 shadow-2xl">
+        <div className="bg-[#0f0e0c] border border-[#d1d5db] rounded-2xl p-8 shadow-2xl">
           {/* Logo + Title */}
           <div className="text-center mb-8">
-            <div className="w-14 h-14 bg-amber-500/10 border border-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Music size={24} className="text-amber-500" />
+            <div className="w-14 h-14 bg-yellow-400/10 border border-yellow-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Music size={24} className="text-yellow-400" />
             </div>
             <h1 className="text-2xl font-bold text-white font-serif tracking-wide">
               Join UNA TANTUM VOCE
             </h1>
-            <p className="text-sm text-[#6a6055] mt-2 tracking-wide">
+            <p className="text-sm text-[#9ca3af] mt-2 tracking-wide">
               Music Development for All
             </p>
           </div>
@@ -93,7 +93,7 @@ export function RegisterPage() {
                     value={formData.firstName}
                     onChange={handleChange}
                     placeholder="Jean"
-                    className="w-full bg-[#1a1813] border border-[#2a2515] rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-[#4a4035] focus:outline-none focus:border-amber-500/50 transition-colors"
+                    className="w-full bg-[#f3f4f6] border border-[#d1d5db] rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-[#4a4035] focus:outline-none focus:border-yellow-400/50 transition-colors"
                   />
                 </div>
               </div>
@@ -109,7 +109,7 @@ export function RegisterPage() {
                     value={formData.lastName}
                     onChange={handleChange}
                     placeholder="Baptiste"
-                    className="w-full bg-[#1a1813] border border-[#2a2515] rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-[#4a4035] focus:outline-none focus:border-amber-500/50 transition-colors"
+                    className="w-full bg-[#f3f4f6] border border-[#d1d5db] rounded-lg pl-9 pr-3 py-2.5 text-sm text-white placeholder-[#4a4035] focus:outline-none focus:border-yellow-400/50 transition-colors"
                   />
                 </div>
               </div>
@@ -129,7 +129,7 @@ export function RegisterPage() {
                   onChange={handleChange}
                   required
                   placeholder="you@example.com"
-                  className="w-full bg-[#1a1813] border border-[#2a2515] rounded-lg pl-9 pr-4 py-2.5 text-sm text-white placeholder-[#4a4035] focus:outline-none focus:border-amber-500/50 transition-colors"
+                  className="w-full bg-[#f3f4f6] border border-[#d1d5db] rounded-lg pl-9 pr-4 py-2.5 text-sm text-white placeholder-[#4a4035] focus:outline-none focus:border-yellow-400/50 transition-colors"
                 />
               </div>
             </div>
@@ -148,12 +148,12 @@ export function RegisterPage() {
                   onChange={handleChange}
                   required
                   placeholder="Min. 8 characters"
-                  className="w-full bg-[#1a1813] border border-[#2a2515] rounded-lg pl-9 pr-10 py-2.5 text-sm text-white placeholder-[#4a4035] focus:outline-none focus:border-amber-500/50 transition-colors"
+                  className="w-full bg-[#f3f4f6] border border-[#d1d5db] rounded-lg pl-9 pr-10 py-2.5 text-sm text-white placeholder-[#4a4035] focus:outline-none focus:border-yellow-400/50 transition-colors"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4a4035] hover:text-amber-500 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#4a4035] hover:text-yellow-400 transition-colors"
                 >
                   {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
                 </button>
@@ -174,7 +174,7 @@ export function RegisterPage() {
                   onChange={handleChange}
                   required
                   placeholder="Repeat password"
-                  className="w-full bg-[#1a1813] border border-[#2a2515] rounded-lg pl-9 pr-4 py-2.5 text-sm text-white placeholder-[#4a4035] focus:outline-none focus:border-amber-500/50 transition-colors"
+                  className="w-full bg-[#f3f4f6] border border-[#d1d5db] rounded-lg pl-9 pr-4 py-2.5 text-sm text-white placeholder-[#4a4035] focus:outline-none focus:border-yellow-400/50 transition-colors"
                 />
               </div>
             </div>
@@ -188,13 +188,13 @@ export function RegisterPage() {
                       key={level}
                       className={`h-1 flex-1 rounded-full transition-colors ${
                         getPasswordStrength(formData.password) >= level
-                          ? level <= 2 ? 'bg-red-500' : level === 3 ? 'bg-amber-500' : 'bg-emerald-500'
-                          : 'bg-[#2a2515]'
+                          ? level <= 2 ? 'bg-red-500' : level === 3 ? 'bg-yellow-400' : 'bg-emerald-500'
+                          : 'bg-[#d1d5db]'
                       }`}
                     />
                   ))}
                 </div>
-                <p className="text-xs text-[#6a6055]">
+                <p className="text-xs text-[#9ca3af]">
                   {['', 'Weak', 'Fair', 'Good', 'Strong'][getPasswordStrength(formData.password)]} password
                 </p>
               </div>
@@ -204,10 +204,10 @@ export function RegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 bg-amber-500 text-[#09090b] font-bold text-sm tracking-widest uppercase rounded-lg hover:bg-amber-400 transition-all transform hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
+              className="w-full py-3 bg-yellow-400 text-[#ffffff] font-bold text-sm tracking-widest uppercase rounded-lg hover:bg-yellow-500 transition-all transform hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
             >
               {isLoading ? (
-                <div className="w-4 h-4 border-2 border-[#09090b] border-t-transparent rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-[#ffffff] border-t-transparent rounded-full animate-spin" />
               ) : (
                 <>
                   <UserPlus size={16} />
@@ -219,15 +219,15 @@ export function RegisterPage() {
 
           {/* Divider */}
           <div className="flex items-center gap-3 my-6">
-            <div className="flex-1 h-px bg-[#2a2515]" />
+            <div className="flex-1 h-px bg-[#d1d5db]" />
             <span className="text-xs text-[#4a4035]">OR</span>
-            <div className="flex-1 h-px bg-[#2a2515]" />
+            <div className="flex-1 h-px bg-[#d1d5db]" />
           </div>
 
           {/* Sign In link */}
-          <p className="text-center text-sm text-[#6a6055]">
+          <p className="text-center text-sm text-[#9ca3af]">
             Already have an account?{' '}
-            <Link to="/login" className="text-amber-500 hover:text-amber-400 font-medium transition-colors">
+            <Link to="/login" className="text-yellow-400 hover:text-yellow-500 font-medium transition-colors">
               Sign In
             </Link>
           </p>

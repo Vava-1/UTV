@@ -62,13 +62,13 @@ export function VideosPage() {
       <div className="space-y-6">
         {/* Search */}
         <div className="relative max-w-md">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6a6055]" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9ca3af]" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search videos..."
-            className="w-full bg-[#111109] border border-[#2a2515] rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-[#6a6055] focus:outline-none focus:border-amber-500/50 transition-colors"
+            className="w-full bg-[#f9fafb] border border-[#d1d5db] rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-[#9ca3af] focus:outline-none focus:border-yellow-400/50 transition-colors"
           />
         </div>
 
@@ -76,11 +76,11 @@ export function VideosPage() {
         {loading && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="bg-[#111109] rounded-xl border border-[#1e1a12] overflow-hidden animate-pulse">
-                <div className="aspect-video bg-[#1a1813]" />
+              <div key={i} className="bg-[#f9fafb] rounded-xl border border-[#e5e7eb] overflow-hidden animate-pulse">
+                <div className="aspect-video bg-[#f3f4f6]" />
                 <div className="p-4 space-y-2">
-                  <div className="h-4 bg-[#1a1813] rounded w-3/4" />
-                  <div className="h-3 bg-[#1a1813] rounded w-1/2" />
+                  <div className="h-4 bg-[#f3f4f6] rounded w-3/4" />
+                  <div className="h-3 bg-[#f3f4f6] rounded w-1/2" />
                 </div>
               </div>
             ))}
@@ -90,9 +90,9 @@ export function VideosPage() {
         {/* Empty state */}
         {!loading && filtered.length === 0 && (
           <div className="text-center py-20">
-            <Youtube size={48} className="mx-auto text-[#6a6055] mb-4" />
-            <p className="text-[#9a9080] mb-2">No videos available yet.</p>
-            <p className="text-sm text-[#6a6055]">
+            <Youtube size={48} className="mx-auto text-[#9ca3af] mb-4" />
+            <p className="text-[#6b7280] mb-2">No videos available yet.</p>
+            <p className="text-sm text-[#9ca3af]">
               Videos will appear here once the admin syncs from YouTube or uploads content.
             </p>
           </div>
@@ -107,11 +107,11 @@ export function VideosPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="group cursor-pointer bg-[#111109] rounded-xl border border-[#1e1a12] overflow-hidden hover:border-amber-500/30 transition-all"
+                className="group cursor-pointer bg-[#f9fafb] rounded-xl border border-[#e5e7eb] overflow-hidden hover:border-yellow-400/30 transition-all"
                 onClick={() => setSelectedVideo(video)}
               >
                 {/* Thumbnail */}
-                <div className="relative aspect-video bg-[#1a1813] overflow-hidden">
+                <div className="relative aspect-video bg-[#f3f4f6] overflow-hidden">
                   {video.thumbnail_url || video.cover_image_url ? (
                     <img
                       src={(video.thumbnail_url || video.cover_image_url) || undefined}
@@ -125,8 +125,8 @@ export function VideosPage() {
                   )}
                   {/* Play overlay */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <div className="w-14 h-14 bg-amber-500 rounded-full flex items-center justify-center">
-                      <Play size={24} className="text-[#09090b] ml-1" fill="currentColor" />
+                    <div className="w-14 h-14 bg-yellow-400 rounded-full flex items-center justify-center">
+                      <Play size={24} className="text-[#ffffff] ml-1" fill="currentColor" />
                     </div>
                   </div>
                   {/* Duration badge */}
@@ -149,7 +149,7 @@ export function VideosPage() {
                     {video.title}
                   </h3>
                   {video.description && (
-                    <p className="text-xs text-[#9a9080] line-clamp-2">
+                    <p className="text-xs text-[#6b7280] line-clamp-2">
                       {video.description}
                     </p>
                   )}
@@ -174,7 +174,7 @@ export function VideosPage() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-4xl bg-[#0f0e0c] rounded-xl border border-[#2a2515] overflow-hidden"
+              className="relative w-full max-w-4xl bg-[#ffffff] rounded-xl border border-[#d1d5db] overflow-hidden"
             >
               {/* Close button */}
               <button
@@ -202,7 +202,7 @@ export function VideosPage() {
                     className="w-full h-full"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-[#6a6055]">
+                  <div className="w-full h-full flex items-center justify-center text-[#9ca3af]">
                     Video URL not available
                   </div>
                 )}
@@ -212,11 +212,11 @@ export function VideosPage() {
               <div className="p-6">
                 <h2 className="text-xl font-bold text-white mb-2">{selectedVideo.title}</h2>
                 {selectedVideo.description && (
-                  <p className="text-sm text-[#9a9080] leading-relaxed mb-4">
+                  <p className="text-sm text-[#6b7280] leading-relaxed mb-4">
                     {selectedVideo.description}
                   </p>
                 )}
-                <div className="flex items-center gap-4 text-xs text-[#6a6055]">
+                <div className="flex items-center gap-4 text-xs text-[#9ca3af]">
                   {selectedVideo.created_at && (
                     <span className="flex items-center gap-1">
                       <Calendar size={12} />
@@ -234,7 +234,7 @@ export function VideosPage() {
                       href={selectedVideo.video_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-amber-500 hover:text-amber-400 transition-colors"
+                      className="flex items-center gap-1 text-yellow-400 hover:text-yellow-500 transition-colors"
                     >
                       <ExternalLink size={12} />
                       Watch on original platform

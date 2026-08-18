@@ -1,20 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Linkedin, Music, BookOpen, Calendar, Users } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Linkedin, Music } from 'lucide-react';
 
 export function Footer() {
-  const { t } = useTranslation();
-  
   const footerSections = [
     {
-      title: 'Navigation',
+      title: 'Explore',
       links: [
-        { label: 'Discover', path: '/discover', icon: Music },
-        { label: 'Books', path: '/books', icon: BookOpen },
-        { label: 'Videos', path: '/videos', icon: BookOpen },
-        { label: 'Concerts', path: '/concerts', icon: Calendar },
-        { label: 'Library', path: '/library', icon: Music },
+        { label: 'Music', path: '/music' },
+        { label: 'Videos', path: '/videos' },
+        { label: 'Books', path: '/books' },
+        { label: 'Scores', path: '/scores' },
+        { label: 'Events', path: '/concerts' },
       ]
     },
     {
@@ -30,7 +27,7 @@ export function Footer() {
     { icon: Facebook, name: 'Facebook', url: 'https://facebook.com/unatantumvoce' },
     { icon: Twitter, name: 'Twitter', url: 'https://twitter.com/unatantumvoce' },
     { icon: Instagram, name: 'Instagram', url: 'https://instagram.com/unatantumvoce' },
-    { icon: Youtube, name: 'YouTube', url: 'https://youtube.com/unatantumvoce' },
+    { icon: Youtube, name: 'YouTube', url: 'https://www.youtube.com/@UNATANTUMVOCEOFFICIAL' },
     { icon: Linkedin, name: 'LinkedIn', url: 'https://linkedin.com/company/unatantumvoce' },
   ];
 
@@ -41,90 +38,83 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-[#09090b] border-t border-[#1e1a12]/50 text-white">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          
-          {/* Contact Information - Professional Design */}
+    <footer className="bg-blue-900 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Brand + Contact */}
           <div className="space-y-4">
-            <h3 className="text-lg sm:text-xl font-bold text-amber-500 mb-4 sm:mb-6">Contact Us</h3>
-            <div className="space-y-3">
-              {contactInfo.map((info, index) => (
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center">
+                <Music size={20} className="text-blue-900" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold tracking-tight font-serif">UNA TANTUM VOCE</h3>
+                <p className="text-xs text-blue-300 tracking-widest uppercase">Music for All</p>
+              </div>
+            </div>
+            <div className="space-y-2">
+              {contactInfo.map((info, i) => (
                 <a
-                  key={index}
+                  key={i}
                   href={info.href}
-                  className="flex items-center gap-3 text-[#9a9080] hover:text-amber-500 transition-all duration-300 group p-3 rounded-lg hover:bg-[#1a1813]/20"
+                  className="flex items-center gap-2 text-blue-200 hover:text-yellow-400 transition-colors text-sm"
                 >
-                  <div className="w-10 h-10 bg-amber-500/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <info.icon size={16} className="text-amber-500" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-[#6a6055] font-medium">{info.label}</p>
-                    <p className="text-sm group-hover:text-amber-500 transition-colors">{info.value}</p>
-                  </div>
+                  <info.icon size={14} className="text-yellow-400" />
+                  {info.value}
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Navigation Sections - Professional Design */}
-          {footerSections.map((section, index) => (
-            <div key={index} className="space-y-4">
-              <h3 className="text-lg sm:text-xl font-bold text-amber-500 mb-4 sm:mb-6">{section.title}</h3>
-              <ul className="space-y-2 sm:space-y-3">
-                {section.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
+          {/* Nav sections */}
+          {footerSections.map((section, i) => (
+            <div key={i} className="space-y-3">
+              <h3 className="text-sm font-bold text-yellow-400 uppercase tracking-wider mb-3">
+                {section.title}
+              </h3>
+              <ul className="space-y-2">
+                {section.links.map((link, j) => (
+                  <li key={j}>
                     <Link
                       to={link.path}
-                      className="flex items-center gap-2 text-[#9a9080] hover:text-amber-500 transition-all duration-300 p-2 rounded-md hover:bg-[#1a1813]/20"
+                      className="text-blue-200 hover:text-white hover:text-yellow-400 transition-colors text-sm"
                     >
-                      {'icon' in link && (
-                        <div className="w-8 h-8 bg-amber-500/10 rounded-full flex items-center justify-center flex-shrink-0">
-                          <link.icon size={14} className="text-amber-500" />
-                        </div>
-                      )}
-                      <span className="text-sm sm:text-base">{link.label}</span>
+                      {link.label}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
-        </div>
 
-        {/* Social Media & Newsletter - Professional Design */}
-        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-[#1e1a12]/50">
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-8">
-            
-            {/* Social Media Links */}
-            <div className="flex items-center gap-4 sm:gap-6">
-              <span className="text-xs sm:text-sm text-[#6a6055] font-medium">Follow Us</span>
-              <div className="flex gap-2 sm:gap-4">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 sm:w-10 sm:h-10 bg-[#111109]/60 border border-[#1e1a12]/30 rounded-full flex items-center justify-center text-[#9a9080] hover:text-amber-500 hover:border-amber-500/50 hover:bg-amber-500/10 transition-all duration-300 group"
-                    aria-label={social.name}
-                  >
-                    <social.icon size={14} className="sm:w-4 sm:h-4" />
-                  </a>
-                ))}
-              </div>
+          {/* Social */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-bold text-yellow-400 uppercase tracking-wider mb-3">
+              Follow Us
+            </h3>
+            <div className="flex gap-3">
+              {socialLinks.map((social, i) => (
+                <a
+                  key={i}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 bg-blue-800 hover:bg-yellow-400 rounded-lg flex items-center justify-center transition-all group"
+                  aria-label={social.name}
+                >
+                  <social.icon size={16} className="text-blue-200 group-hover:text-blue-900 transition-colors" />
+                </a>
+              ))}
             </div>
-
-            {/* Newsletter */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-              <span className="text-xs sm:text-sm text-[#6a6055] font-medium">Newsletter</span>
-              <div className="flex gap-2 w-full sm:w-auto">
+            <div className="pt-4">
+              <p className="text-xs text-blue-300 mb-2">Newsletter</p>
+              <div className="flex gap-2">
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="flex-1 sm:flex-none px-3 py-2 bg-[#111109]/60 border border-[#1e1a12]/30 rounded-lg text-white placeholder-[#6a6055]/70 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all duration-300"
+                  className="flex-1 px-3 py-2 bg-blue-800 border border-blue-700 rounded-lg text-white placeholder-blue-400 text-sm focus:outline-none focus:border-yellow-400"
                 />
-                <button className="px-3 sm:px-4 py-2 bg-amber-500 hover:bg-amber-400 text-[#09090b] text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 rounded-lg shadow-md hover:shadow-lg">
+                <button className="px-4 py-2 bg-yellow-400 text-blue-900 text-sm font-bold rounded-lg hover:bg-yellow-500 transition-colors">
                   Subscribe
                 </button>
               </div>
@@ -133,9 +123,9 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-[#1e1a12]/30 text-center">
-          <p className="text-xs sm:text-sm text-[#6a6055]/80 leading-relaxed">
-            © 2024 UNA TANTUM VOCE. All rights reserved. | Music Development For All
+        <div className="mt-10 pt-6 border-t border-blue-800 text-center">
+          <p className="text-blue-300 text-sm">
+            © 2024 UNA TANTUM VOCE. All rights reserved. · Music Development for All
           </p>
         </div>
       </div>

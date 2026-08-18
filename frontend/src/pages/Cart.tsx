@@ -107,14 +107,14 @@ export function CartPage() {
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
         >
-          <Loader2 size={36} className="text-amber-500" />
+          <Loader2 size={36} className="text-yellow-400" />
         </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-white">
+    <div className="min-h-screen bg-[#ffffff] text-white">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -122,12 +122,12 @@ export function CartPage() {
         className="mb-8"
       >
         <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center">
-            <ShoppingCart size={20} className="text-amber-400" />
+          <div className="w-10 h-10 rounded-lg bg-yellow-400/15 border border-yellow-400/30 flex items-center justify-center">
+            <ShoppingCart size={20} className="text-yellow-500" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight">Your Cart</h1>
         </div>
-        <p className="text-slate-400 text-sm ml-[52px]">
+        <p className="text-blue-200 text-sm ml-[52px]">
           {cartItems.length === 0
             ? 'No items yet'
             : `${cartItems.length} item${cartItems.length > 1 ? 's' : ''} in your cart`}
@@ -143,24 +143,24 @@ export function CartPage() {
           className="flex flex-col items-center justify-center py-24 text-center"
         >
           <div className="relative mb-8">
-            <div className="w-28 h-28 rounded-full bg-amber-500/8 border border-amber-500/20 flex items-center justify-center mx-auto">
-              <ShoppingCart size={48} className="text-amber-500/40" />
+            <div className="w-28 h-28 rounded-full bg-yellow-400/8 border border-yellow-400/20 flex items-center justify-center mx-auto">
+              <ShoppingCart size={48} className="text-yellow-400/40" />
             </div>
             <motion.div
               animate={{ y: [-4, 4, -4] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center"
+              className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-blue-800 border border-blue-600 flex items-center justify-center"
             >
-              <Package size={14} className="text-slate-500" />
+              <Package size={14} className="text-blue-300" />
             </motion.div>
           </div>
           <h2 className="text-2xl font-bold text-white mb-3">Your cart is empty</h2>
-          <p className="text-slate-400 mb-8 max-w-sm">
+          <p className="text-blue-200 mb-8 max-w-sm">
             Discover our collection of books, scores, and recordings and add them to your cart.
           </p>
           <Link
             to="/books"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-400 text-[#09090b] font-bold rounded-lg transition-all duration-200 hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-[#ffffff] font-bold rounded-lg transition-all duration-200 hover:scale-105 active:scale-95"
           >
             <BookOpen size={18} />
             Browse Books
@@ -180,11 +180,11 @@ export function CartPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, x: -30, scale: 0.95 }}
                   transition={{ delay: i * 0.04 }}
-                  className="group relative bg-slate-900 border border-slate-800 hover:border-amber-500/30 rounded-xl p-4 transition-all duration-300"
+                  className="group relative bg-blue-900 border border-blue-700 hover:border-yellow-400/30 rounded-xl p-4 transition-all duration-300"
                 >
                   <div className="flex items-center gap-4">
                     {/* Cover */}
-                    <div className="relative flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-slate-800">
+                    <div className="relative flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-blue-800">
                       {item.content?.cover_image_url ? (
                         <img
                           src={item.content.cover_image_url}
@@ -193,7 +193,7 @@ export function CartPage() {
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <BookOpen size={24} className="text-slate-600" />
+                          <BookOpen size={24} className="text-blue-400" />
                         </div>
                       )}
                     </div>
@@ -203,13 +203,13 @@ export function CartPage() {
                       <p className="font-semibold text-white truncate text-sm">
                         {item.content?.title || `Item #${item.content_id}`}
                       </p>
-                      <p className="text-xs text-slate-400 truncate mt-0.5">
+                      <p className="text-xs text-blue-200 truncate mt-0.5">
                         {item.content?.author ||
                           item.content?.artist ||
                           item.content?.publisher ||
                           '—'}
                       </p>
-                      <p className="text-xs text-amber-400 font-medium mt-1">
+                      <p className="text-xs text-yellow-500 font-medium mt-1">
                         {item.content?.currency || 'USD'}{' '}
                         {(item.content?.price ?? 0).toFixed(2)} each
                       </p>
@@ -220,13 +220,13 @@ export function CartPage() {
                       <button
                         onClick={() => updateQuantity(item, -1)}
                         disabled={updatingId === item.id}
-                        className="w-7 h-7 rounded-md bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-amber-500/50 flex items-center justify-center transition-all duration-200 disabled:opacity-40"
+                        className="w-7 h-7 rounded-md bg-blue-800 hover:bg-blue-700 border border-blue-600 hover:border-yellow-400/50 flex items-center justify-center transition-all duration-200 disabled:opacity-40"
                       >
-                        <Minus size={12} className="text-slate-300" />
+                        <Minus size={12} className="text-blue-100" />
                       </button>
                       <span className="w-8 text-center text-sm font-bold text-white">
                         {updatingId === item.id ? (
-                          <Loader2 size={12} className="mx-auto animate-spin text-amber-400" />
+                          <Loader2 size={12} className="mx-auto animate-spin text-yellow-500" />
                         ) : (
                           item.quantity
                         )}
@@ -234,9 +234,9 @@ export function CartPage() {
                       <button
                         onClick={() => updateQuantity(item, 1)}
                         disabled={updatingId === item.id}
-                        className="w-7 h-7 rounded-md bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-amber-500/50 flex items-center justify-center transition-all duration-200 disabled:opacity-40"
+                        className="w-7 h-7 rounded-md bg-blue-800 hover:bg-blue-700 border border-blue-600 hover:border-yellow-400/50 flex items-center justify-center transition-all duration-200 disabled:opacity-40"
                       >
-                        <Plus size={12} className="text-slate-300" />
+                        <Plus size={12} className="text-blue-100" />
                       </button>
                     </div>
 
@@ -251,7 +251,7 @@ export function CartPage() {
                     <button
                       onClick={() => removeItem(item.id)}
                       disabled={removingId === item.id}
-                      className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-slate-600 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 disabled:opacity-40 ml-1"
+                      className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-blue-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 disabled:opacity-40 ml-1"
                     >
                       {removingId === item.id ? (
                         <Loader2 size={14} className="animate-spin" />
@@ -272,10 +272,10 @@ export function CartPage() {
             transition={{ delay: 0.15 }}
             className="sticky top-8"
           >
-            <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+            <div className="bg-blue-900 border border-blue-700 rounded-xl overflow-hidden">
               {/* Summary header */}
-              <div className="px-6 py-5 border-b border-slate-800 flex items-center gap-2">
-                <Receipt size={18} className="text-amber-400" />
+              <div className="px-6 py-5 border-b border-blue-700 flex items-center gap-2">
+                <Receipt size={18} className="text-yellow-500" />
                 <h2 className="font-bold text-white tracking-wide text-sm uppercase">
                   Order Summary
                 </h2>
@@ -286,10 +286,10 @@ export function CartPage() {
                 {cartItems.map((item) => (
                   <div key={item.id} className="flex justify-between items-start gap-3">
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs text-slate-300 truncate">
+                      <p className="text-xs text-blue-100 truncate">
                         {item.content?.title || `Item #${item.content_id}`}
                       </p>
-                      <p className="text-xs text-slate-500">× {item.quantity}</p>
+                      <p className="text-xs text-blue-300">× {item.quantity}</p>
                     </div>
                     <span className="text-xs font-medium text-white flex-shrink-0">
                       {currency}{' '}
@@ -300,20 +300,20 @@ export function CartPage() {
               </div>
 
               {/* Totals */}
-              <div className="px-6 py-4 border-t border-slate-800 space-y-3">
+              <div className="px-6 py-4 border-t border-blue-700 space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-slate-400">Subtotal</span>
+                  <span className="text-sm text-blue-200">Subtotal</span>
                   <span className="text-sm text-white font-medium">
                     {currency} {subtotal.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-slate-400">Taxes & fees</span>
-                  <span className="text-sm text-slate-400">Calculated at checkout</span>
+                  <span className="text-sm text-blue-200">Taxes & fees</span>
+                  <span className="text-sm text-blue-200">Calculated at checkout</span>
                 </div>
-                <div className="pt-3 border-t border-slate-700 flex justify-between items-center">
+                <div className="pt-3 border-t border-blue-600 flex justify-between items-center">
                   <span className="text-base font-bold text-white">Estimated Total</span>
-                  <span className="text-xl font-bold text-amber-400">
+                  <span className="text-xl font-bold text-yellow-500">
                     {currency} {subtotal.toFixed(2)}
                   </span>
                 </div>
@@ -326,7 +326,7 @@ export function CartPage() {
                   whileTap={{ scale: 0.98 }}
                   onClick={handleCheckout}
                   disabled={checkingOut || cartItems.length === 0}
-                  className="w-full flex items-center justify-center gap-2.5 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#09090b] font-bold tracking-widest text-sm uppercase transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-amber-500/20"
+                  className="w-full flex items-center justify-center gap-2.5 py-4 rounded-xl bg-yellow-400 hover:bg-yellow-500 text-[#ffffff] font-bold tracking-widest text-sm uppercase transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-yellow-400/20"
                 >
                   {checkingOut ? (
                     <>
@@ -341,7 +341,7 @@ export function CartPage() {
                     </>
                   )}
                 </motion.button>
-                <p className="text-center text-xs text-slate-500 mt-3">
+                <p className="text-center text-xs text-blue-300 mt-3">
                   Secured by Stripe · SSL Encrypted
                 </p>
               </div>

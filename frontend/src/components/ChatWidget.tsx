@@ -76,7 +76,7 @@ export function ChatWidget() {
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.96 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-24 right-5 z-[60] w-13 h-13 bg-amber-500 hover:bg-amber-400 rounded-sm shadow-lg flex items-center justify-center text-[#09090b] transition-colors"
+        className="fixed bottom-24 right-5 z-[60] w-13 h-13 bg-yellow-400 hover:bg-yellow-500 rounded-sm shadow-lg flex items-center justify-center text-[#ffffff] transition-colors"
         style={{ width: 52, height: 52 }}
         aria-label={isOpen ? "Close chat" : "Open chat"}
       >
@@ -105,21 +105,21 @@ export function ChatWidget() {
             style={{
               width: 360,
               maxHeight: 520,
-              background: "#09090b",
-              border: "0.5px solid #2a2515",
+              background: "#ffffff",
+              border: "0.5px solid #d1d5db",
               borderRadius: 4,
             }}
           >
             {/* Header */}
             <div
               className="flex items-center gap-3 px-4 py-3 border-b flex-shrink-0"
-              style={{ borderColor: "#1e1a12", background: "#0f0e0c" }}
+              style={{ borderColor: "#e5e7eb", background: "#0f0e0c" }}
             >
               <div
-                className="flex items-center justify-center flex-shrink-0 bg-amber-500 rounded-sm"
+                className="flex items-center justify-center flex-shrink-0 bg-yellow-400 rounded-sm"
                 style={{ width: 32, height: 32 }}
               >
-                <Bot size={16} className="text-[#09090b]" />
+                <Bot size={16} className="text-[#ffffff]" />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-[13px] font-bold text-white tracking-wide">
@@ -134,7 +134,7 @@ export function ChatWidget() {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-[#4a3a1a] hover:text-[#9a9080] transition-colors p-1"
+                className="text-[#d1d5db] hover:text-[#6b7280] transition-colors p-1"
               >
                 <X size={15} />
               </button>
@@ -157,15 +157,15 @@ export function ChatWidget() {
                   <div
                     className={`flex-shrink-0 rounded-sm flex items-center justify-center ${
                       msg.role === "user"
-                        ? "bg-amber-500/20"
-                        : "bg-[#1a1813] border border-[#2a2515]"
+                        ? "bg-yellow-400/20"
+                        : "bg-[#f3f4f6] border border-[#d1d5db]"
                     }`}
                     style={{ width: 26, height: 26 }}
                   >
                     {msg.role === "user" ? (
-                      <User size={13} className="text-amber-500" />
+                      <User size={13} className="text-yellow-400" />
                     ) : (
-                      <Bot size={13} className="text-[#6a6055]" />
+                      <Bot size={13} className="text-[#9ca3af]" />
                     )}
                   </div>
 
@@ -173,8 +173,8 @@ export function ChatWidget() {
                   <div
                     className={`max-w-[78%] px-3 py-2.5 text-[12px] leading-relaxed ${
                       msg.role === "user"
-                        ? "bg-amber-500 text-[#09090b] font-medium"
-                        : "text-[#c8c0b0] border border-[#2a2515]"
+                        ? "bg-yellow-400 text-[#ffffff] font-medium"
+                        : "text-[#374151] border border-[#d1d5db]"
                     }`}
                     style={{
                       borderRadius:
@@ -182,16 +182,16 @@ export function ChatWidget() {
                           ? "12px 3px 12px 12px"
                           : "3px 12px 12px 12px",
                       background:
-                        msg.role === "assistant" ? "#111109" : undefined,
+                        msg.role === "assistant" ? "#f9fafb" : undefined,
                     }}
                   >
                     <p className="whitespace-pre-wrap">{msg.message}</p>
                     {msg.sources && msg.sources.length > 0 && (
-                      <div className="mt-2 pt-2 border-t border-[#2a2515] flex flex-wrap gap-1">
+                      <div className="mt-2 pt-2 border-t border-[#d1d5db] flex flex-wrap gap-1">
                         {msg.sources.map((s: string, si: number) => (
                           <span
                             key={si}
-                            className="text-[10px] text-amber-500/60 bg-amber-500/8 px-1.5 py-0.5 rounded-sm"
+                            className="text-[10px] text-yellow-400/60 bg-yellow-400/8 px-1.5 py-0.5 rounded-sm"
                           >
                             {s}
                           </span>
@@ -206,23 +206,23 @@ export function ChatWidget() {
               {isLoading && (
                 <div className="flex gap-2 items-end">
                   <div
-                    className="flex-shrink-0 rounded-sm flex items-center justify-center bg-[#1a1813] border border-[#2a2515]"
+                    className="flex-shrink-0 rounded-sm flex items-center justify-center bg-[#f3f4f6] border border-[#d1d5db]"
                     style={{ width: 26, height: 26 }}
                   >
-                    <Bot size={13} className="text-[#6a6055]" />
+                    <Bot size={13} className="text-[#9ca3af]" />
                   </div>
                   <div
-                    className="px-3 py-2.5 border border-[#2a2515]"
+                    className="px-3 py-2.5 border border-[#d1d5db]"
                     style={{
                       borderRadius: "3px 12px 12px 12px",
-                      background: "#111109",
+                      background: "#f9fafb",
                     }}
                   >
                     <div className="flex gap-1 items-center">
                       {[0, 0.2, 0.4].map((delay, i) => (
                         <div
                           key={i}
-                          className="w-1.5 h-1.5 bg-amber-500/40 rounded-full animate-bounce"
+                          className="w-1.5 h-1.5 bg-yellow-400/40 rounded-full animate-bounce"
                           style={{ animationDelay: `${delay}s` }}
                         />
                       ))}
@@ -236,7 +236,7 @@ export function ChatWidget() {
             {/* Input */}
             <div
               className="p-3 border-t flex-shrink-0"
-              style={{ borderColor: "#1e1a12", background: "#0f0e0c" }}
+              style={{ borderColor: "#e5e7eb", background: "#0f0e0c" }}
             >
               <div className="flex gap-2">
                 <input
@@ -251,20 +251,20 @@ export function ChatWidget() {
                     }
                   }}
                   placeholder={t("chat.placeholder")}
-                  className="flex-1 text-[12px] text-[#c8c0b0] placeholder-[#4a3a1a] outline-none px-3 py-2"
+                  className="flex-1 text-[12px] text-[#374151] placeholder-[#d1d5db] outline-none px-3 py-2"
                   style={{
-                    background: "#111109",
-                    border: "0.5px solid #2a2515",
+                    background: "#f9fafb",
+                    border: "0.5px solid #d1d5db",
                     borderRadius: 4,
                   }}
                 />
                 <button
                   onClick={handleSend}
                   disabled={isLoading || !input.trim()}
-                  className="flex items-center justify-center bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded-sm flex-shrink-0"
+                  className="flex items-center justify-center bg-yellow-400 hover:bg-yellow-500 disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded-sm flex-shrink-0"
                   style={{ width: 36, height: 36 }}
                 >
-                  <Send size={14} className="text-[#09090b]" />
+                  <Send size={14} className="text-[#ffffff]" />
                 </button>
               </div>
             </div>

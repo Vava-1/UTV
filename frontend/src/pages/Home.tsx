@@ -1,352 +1,358 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { HeroSection } from '@/components/HeroSection';
-import { MissionSection } from '@/components/MissionSection';
+import { useTranslation } from 'react-i18next';
 import api from '@/utils/api';
 import { Content } from '@/types';
 import {
-  Music, BookOpen, Calendar, Play, ArrowRight, Users,
-  Award, Globe, Star, ChevronRight, Mail
+  Music, BookOpen, Video, FileText, Calendar, Users, ArrowRight,
+  Play, Sparkles, Heart, Globe, Star, Quote, ChevronDown,
 } from 'lucide-react';
+import { useAudioPlayer } from '@/contexts/AudioPlayerContext';
 
-// ─── Featured Music Section ───────────────────────────────────────────────────
-function FeaturedMusicSection() {
-  const [tracks, setTracks] = useState<Content[]>([]);
+export function Home() {
+  const { t } = useTranslation();
+  const [featured, setFeatured] = useState<Content[]>([]);
+  const [stats, setStats] = useState({ music: 0, books: 0, videos: 0, scores: 0 });
+  const { play } = useAudioPlayer();
 
   useEffect(() => {
-    api.get('/contents?content_type=music&is_featured=true&page_size=6')
-      .then(res => setTracks(res.data.items || []))
-      .catch(() => {});
+    api.get('/contents/featured').then(res => setFeatured(res.data)).catch(() => {});
+    api.get('/contents?content_type=music&page_size=1').then(r => setStats(s => ({ ...s, music: r.data.total }))).catch(() => {});
+    api.get('/contents?content_type=book&page_size=1').then(r => setStats(s => ({ ...s, books: r.data.total }))).catch(() => {});
+    api.get('/contents?content_type=video&page_size=1').then(r => setStats(s => ({ ...s, videos: r.data.total }))).catch(() => {});
+    api.get('/contents?content_type=score&page_size=1').then(r => setStats(s => ({ ...s, scores: r.data.total }))).catch(() => {});
   }, []);
 
-  if (tracks.length === 0) return null;
-
-  return (
-    <section className="py-16 px-4 md:px-8 bg-[#0a0a08]">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-10">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <Music size={18} className="text-amber-500" />
-              <span className="text-xs text-amber-500 tracking-[0.3em] uppercase font-medium">Featured</span>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white font-serif">Selected Compositions</h2>
-          </div>
-          <Link
-            to="/music"
-            className="flex items-center gap-2 text-sm text-amber-500 hover:text-amber-400 transition-colors"
-          >
-            All Music <ArrowRight size={14} />
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {tracks.map((track, i) => (
-            <motion.div
-              key={track.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-            >
-              <Link
-                to="/music"
-                className="group flex items-center gap-4 bg-[#111109] border border-[#1e1a12] rounded-xl p-4 hover:border-amber-500/30 transition-all"
-              >
-                <div className="relative w-14 h-14 rounded-lg bg-[#1a1813] flex-shrink-0 overflow-hidden">
-                  {track.cover_image_url ? (
-                    <img src={track.cover_image_url} alt={track.title} className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <Music size={20} className="text-amber-500/50" />
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Play size={16} className="text-white ml-0.5" />
-                  </div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-white font-medium text-sm truncate">{track.title}</p>
-                  <p className="text-[#6a6055] text-xs mt-0.5 truncate">{track.artist || 'UNA TANTUM VOCE'}</p>
-                  {track.duration && (
-                    <p className="text-[#4a4035] text-xs mt-1">
-                      {Math.floor(track.duration / 60)}:{(track.duration % 60).toString().padStart(2, '0')}
-                    </p>
-                  )}
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Stats Section ────────────────────────────────────────────────────────────
-function StatsSection() {
-  const stats = [
-    { icon: Music, value: '50+', label: 'Compositions' },
-    { icon: BookOpen, value: '12', label: 'Publications' },
-    { icon: Calendar, value: '200+', label: 'Performances' },
-    { icon: Globe, value: '7', label: 'Languages' },
+  const modules = [
+    { icon: Music, title: 'Music', desc: 'Stream classical & gospel performances', path: '/music', color: 'bg-blue-100 text-blue-800' },
+    { icon: Video, title: 'Videos', desc: 'Watch performances & masterclasses', path: '/videos', color: 'bg-yellow-100 text-yellow-800' },
+    { icon: BookOpen, title: 'Books', desc: 'Formative philosophical literature', path: '/books', color: 'bg-blue-100 text-blue-800' },
+    { icon: FileText, title: 'Scores', desc: 'Sheet music for choirs & ensembles', path: '/scores', color: 'bg-yellow-100 text-yellow-800' },
+    { icon: Calendar, title: 'Events', desc: 'Live concerts & ticket purchasing', path: '/concerts', color: 'bg-blue-100 text-blue-800' },
+    { icon: Users, title: 'Community', desc: 'Join our global musical family', path: '/discover', color: 'bg-yellow-100 text-yellow-800' },
   ];
 
   return (
-    <section className="py-16 border-y border-[#1e1a12] bg-[#09090b]">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="text-center"
-            >
-              <stat.icon size={24} className="text-amber-500 mx-auto mb-3" />
-              <div className="text-3xl md:text-4xl font-bold text-white font-serif">{stat.value}</div>
-              <div className="text-[#6a6055] text-sm mt-1 tracking-wider uppercase">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+    <div className="bg-white">
+      {/* ─── HERO SECTION ─────────────────────────────────────────────────── */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
+        {/* Decorative pattern overlay */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
 
-// ─── Upcoming Concerts Section ────────────────────────────────────────────────
-function UpcomingConcertsSection() {
-  const [concerts, setConcerts] = useState<Content[]>([]);
+        {/* Floating musical notes decoration */}
+        <motion.div
+          className="absolute top-20 left-10 text-yellow-400 opacity-30"
+          animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <Music size={48} />
+        </motion.div>
+        <motion.div
+          className="absolute bottom-32 right-16 text-yellow-400 opacity-20"
+          animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <Play size={64} fill="currentColor" />
+        </motion.div>
 
-  useEffect(() => {
-    api.get('/contents?content_type=concert&page_size=3')
-      .then(res => setConcerts(res.data.items || []))
-      .catch(() => {});
-  }, []);
-
-  if (concerts.length === 0) return null;
-
-  return (
-    <section className="py-16 px-4 md:px-8 bg-[#09090b]">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-10">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <Calendar size={18} className="text-amber-500" />
-              <span className="text-xs text-amber-500 tracking-[0.3em] uppercase font-medium">Coming Up</span>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white font-serif">Upcoming Concerts</h2>
-          </div>
-          <Link
-            to="/concerts"
-            className="flex items-center gap-2 text-sm text-amber-500 hover:text-amber-400 transition-colors"
+        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="inline-flex items-center justify-center w-20 h-20 mb-8 bg-yellow-400 rounded-2xl shadow-2xl"
           >
-            All Events <ArrowRight size={14} />
-          </Link>
+            <Music size={40} className="text-blue-900" />
+          </motion.div>
+
+          {/* Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 tracking-tight"
+          >
+            UNA TANTUM VOCE
+          </motion.h1>
+
+          {/* Latin translation */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-yellow-400 text-lg sm:text-xl tracking-[0.3em] uppercase mb-6 font-medium"
+          >
+            One Single Voice
+          </motion.p>
+
+          {/* Tagline */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-xl sm:text-2xl text-blue-100 mb-12 max-w-2xl mx-auto leading-relaxed"
+          >
+            Where classical music meets gospel tradition and formative literature.
+            Music development for all.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Link
+              to="/discover"
+              className="btn-accent text-lg px-8 py-4"
+            >
+              <Sparkles size={20} />
+              Explore the Platform
+              <ArrowRight size={20} />
+            </Link>
+            <Link
+              to="/register"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-200"
+            >
+              Join Our Community
+            </Link>
+          </motion.div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white animate-bounce"
+          >
+            <ChevronDown size={32} />
+          </motion.div>
         </div>
-        <div className="space-y-4">
-          {concerts.map((concert, i) => (
+      </section>
+
+      {/* ─── STATS BAR ────────────────────────────────────────────────────── */}
+      <section className="bg-blue-900 text-white py-12">
+        <div className="container-utv px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <StatCard icon={Music} value={stats.music} label="Music Tracks" />
+            <StatCard icon={BookOpen} value={stats.books} label="Books" />
+            <StatCard icon={Video} value={stats.videos} label="Videos" />
+            <StatCard icon={FileText} value={stats.scores} label="Music Scores" />
+          </div>
+        </div>
+      </section>
+
+      {/* ─── MODULES GRID ─────────────────────────────────────────────────── */}
+      <section className="section">
+        <div className="container-utv">
+          <div className="text-center mb-12">
+            <div className="divider-yellow mx-auto mb-4" />
+            <h2 className="text-heading mb-3">Explore Our Platform</h2>
+            <p className="text-subheading max-w-2xl mx-auto">
+              Six integrated modules bringing together classical music, gospel traditions,
+              philosophical literature, and live performance into one unified experience.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {modules.map((mod, i) => (
+              <motion.div
+                key={mod.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Link
+                  to={mod.path}
+                  className="card p-8 block h-full group"
+                >
+                  <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl mb-4 ${mod.color} group-hover:scale-110 transition-transform`}>
+                    <mod.icon size={28} />
+                  </div>
+                  <h3 className="text-xl font-bold text-blue-900 mb-2">{mod.title}</h3>
+                  <p className="text-gray-600">{mod.desc}</p>
+                  <div className="mt-4 inline-flex items-center gap-1 text-blue-700 font-medium group-hover:gap-2 transition-all">
+                    Explore <ArrowRight size={16} />
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── MISSION SECTION ─────────────────────────────────────────────── */}
+      <section className="bg-blue-50 py-20">
+        <div className="container-utv px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              key={concert.id}
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
             >
-              <Link
-                to="/concerts"
-                className="group flex items-center gap-6 bg-[#111109] border border-[#1e1a12] rounded-xl p-5 hover:border-amber-500/30 transition-all"
-              >
-                {concert.event_date && (
-                  <div className="text-center flex-shrink-0 w-14">
-                    <div className="text-2xl font-bold text-amber-500 font-serif leading-none">
-                      {new Date(concert.event_date).getDate()}
-                    </div>
-                    <div className="text-xs text-[#6a6055] uppercase tracking-wider mt-1">
-                      {new Date(concert.event_date).toLocaleString('default', { month: 'short' })}
-                    </div>
-                  </div>
-                )}
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-white font-semibold group-hover:text-amber-500 transition-colors truncate">
-                    {concert.title}
-                  </h3>
-                  {concert.venue && (
-                    <p className="text-[#6a6055] text-sm mt-1">{concert.venue}</p>
-                  )}
-                </div>
-                <div className="flex items-center gap-3 flex-shrink-0">
-                  {concert.ticket_price && (
-                    <span className="text-amber-500 font-bold">${concert.ticket_price}</span>
-                  )}
-                  <ChevronRight size={16} className="text-[#4a4035] group-hover:text-amber-500 transition-colors" />
-                </div>
-              </Link>
+              <div className="divider-yellow mb-4" />
+              <h2 className="text-heading mb-6">Our Mission</h2>
+              <p className="text-lg text-gray-700 mb-4 leading-relaxed">
+                UNA TANTUM VOCE — Latin for "One Single Voice" — represents the unity of
+                artistic expression and intellectual formation. We bridge the beauty of
+                classical and gospel music with formative philosophical literature.
+              </p>
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+                Our platform serves as a music streaming service, digital library,
+                e-commerce store, concert ticketing hub, and future academy — all dedicated
+                to nurturing both the artistic soul and the formative mind.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <span className="badge-blue"><Heart size={12} /> Classical Music</span>
+                <span className="badge-yellow"><Star size={12} /> Gospel Traditions</span>
+                <span className="badge-blue"><BookOpen size={12} /> Philosophical Literature</span>
+                <span className="badge-yellow"><Globe size={12} /> 8 Languages</span>
+              </div>
             </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
-// ─── Featured Books Section ───────────────────────────────────────────────────
-function FeaturedBooksSection() {
-  const [books, setBooks] = useState<Content[]>([]);
-
-  useEffect(() => {
-    api.get('/contents?content_type=book&page_size=4')
-      .then(res => setBooks(res.data.items || []))
-      .catch(() => {});
-  }, []);
-
-  if (books.length === 0) return null;
-
-  return (
-    <section className="py-16 px-4 md:px-8 bg-[#0a0a08]">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-10">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <BookOpen size={18} className="text-amber-500" />
-              <span className="text-xs text-amber-500 tracking-[0.3em] uppercase font-medium">Publications</span>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white font-serif">Books & Scores</h2>
-          </div>
-          <Link
-            to="/books"
-            className="flex items-center gap-2 text-sm text-amber-500 hover:text-amber-400 transition-colors"
-          >
-            Browse All <ArrowRight size={14} />
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {books.map((book, i) => (
             <motion.div
-              key={book.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              className="relative"
             >
-              <Link
-                to="/books"
-                className="group block bg-[#111109] border border-[#1e1a12] rounded-xl overflow-hidden hover:border-amber-500/30 transition-all"
-              >
-                <div className="aspect-[3/4] bg-[#1a1813] relative overflow-hidden">
-                  {book.cover_image_url ? (
-                    <img
-                      src={book.cover_image_url}
-                      alt={book.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <BookOpen size={32} className="text-amber-500/30" />
-                    </div>
-                  )}
-                  {book.price && (
-                    <div className="absolute top-2 right-2 bg-amber-500 text-[#09090b] text-xs font-bold px-2 py-0.5 rounded-full">
-                      ${book.price}
-                    </div>
-                  )}
+              <div className="card-blue p-8 rounded-2xl">
+                <Quote size={48} className="text-yellow-400 mb-4" />
+                <p className="text-xl text-white leading-relaxed mb-6 italic">
+                  "Music is the divine way to transport the soul to higher realms.
+                  Where words fail, music speaks — Una Tantum Voce, one single voice
+                  uniting humanity across cultures and centuries."
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center">
+                    <Music size={24} className="text-blue-900" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-white">UNA TANTUM VOCE</p>
+                    <p className="text-blue-200 text-sm">Music Development for All</p>
+                  </div>
                 </div>
-                <div className="p-3">
-                  <h3 className="text-white text-sm font-medium truncate">{book.title}</h3>
-                  {book.author && (
-                    <p className="text-[#6a6055] text-xs mt-1 truncate">{book.author}</p>
-                  )}
-                </div>
-              </Link>
+              </div>
             </motion.div>
-          ))}
+          </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-// ─── Newsletter Section ───────────────────────────────────────────────────────
-function NewsletterSection() {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+      {/* ─── FEATURED CONTENT ─────────────────────────────────────────────── */}
+      {featured.length > 0 && (
+        <section className="section">
+          <div className="container-utv">
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <div className="divider-yellow mb-4" />
+                <h2 className="text-heading">Featured Content</h2>
+              </div>
+              <Link to="/discover" className="btn-ghost">
+                View all <ArrowRight size={16} />
+              </Link>
+            </div>
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setStatus('loading');
-    try {
-      await api.post('/newsletter/subscribe', { email });
-      setStatus('success');
-      setEmail('');
-    } catch {
-      setStatus('error');
-    }
-  };
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {featured.slice(0, 4).map((item, i) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="card overflow-hidden group"
+                >
+                  <div className="aspect-square bg-blue-100 overflow-hidden">
+                    {item.cover_image_url ? (
+                      <img
+                        src={item.cover_image_url || undefined}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Music size={48} className="text-blue-300" />
+                      </div>
+                    )}
+                    {item.is_featured && (
+                      <span className="badge-featured absolute top-2 left-2">
+                        <Star size={10} /> Featured
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-bold text-blue-900 line-clamp-2 mb-1">{item.title}</h3>
+                    <p className="text-sm text-gray-500 capitalize">{item.content_type}</p>
+                    {item.content_type === 'music' && item.audio_url && (
+                      <button
+                        onClick={() => play({
+                          id: item.id,
+                          title: item.title,
+                          artist: item.artist || 'UTV',
+                          album: null,
+                          audio_url: item.audio_url,
+                          cover_image_url: item.cover_image_url,
+                          duration: item.duration || 0,
+                        })}
+                        className="mt-3 w-full inline-flex items-center justify-center gap-2 py-2 bg-yellow-400 text-blue-900 font-semibold rounded-lg hover:bg-yellow-500 transition-colors text-sm"
+                      >
+                        <Play size={14} fill="currentColor" /> Play
+                      </button>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
-  return (
-    <section className="py-20 px-4 md:px-8 bg-[#09090b] border-t border-[#1e1a12]">
-      <div className="max-w-2xl mx-auto text-center">
-        <Mail size={32} className="text-amber-500 mx-auto mb-6" />
-        <h2 className="text-2xl md:text-3xl font-bold text-white font-serif mb-3">
-          Stay in the Music
-        </h2>
-        <p className="text-[#6a6055] mb-8 leading-relaxed">
-          Receive updates about new compositions, upcoming concerts, educational resources,
-          and exclusive content directly to your inbox.
-        </p>
-
-        {status === 'success' ? (
+      {/* ─── CTA SECTION ─────────────────────────────────────────────────── */}
+      <section className="gradient-blue py-20 text-white">
+        <div className="container-utv px-4 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
           >
-            <Star size={24} className="text-amber-500 mx-auto mb-2" />
-            <p className="text-amber-500 font-semibold">Thank you for subscribing!</p>
-            <p className="text-[#6a6055] text-sm mt-1">Check your inbox for a welcome message.</p>
+            <h2 className="text-4xl sm:text-5xl font-serif font-bold mb-4">
+              Join Our Musical Journey
+            </h2>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Create an account to access exclusive content, purchase books and scores,
+              and register for upcoming concerts.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/register" className="btn-accent text-lg px-8 py-4">
+                <Sparkles size={20} />
+                Create Free Account
+              </Link>
+              <Link
+                to="/about"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-900 transition-all"
+              >
+                Learn More About Us
+              </Link>
+            </div>
           </motion.div>
-        ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="Enter your email address"
-              required
-              className="flex-1 bg-[#111109] border border-[#2a2515] rounded-lg px-4 py-3 text-sm text-white placeholder-[#4a4035] focus:outline-none focus:border-amber-500/50 transition-colors"
-            />
-            <button
-              type="submit"
-              disabled={status === 'loading'}
-              className="px-6 py-3 bg-amber-500 text-[#09090b] font-bold text-sm tracking-wider rounded-lg hover:bg-amber-400 transition-colors disabled:opacity-50 whitespace-nowrap"
-            >
-              {status === 'loading' ? 'SUBSCRIBING...' : 'SUBSCRIBE'}
-            </button>
-          </form>
-        )}
-
-        {status === 'error' && (
-          <p className="text-red-400 text-sm mt-3">Something went wrong. Please try again.</p>
-        )}
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   );
 }
 
-// ─── Home Page ────────────────────────────────────────────────────────────────
-export function Home() {
+function StatCard({ icon: Icon, value, label }: { icon: any; value: number; label: string }) {
   return (
     <div>
-      <HeroSection />
-      <StatsSection />
-      <MissionSection />
-      <FeaturedMusicSection />
-      <UpcomingConcertsSection />
-      <FeaturedBooksSection />
-      <NewsletterSection />
+      <Icon className="mx-auto mb-2 text-yellow-400" size={32} />
+      <p className="text-3xl font-bold">{value}</p>
+      <p className="text-blue-200 text-sm">{label}</p>
     </div>
   );
 }

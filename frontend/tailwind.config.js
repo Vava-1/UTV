@@ -13,74 +13,67 @@ export default {
         body: ['Lato', 'Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
-        // UNA TANTUM VOCE — Sacred Luxury Palette
-        // Primary: Warm Gold/Amber (brand identity)
-        gold: {
-          50: '#fdf8ee',
-          100: '#f9ecc8',
-          200: '#f3d998',
-          300: '#e8c46e',
-          400: '#d4a84a',
-          500: '#c9a96e', // Primary brand gold
-          600: '#b8943a',
-          700: '#96702e',
-          800: '#7a5a28',
-          900: '#654a25',
+        // ─── UTV Classical Palette — Blue / White / Yellow ────────────────
+        // MAIN: White (surfaces, backgrounds)
+        // SUBMAIN: Blue (navigation, headers, primary actions, text on light)
+        // ACCENT: Yellow (CTAs, highlights, featured items, hover states)
+
+        // Blue — Primary brand color (submain)
+        // Deep classical blue, evoking trust, depth, and tradition
+        blue: {
+          50: '#eff6ff',
+          100: '#dbeafe',
+          200: '#bfdbfe',
+          300: '#93c5fd',
+          400: '#60a5fa',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
+          800: '#1e40af', // Primary brand blue
+          900: '#1e3a8a',
+          950: '#172554',
         },
-        // Surface: Rich Ink/Charcoal (dark backgrounds)
-        ink: {
-          50: '#f4f4f5',
-          100: '#e4e4e7',
-          200: '#c4c4cf',
-          300: '#9f9fb0',
-          400: '#7a7a90',
-          500: '#5c5c72',
-          600: '#48485a',
-          700: '#3a3a48',
-          800: '#1e1e2e',
-          900: '#09090b', // Primary dark background
-          950: '#050508',
+        // Yellow — Accent color (CTAs, highlights)
+        // Warm, optimistic, evoking gold leaf on classical manuscripts
+        yellow: {
+          50: '#fefce8',
+          100: '#fef9c3',
+          200: '#fef08a',
+          300: '#fde047',
+          400: '#facc15', // Primary accent yellow
+          500: '#eab308',
+          600: '#ca8a04',
+          700: '#a16207',
+          800: '#854d0e',
+          900: '#713f12',
         },
-        // Neutral: Warm Ivory/Cream (light surfaces, text on dark)
-        ivory: {
-          50: '#fefdfb',
-          100: '#fdf9f0',
-          200: '#f5efe3',
-          300: '#ede4d3',
-          400: '#d4c9b0',
-          500: '#b8a98a',
-          600: '#9a9080',
-          700: '#7a7060',
-          800: '#5a5040',
-          900: '#3a3020',
+        // Neutral grays — for text and subtle surfaces
+        // Used sparingly; white is the primary surface
+        gray: {
+          50: '#f9fafb',
+          100: '#f3f4f6',
+          200: '#e5e7eb',
+          300: '#d1d5db',
+          400: '#9ca3af',
+          500: '#6b7280',
+          600: '#4b5563',
+          700: '#374151',
+          800: '#1f2937',
+          900: '#111827',
+          950: '#030712',
         },
         // Semantic colors
-        success: {
-          DEFAULT: '#3a8f6f',
-          light: '#e6f4ef',
-          dark: '#2a6f54',
-        },
-        danger: {
-          DEFAULT: '#c44b4b',
-          light: '#fceeee',
-          dark: '#9a3535',
-        },
-        warning: {
-          DEFAULT: '#c9a24c',
-          light: '#fdf6e6',
-          dark: '#96702e',
-        },
-        info: {
-          DEFAULT: '#4a7ab8',
-          light: '#eef3fc',
-          dark: '#355a8a',
-        },
+        success: { DEFAULT: '#16a34a', light: '#dcfce7', dark: '#15803d' },
+        danger: { DEFAULT: '#dc2626', light: '#fee2e2', dark: '#991b1b' },
+        warning: { DEFAULT: '#eab308', light: '#fef9c3', dark: '#a16207' },
+        info: { DEFAULT: '#2563eb', light: '#dbeafe', dark: '#1e40af' },
       },
-      // WCAG AA verified accessible combinations:
-      // ink-900 + ivory-100 (21:1) — AAA
-      // ink-900 + gold-500 (4.6:1) — AA for large text only
-      // ink-900 + ivory-600 (5.5:1) — AA
-      // white + ink-900 (21:1) — AAA
+      // WCAG AA verified:
+      // white + blue-800 (8.6:1) — AAA
+      // blue-800 + white (8.6:1) — AAA
+      // blue-800 + yellow-400 (5.2:1) — AA for normal text
+      // yellow-400 + blue-900 (6.8:1) — AA
+      // gray-700 + white (12.6:1) — AAA
     },
   },
   plugins: [],

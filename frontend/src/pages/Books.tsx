@@ -43,12 +43,12 @@ export function BooksPage() {
       <PageWrapper title={t('nav.books')} subtitle={t('books.subtitle')} icon={<BookOpen size={32} />}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <div key={i} className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden animate-pulse">
-              <div className="aspect-[3/4] bg-slate-800" />
+            <div key={i} className="bg-blue-900 rounded-xl border border-blue-700 overflow-hidden animate-pulse">
+              <div className="aspect-[3/4] bg-blue-800" />
               <div className="p-4 space-y-3">
-                <div className="h-4 bg-slate-800 rounded w-3/4" />
-                <div className="h-3 bg-slate-800 rounded w-1/2" />
-                <div className="h-8 bg-slate-800 rounded" />
+                <div className="h-4 bg-blue-800 rounded w-3/4" />
+                <div className="h-3 bg-blue-800 rounded w-1/2" />
+                <div className="h-8 bg-blue-800 rounded" />
               </div>
             </div>
           ))}
@@ -61,13 +61,13 @@ export function BooksPage() {
     <PageWrapper title={t('nav.books')} subtitle={t('books.subtitle')} icon={<BookOpen size={32} />}>
       <div className="space-y-6">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-300" />
           <input 
             type="text" 
             value={searchQuery} 
             onChange={e => setSearchQuery(e.target.value)} 
             placeholder={t('books.searchPlaceholder')} 
-            className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500/50" 
+            className="w-full max-w-md bg-blue-900 border border-blue-700 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500/50" 
           />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -77,9 +77,9 @@ export function BooksPage() {
               initial={{ opacity: 0, y: 20 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ delay: i * 0.05 }}
-              className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden hover:border-slate-700 transition-all group"
+              className="bg-blue-900 rounded-xl border border-blue-700 overflow-hidden hover:border-blue-600 transition-all group"
             >
-              <div className="aspect-[3/4] relative overflow-hidden bg-slate-800">
+              <div className="aspect-[3/4] relative overflow-hidden bg-blue-800">
                 <img 
                   src={book.cover_image_url || '/default-book.jpg'} 
                   alt={book.title}
@@ -90,8 +90,8 @@ export function BooksPage() {
               </div>
               <div className="p-4">
                 <h3 className="font-semibold text-white mb-1 line-clamp-2">{book.title}</h3>
-                {book.author && <p className="text-sm text-slate-400 flex items-center gap-1 mb-2"><User size={12} /> {book.author}</p>}
-                {book.publisher && <p className="text-xs text-slate-500 flex items-center gap-1 mb-2"><Building size={12} /> {book.publisher}</p>}
+                {book.author && <p className="text-sm text-blue-200 flex items-center gap-1 mb-2"><User size={12} /> {book.author}</p>}
+                {book.publisher && <p className="text-xs text-blue-300 flex items-center gap-1 mb-2"><Building size={12} /> {book.publisher}</p>}
                 <div className="flex gap-2">
                   {book.price ? (
                     <button 
@@ -103,7 +103,7 @@ export function BooksPage() {
                   ) : (
                     <button 
                       onClick={() => addToCart(book.id)} 
-                      className="flex-1 py-2 bg-slate-800 text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-700 transition-colors flex items-center justify-center gap-2"
+                      className="flex-1 py-2 bg-blue-800 text-blue-100 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
                     >
                       <Download size={14} /> {t('books.download')}
                     </button>
@@ -123,13 +123,13 @@ export function BooksPage() {
               <BookOpen size={48} className="text-emerald-500/50" />
             </div>
             <h3 className="text-xl font-semibold text-white mb-2">{t('books.empty.title', 'No Books Found')}</h3>
-            <p className="text-slate-400 text-center max-w-md mb-8">
+            <p className="text-blue-200 text-center max-w-md mb-8">
               {searchQuery ? t('books.empty.search', 'No books match your search criteria.') : t('books.empty.description', 'Our book collection is being curated. Check back soon for educational and formative literature.')}
             </p>
             {searchQuery && (
               <button 
                 onClick={() => setSearchQuery('')}
-                className="px-6 py-3 bg-slate-800 text-white rounded-lg font-medium hover:bg-slate-700 transition-all flex items-center gap-2"
+                className="px-6 py-3 bg-blue-800 text-white rounded-lg font-medium hover:bg-blue-700 transition-all flex items-center gap-2"
               >
                 <Compass size={18} />
                 {t('books.empty.clearSearch', 'Clear Search')}

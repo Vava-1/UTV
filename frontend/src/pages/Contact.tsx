@@ -18,7 +18,7 @@ export function Contact() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-white pt-16">
+    <div className="min-h-screen bg-[#ffffff] text-white pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Header */}
         <motion.div
@@ -28,9 +28,9 @@ export function Contact() {
           className="text-center mb-16"
         >
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 font-serif">
-            Get in <span className="text-amber-500">Touch</span>
+            Get in <span className="text-yellow-400">Touch</span>
           </h1>
-          <p className="text-xl text-[#9a9080] max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-[#6b7280] max-w-3xl mx-auto leading-relaxed">
             We'd love to hear from you. Whether you have questions about our music, 
             want to collaborate, or need support, we're here to help.
           </p>
@@ -43,37 +43,37 @@ export function Contact() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="bg-[#111109] border border-[#1e1a12] rounded-lg p-8">
+            <div className="bg-[#f9fafb] border border-[#e5e7eb] rounded-lg p-8">
               <h2 className="text-2xl font-bold text-white mb-6">Send us a Message</h2>
               
               <form className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-[#c8c0b0] mb-2">
+                  <label className="block text-sm font-medium text-[#374151] mb-2">
                     Name
                   </label>
                   <input
                     type="text"
-                    className="w-full bg-[#09090b] border border-[#1e1a12] rounded-lg px-4 py-3 text-white placeholder-[#6a6055] focus:outline-none focus:border-amber-500 transition-colors"
+                    className="w-full bg-[#ffffff] border border-[#e5e7eb] rounded-lg px-4 py-3 text-white placeholder-[#9ca3af] focus:outline-none focus:border-yellow-400 transition-colors"
                     placeholder="Your name"
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-[#c8c0b0] mb-2">
+                  <label className="block text-sm font-medium text-[#374151] mb-2">
                     Email
                   </label>
                   <input
                     type="email"
-                    className="w-full bg-[#09090b] border border-[#1e1a12] rounded-lg px-4 py-3 text-white placeholder-[#6a6055] focus:outline-none focus:border-amber-500 transition-colors"
+                    className="w-full bg-[#ffffff] border border-[#e5e7eb] rounded-lg px-4 py-3 text-white placeholder-[#9ca3af] focus:outline-none focus:border-yellow-400 transition-colors"
                     placeholder="your@email.com"
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-[#c8c0b0] mb-2">
+                  <label className="block text-sm font-medium text-[#374151] mb-2">
                     Subject
                   </label>
-                  <select className="w-full bg-[#09090b] border border-[#1e1a12] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors">
+                  <select className="w-full bg-[#ffffff] border border-[#e5e7eb] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-yellow-400 transition-colors">
                     <option value="">Select a subject</option>
                     <option value="general">General Inquiry</option>
                     <option value="support">Need for Support</option>
@@ -84,19 +84,19 @@ export function Contact() {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-[#c8c0b0] mb-2">
+                  <label className="block text-sm font-medium text-[#374151] mb-2">
                     Message
                   </label>
                   <textarea
                     rows={6}
-                    className="w-full bg-[#09090b] border border-[#1e1a12] rounded-lg px-4 py-3 text-white placeholder-[#6a6055] focus:outline-none focus:border-amber-500 transition-colors resize-none"
+                    className="w-full bg-[#ffffff] border border-[#e5e7eb] rounded-lg px-4 py-3 text-white placeholder-[#9ca3af] focus:outline-none focus:border-yellow-400 transition-colors resize-none"
                     placeholder="Your message..."
                   />
                 </div>
                 
                 <button
                   type="submit"
-                  className="w-full bg-amber-500 hover:bg-amber-400 text-[#09090b] font-bold tracking-wider py-3 rounded-lg transition-colors"
+                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-[#ffffff] font-bold tracking-wider py-3 rounded-lg transition-colors"
                 >
                   Send Message
                 </button>
@@ -112,7 +112,7 @@ export function Contact() {
             className="space-y-8"
           >
             {/* Contact Info */}
-            <div className="bg-[#111109] border border-[#1e1a12] rounded-lg p-8">
+            <div className="bg-[#f9fafb] border border-[#e5e7eb] rounded-lg p-8">
               <h2 className="text-2xl font-bold text-white mb-6">Contact Information</h2>
               
               <div className="space-y-4">
@@ -120,14 +120,14 @@ export function Contact() {
                   <a
                     key={index}
                     href={info.href}
-                    className="flex items-center gap-4 p-4 bg-[#09090b] border border-[#1e1a12] rounded-lg hover:border-amber-500/50 transition-colors group"
+                    className="flex items-center gap-4 p-4 bg-[#ffffff] border border-[#e5e7eb] rounded-lg hover:border-yellow-400/50 transition-colors group"
                   >
-                    <div className="w-12 h-12 bg-amber-500/10 rounded-full flex items-center justify-center">
-                      <info.icon size={20} className="text-amber-500" />
+                    <div className="w-12 h-12 bg-yellow-400/10 rounded-full flex items-center justify-center">
+                      <info.icon size={20} className="text-yellow-400" />
                     </div>
                     <div>
-                      <p className="text-sm text-[#6a6055]">{info.label}</p>
-                      <p className="text-white group-hover:text-amber-500 transition-colors">
+                      <p className="text-sm text-[#9ca3af]">{info.label}</p>
+                      <p className="text-white group-hover:text-yellow-400 transition-colors">
                         {info.value}
                       </p>
                     </div>
@@ -137,7 +137,7 @@ export function Contact() {
             </div>
 
             {/* Social Media */}
-            <div className="bg-[#111109] border border-[#1e1a12] rounded-lg p-8">
+            <div className="bg-[#f9fafb] border border-[#e5e7eb] rounded-lg p-8">
               <h2 className="text-2xl font-bold text-white mb-6">Connect With Us</h2>
               
               <div className="grid grid-cols-2 gap-4">
@@ -147,10 +147,10 @@ export function Contact() {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-4 bg-[#09090b] border border-[#1e1a12] rounded-lg hover:border-amber-500/50 transition-colors group"
+                    className="flex items-center gap-3 p-4 bg-[#ffffff] border border-[#e5e7eb] rounded-lg hover:border-yellow-400/50 transition-colors group"
                   >
-                    <social.icon size={20} className="text-amber-500" />
-                    <span className="text-white group-hover:text-amber-500 transition-colors">
+                    <social.icon size={20} className="text-yellow-400" />
+                    <span className="text-white group-hover:text-yellow-400 transition-colors">
                       {social.name}
                     </span>
                   </a>
@@ -159,16 +159,16 @@ export function Contact() {
             </div>
 
             {/* Need for Support CTA */}
-            <div className="bg-gradient-to-r from-amber-500/10 to-amber-500/5 border border-amber-500/30 rounded-lg p-8">
+            <div className="bg-gradient-to-r from-yellow-400/10 to-yellow-400/5 border border-yellow-400/30 rounded-lg p-8">
               <div className="flex items-center gap-4 mb-4">
-                <MessageCircle size={24} className="text-amber-500" />
+                <MessageCircle size={24} className="text-yellow-400" />
                 <h3 className="text-xl font-bold text-white">Need for Support?</h3>
               </div>
-              <p className="text-[#c8c0b0] mb-6">
+              <p className="text-[#374151] mb-6">
                 Our dedicated support team is available 24/7 to help you with any questions or issues. 
                 Don't hesitate to reach out!
               </p>
-              <button className="bg-amber-500 hover:bg-amber-400 text-[#09090b] font-bold tracking-wider px-6 py-3 rounded-lg transition-colors">
+              <button className="bg-yellow-400 hover:bg-yellow-500 text-[#ffffff] font-bold tracking-wider px-6 py-3 rounded-lg transition-colors">
                 Get Support
               </button>
             </div>
