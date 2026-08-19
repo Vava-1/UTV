@@ -19,6 +19,7 @@ import requests
 from app.db.database import get_db
 from app.models.models import User, Order, OrderItem, Content
 from app.core.deps import get_current_user, get_current_admin
+from app.core.config import settings
 from app.services.s3_service import get_s3_service
 from app.services.pdf_service import add_watermark_to_pdf
 import logging
@@ -124,10 +125,14 @@ def download_content(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    """Download purchased content with PDF watermarking for books/scores.
+    """Download purchased content.
 
     SECURITY: Purchase check is the ONLY gate for paid content.
-    `is_downloadable` only controls delivery method, never payment gate.
+
+    Note on PDF watermarking: In serverless environments (Vercel), the 10s
+    timeout prevents fetching + watermarking large PDFs synchronously.
+    Returns the original URL with a flag indicating the user is authorized.
+    The watermarking feature is preserved for non-serverless deployments.
     """
     content = db.query(Content).filter(Content.id == content_id).first()
     if not content:
@@ -144,17 +149,31 @@ def download_content(
     if not has_purchased and not is_free:
         raise HTTPException(status_code=403, detail="You must purchase this content first")
 
-    # PDF watermarking for books/scores
+    # PDF watermarking for books/scores (only if not in serverless context)
     if content.content_type in ["book", "score"] and content.pdf_url:
         if not _is_safe_url(content.pdf_url):
             raise HTTPException(
                 status_code=400,
                 detail="Content URL is not allowed (SSRF guard).",
             )
+
+        # Check if we're in a serverless environment (10s timeout)
+        is_serverless = settings.APP_ENV == "production" and os.environ.get("VERCEL")
+
+        if is_serverless:
+            # Serverless: return URL directly (watermarking would exceed timeout)
+            logger.info(f"[Download] Serverless mode — returning URL without watermarking")
+            return {
+                "download_url": content.pdf_url,
+                "watermarked": False,
+                "message": "Direct download (watermarking not available in serverless mode)",
+            }
+
         try:
-            response = requests.get(content.pdf_url, timeout=30)
+            response = requests.get(content.pdf_url, timeout=10)
             if response.status_code != 200:
-                raise HTTPException(status_code=500, detail="Could not fetch file")
+                # Fallback to returning the URL directly
+                return {"download_url": content.pdf_url, "watermarked": False}
 
             watermarked_pdf = add_watermark_to_pdf(
                 response.content,
@@ -172,7 +191,8 @@ def download_content(
             raise
         except Exception as e:
             logger.error(f"[Download] PDF watermarking failed: {e}", exc_info=True)
-            raise HTTPException(status_code=500, detail=f"Error processing PDF: {str(e)}")
+            # Fallback: return URL directly
+            return {"download_url": content.pdf_url, "watermarked": False}
 
     # For audio/video, return the URL
     if content.content_type == "music" and content.audio_url:

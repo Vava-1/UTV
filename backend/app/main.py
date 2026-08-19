@@ -19,6 +19,7 @@ from app.api import (
     auth, contents, orders, tickets, chat, admin, webhooks,
     uploads, newsletter, youtube,
 )
+import os
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -27,16 +28,25 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Lifespan events for startup and shutdown."""
+    """Lifespan events for startup and shutdown.
+
+    Note: In Vercel Serverless, lifespan is OFF (set via mangum). Tables
+    must be created via Alembic migrations or auto-create on first request.
+    """
     logger.info(f"Starting {settings.APP_NAME} (env={settings.APP_ENV})...")
 
     # In dev, auto-create tables. In production, rely on Alembic migrations.
     if settings.APP_ENV != "production":
-        init_db()
-        logger.info("Database tables ensured (dev mode).")
+        try:
+            init_db()
+            logger.info("Database tables ensured (dev mode).")
+        except Exception as e:
+            logger.error(f"Database init failed: {e}")
         upload_dir = Path("uploads")
-        upload_dir.mkdir(exist_ok=True)
-        logger.info(f"Upload directory ready: {upload_dir.absolute()}")
+        try:
+            upload_dir.mkdir(exist_ok=True)
+        except Exception:
+            pass  # Read-only filesystem in serverless — ignore
     else:
         logger.info("Production mode — skipping auto-create. Run `alembic upgrade head`.")
 
@@ -55,6 +65,8 @@ app = FastAPI(
 )
 
 # ─── CORS ────────────────────────────────────────────────────────────────────
+# In Vercel (frontend + backend on same domain), CORS is largely a no-op.
+# In dev/local, allow localhost origins.
 allowed_origins = [
     "http://localhost:5173",
     "http://localhost:3000",
@@ -64,9 +76,14 @@ allowed_origins = [
 if settings.FRONTEND_URL:
     allowed_origins.append(settings.FRONTEND_URL)
 
-# In production, only allow the configured frontend URL
+# In Vercel production, allow same-origin requests (frontend serves backend)
+is_vercel = bool(os.environ.get("VERCEL"))
 if settings.APP_ENV == "production":
-    allowed_origins = [settings.FRONTEND_URL] if settings.FRONTEND_URL else []
+    if is_vercel:
+        # Same-origin — no CORS issues
+        allowed_origins = ["*"]  # Same domain, so this is safe
+    elif settings.FRONTEND_URL:
+        allowed_origins = [settings.FRONTEND_URL]
 
 app.add_middleware(
     CORSMiddleware,

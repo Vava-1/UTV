@@ -33,5 +33,20 @@ def get_db() -> Session:
 
 
 def init_db():
-    """Create all tables"""
+    """Create all tables (idempotent — safe to call multiple times)"""
     Base.metadata.create_all(bind=engine)
+
+
+def ensure_tables_exist():
+    """Serverless-friendly table creation. Called on cold start.
+
+    Idempotent — only creates tables that don't exist. Won't drop or modify
+    existing tables (use Alembic for migrations).
+    """
+    try:
+        Base.metadata.create_all(bind=engine)
+        return True
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).error(f"[DB] ensure_tables_exist failed: {e}")
+        return False
