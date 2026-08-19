@@ -105,7 +105,7 @@ export function OrdersPage() {
                   <div className="flex-1 min-w-0">
                     <p className="text-white font-medium truncate">{item.content?.title || `Item #${item.content_id}`}</p>
                     {item.content?.author && <p className="text-sm text-slate-500 mt-0.5">{item.content.author}</p>}
-                    <p className="text-xs text-slate-600 mt-1 capitalize">{item.content?.content_type} · Qty: {item.quantity}</p>
+                    <p className="text-xs text-slate-600 mt-1 capitalize">{item.content?.content_type} | Qty: {item.quantity}</p>
                   </div>
 
                   {/* Price + Download */}

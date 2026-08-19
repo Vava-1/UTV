@@ -22,7 +22,7 @@ export function AboutPage() {
             <Music size={40} className="text-yellow-400" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">UNA TANTUM VOCE</h1>
-          <p className="text-xl text-blue-200 max-w-2xl mx-auto">"One Single Voice" — An integrated artistic and educational initiative bridging classical music, gospel traditions, and formative philosophical literature.</p>
+          <p className="text-xl text-blue-200 max-w-2xl mx-auto">"One Single Voice", An integrated artistic and educational initiative bridging classical music, gospel traditions, and formative philosophical literature.</p>
         </motion.div>
       </section>
       <section className="bg-blue-900 rounded-2xl border border-blue-700 p-8 md:p-12">
@@ -54,7 +54,7 @@ export function AboutPage() {
           <Award size={32} className="text-yellow-400 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-white mb-4">The Future Academy</h2>
           <p className="text-blue-100 leading-relaxed">
-            The UTV Academy will offer courses in music theory, vocal technique, conducting, and philosophical formation — 
+            The UTV Academy will offer courses in music theory, vocal technique, conducting, and philosophical formation, 
             creating a global community where classical and gospel music enthusiasts can discover, learn, and grow together.
           </p>
         </div>

@@ -338,7 +338,7 @@ function UsersTab() {
                     <div className="w-7 h-7 bg-blue-700 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-semibold text-white">
                       {(u.full_name || u.email || '?')[0].toUpperCase()}
                     </div>
-                    <span className="text-white truncate max-w-[140px]">{u.full_name || '—'}</span>
+                    <span className="text-white truncate max-w-[140px]">{u.full_name || '-'}</span>
                   </div>
                 </td>
                 <td className="px-4 py-3 text-blue-200 text-xs">{u.email}</td>
@@ -545,7 +545,7 @@ function VideosTab() {
             />
             <input
               type="text"
-              placeholder="Video title (optional — auto-generated for YouTube)"
+              placeholder="Video title (optional, auto-generated for YouTube)"
               value={videoTitle}
               onChange={e => setVideoTitle(e.target.value)}
               className="w-full bg-blue-800 border border-blue-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-yellow-400/60"
@@ -589,7 +589,7 @@ function VideosTab() {
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-white truncate">{v.title}</p>
                 <p className="text-xs text-blue-300">
-                  {v.platform === 'youtube' ? 'YouTube' : v.platform || 'Direct'} · {v.youtube_id || 'No ID'}
+                  {v.platform === 'youtube' ? 'YouTube' : v.platform || 'Direct'} | {v.youtube_id || 'No ID'}
                 </p>
               </div>
               <span className={`text-xs px-2 py-0.5 rounded-full ${v.is_published ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-700 text-blue-200'}`}>
@@ -840,7 +840,7 @@ export function AdminPage() {
                 <div key={s.id} className="flex items-center justify-between px-4 py-3">
                   <div>
                     <p className="text-sm text-white">{s.name || s.email}</p>
-                    <p className="text-xs text-blue-300">{s.email} · {s.language}</p>
+                    <p className="text-xs text-blue-300">{s.email} | {s.language}</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <span className={`text-xs px-2 py-0.5 rounded-full ${s.is_active ? 'bg-emerald-500/20 text-emerald-400' : 'bg-blue-700 text-blue-200'}`}>
@@ -878,7 +878,7 @@ export function AdminPage() {
               {orders.map(o => (
                 <tr key={o.id} className="border-b border-blue-700/50 hover:bg-blue-800/30">
                   <td className="px-4 py-3 text-blue-200">#{o.id}</td>
-                  <td className="px-4 py-3"><p className="text-white">{o.customer_name || '—'}</p><p className="text-xs text-blue-300">{o.customer_email}</p></td>
+                  <td className="px-4 py-3"><p className="text-white">{o.customer_name || '-'}</p><p className="text-xs text-blue-300">{o.customer_email}</p></td>
                   <td className="px-4 py-3 font-medium text-emerald-400">${o.total_amount}</td>
                   <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -946,7 +946,7 @@ function NewsletterComposer() {
           className="flex items-center gap-2 px-5 py-2.5 bg-yellow-400 text-slate-900 font-bold rounded-lg text-sm hover:bg-yellow-500 transition-colors disabled:opacity-50">
           <Send size={14} />{status === 'sending' ? 'Sending...' : 'Send to All Subscribers'}
         </button>
-        {status === 'done' && result && <p className="text-sm text-emerald-400">Sent: {result.sent} · Failed: {result.failed}</p>}
+        {status === 'done' && result && <p className="text-sm text-emerald-400">Sent: {result.sent} | Failed: {result.failed}</p>}
         {status === 'error' && <p className="text-sm text-red-400">Send failed. Check email config.</p>}
       </div>
     </div>

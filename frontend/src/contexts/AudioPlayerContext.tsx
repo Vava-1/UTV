@@ -35,7 +35,7 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
     duration: 0, volume: 0.8, queue: [], currentIndex: -1, isExpanded: false,
   });
 
-  // Real audio element — the previous version had no <audio>, so Play did nothing
+  // Real audio element, the previous version had no <audio>, so Play did nothing
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Create the audio element once

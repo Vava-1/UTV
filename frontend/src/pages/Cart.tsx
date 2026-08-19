@@ -207,7 +207,7 @@ export function CartPage() {
                         {item.content?.author ||
                           item.content?.artist ||
                           item.content?.publisher ||
-                          '—'}
+                          '-'}
                       </p>
                       <p className="text-xs text-yellow-500 font-medium mt-1">
                         {item.content?.currency || 'USD'}{' '}
@@ -342,7 +342,7 @@ export function CartPage() {
                   )}
                 </motion.button>
                 <p className="text-center text-xs text-blue-300 mt-3">
-                  Secured by Stripe · SSL Encrypted
+                  Secured by Stripe | SSL Encrypted
                 </p>
               </div>
             </div>

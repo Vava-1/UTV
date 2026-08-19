@@ -178,7 +178,7 @@ export function OrderSuccessPage() {
             transition={{ delay: 0.9 }}
             className="text-xs text-slate-600 mt-8"
           >
-            Powered by Stripe · All transactions are secure and encrypted
+            Powered by Stripe | All transactions are secure and encrypted
           </motion.p>
         </motion.div>
       </div>

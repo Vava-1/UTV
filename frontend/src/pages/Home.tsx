@@ -60,7 +60,7 @@ export function Home() {
         </motion.div>
 
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-          {/* Logo — uses image */}
+          {/* Logo, uses image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -74,7 +74,7 @@ export function Home() {
             />
           </motion.div>
 
-          {/* Title — with typewriter animation */}
+          {/* Title, with typewriter animation */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

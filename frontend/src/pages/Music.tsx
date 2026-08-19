@@ -138,7 +138,7 @@ export function MusicPage() {
                     </p>
                     <p className="text-sm text-gray-500 truncate">
                       {track.artist || 'UNA TANTUM VOCE'}
-                      {track.album && ` · ${track.album}`}
+                      {track.album && ` | ${track.album}`}
                     </p>
                   </div>
 

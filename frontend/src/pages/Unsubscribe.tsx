@@ -129,7 +129,7 @@ export function UnsubscribePage() {
                   {pageState === 'loading' ? (
                     <>
                       <Loader2 size={15} className="animate-spin" />
-                      Processing…
+                      Processing...
                     </>
                   ) : (
                     <>

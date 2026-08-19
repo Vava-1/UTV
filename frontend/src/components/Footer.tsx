@@ -133,7 +133,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-10 pt-6 border-t border-blue-800 text-center">
           <p className="text-blue-300 text-sm">
-            {t('footer.rights')} · {t('footer.rightsTagline')}
+            {t('footer.rights')} | {t('footer.rightsTagline')}
           </p>
         </div>
       </div>
