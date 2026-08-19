@@ -4,9 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
 import api from '@/utils/api';
+import { UTVLogo } from './UTVLogo';
 import {
-  Music, Menu, X, Globe, User, LogIn, LogOut, ShoppingCart,
-  ChevronDown, Shield, Home as HomeIcon,
+  Menu, X, Globe, User, LogIn, LogOut, ShoppingCart,
+  ChevronDown, Shield, Home as HomeIcon, Video, Music,
+  FileText, Calendar, Info,
 } from 'lucide-react';
 
 const languages = [
@@ -20,11 +22,12 @@ const languages = [
   { code: 'sw', name: 'Kiswahili' },
 ];
 
+// Requested nav: Home, Videos, Audios, Sheets, Events, About
 const navItems = [
-  { path: '/music', label: 'Music' },
+  { path: '/', label: 'Home' },
   { path: '/videos', label: 'Videos' },
-  { path: '/books', label: 'Books' },
-  { path: '/scores', label: 'Scores' },
+  { path: '/music', label: 'Audios' },
+  { path: '/scores', label: 'Sheets' },
   { path: '/concerts', label: 'Events' },
   { path: '/about', label: 'About' },
 ];
@@ -55,15 +58,18 @@ function Navbar() {
 
   const currentLang = languages.find(l => l.code === i18n.language)?.name || 'English';
 
+  const isActive = (path: string) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname.startsWith(path);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 bg-blue-800 rounded-lg flex items-center justify-center group-hover:bg-blue-900 transition-colors">
-              <Music size={20} className="text-yellow-400" />
-            </div>
+          {/* Logo + Brand */}
+          <Link to="/" className="flex items-center gap-3 group">
+            <UTVLogo size="default" className="text-yellow-400 group-hover:scale-110 transition-transform" />
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold text-blue-900 tracking-tight font-serif leading-none">
                 UTV
@@ -81,8 +87,8 @@ function Navbar() {
                 key={item.path}
                 to={item.path}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
-                  location.pathname === item.path
-                    ? 'text-blue-800 bg-blue-50'
+                  isActive(item.path)
+                    ? 'text-blue-800 bg-blue-50 border-b-2 border-yellow-400'
                     : 'text-gray-600 hover:text-blue-800 hover:bg-blue-50'
                 }`}
               >
@@ -133,7 +139,11 @@ function Navbar() {
             {isAuthenticated && (
               <Link
                 to="/cart"
-                className="relative p-2 text-gray-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors"
+                className={`relative p-2 rounded-lg transition-colors ${
+                  isActive('/cart')
+                    ? 'text-blue-800 bg-blue-50'
+                    : 'text-gray-600 hover:text-blue-800 hover:bg-blue-50'
+                }`}
               >
                 <ShoppingCart size={20} />
                 {cartCount > 0 && (
@@ -219,15 +229,12 @@ function Navbar() {
               className="md:hidden border-t border-gray-200 overflow-hidden"
             >
               <div className="py-3 space-y-1">
-                <Link to="/" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-800 rounded-lg">
-                  <HomeIcon size={16} /> Home
-                </Link>
                 {navItems.map(item => (
                   <Link
                     key={item.path}
                     to={item.path}
                     className={`flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
-                      location.pathname === item.path
+                      isActive(item.path)
                         ? 'text-blue-800 bg-blue-50 font-medium'
                         : 'text-gray-700 hover:bg-blue-50 hover:text-blue-800'
                     }`}

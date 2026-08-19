@@ -1,23 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Linkedin, Music } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Linkedin } from 'lucide-react';
+import { UTVLogo } from './UTVLogo';
 
 export function Footer() {
   const footerSections = [
     {
       title: 'Explore',
       links: [
-        { label: 'Music', path: '/music' },
+        { label: 'Home', path: '/' },
         { label: 'Videos', path: '/videos' },
-        { label: 'Books', path: '/books' },
-        { label: 'Scores', path: '/scores' },
+        { label: 'Audios', path: '/music' },
+        { label: 'Sheets', path: '/scores' },
         { label: 'Events', path: '/concerts' },
+        { label: 'About', path: '/about' },
       ]
     },
     {
-      title: 'Company',
+      title: 'More',
       links: [
-        { label: 'About Us', path: '/about' },
+        { label: 'Books', path: '/books' },
+        { label: 'Discover', path: '/discover' },
         { label: 'Contact', path: '/contact' },
       ]
     },
@@ -43,10 +46,8 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand + Contact */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-yellow-400 rounded-lg flex items-center justify-center">
-                <Music size={20} className="text-blue-900" />
-              </div>
+            <div className="flex items-center gap-3 mb-4">
+              <UTVLogo size="default" className="text-yellow-400" />
               <div>
                 <h3 className="text-lg font-bold tracking-tight font-serif">UNA TANTUM VOCE</h3>
                 <p className="text-xs text-blue-300 tracking-widest uppercase">Music for All</p>
@@ -77,7 +78,7 @@ export function Footer() {
                   <li key={j}>
                     <Link
                       to={link.path}
-                      className="text-blue-200 hover:text-white hover:text-yellow-400 transition-colors text-sm"
+                      className="text-blue-200 hover:text-yellow-400 transition-colors text-sm"
                     >
                       {link.label}
                     </Link>

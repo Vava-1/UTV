@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import api from '@/utils/api';
 import { Content } from '@/types';
+import { UTVLogo } from '@/components/UTVLogo';
+import { TypewriterText } from '@/components/TypewriterText';
 import {
   Music, BookOpen, Video, FileText, Calendar, Users, ArrowRight,
   Play, Sparkles, Heart, Globe, Star, Quote, ChevronDown,
@@ -59,31 +61,38 @@ export function Home() {
         </motion.div>
 
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-          {/* Logo */}
+          {/* Logo — restored from old version */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="inline-flex items-center justify-center w-20 h-20 mb-8 bg-yellow-400 rounded-2xl shadow-2xl"
+            className="inline-flex items-center justify-center mb-8"
           >
-            <Music size={40} className="text-blue-900" />
+            <UTVLogo size="large" className="text-yellow-400 drop-shadow-2xl" />
           </motion.div>
 
-          {/* Title */}
-          <motion.h1
+          {/* Title — with typewriter animation */}
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 tracking-tight"
+            className="mb-4"
           >
-            UNA TANTUM VOCE
-          </motion.h1>
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-serif font-bold text-white tracking-tight">
+              <TypewriterText
+                text="UNA TANTUM VOCE"
+                delay={0.5}
+                speed={120}
+                className="inline-block"
+              />
+            </h1>
+          </motion.div>
 
           {/* Latin translation */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 3.5 }}
             className="text-yellow-400 text-lg sm:text-xl tracking-[0.3em] uppercase mb-6 font-medium"
           >
             One Single Voice
@@ -93,7 +102,7 @@ export function Home() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 3.8 }}
             className="text-xl sm:text-2xl text-blue-100 mb-12 max-w-2xl mx-auto leading-relaxed"
           >
             Where classical music meets gospel tradition and formative literature.
@@ -104,7 +113,7 @@ export function Home() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 4.0 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Link
@@ -127,7 +136,7 @@ export function Home() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
+            transition={{ delay: 4.5 }}
             className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white animate-bounce"
           >
             <ChevronDown size={32} />

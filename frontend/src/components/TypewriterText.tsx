@@ -9,25 +9,21 @@ interface TypewriterTextProps {
   showCursor?: boolean;
 }
 
-export function TypewriterText({ 
-  text, 
-  className = '', 
-  delay = 0, 
+export function TypewriterText({
+  text,
+  className = '',
+  delay = 0,
   speed = 80,
-  showCursor = true 
+  showCursor = true
 }: TypewriterTextProps) {
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showCursorState, setShowCursorState] = useState(true);
 
   useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>;
-    
-    // Initial delay before starting
-    timeout = setTimeout(() => {
+    const timeout = setTimeout(() => {
       setIsTyping(true);
     }, delay * 1000);
-
     return () => clearTimeout(timeout);
   }, [delay]);
 
@@ -41,12 +37,9 @@ export function TypewriterText({
         currentIndex++;
       } else {
         clearInterval(interval);
-        // Blink cursor after typing is done
         const blinkInterval = setInterval(() => {
           setShowCursorState(prev => !prev);
         }, 530);
-        
-        // Stop blinking after 3 seconds
         setTimeout(() => {
           clearInterval(blinkInterval);
           setShowCursorState(false);
@@ -68,7 +61,7 @@ export function TypewriterText({
         <motion.span
           animate={{ opacity: showCursorState ? 1 : 0 }}
           transition={{ duration: 0.1 }}
-          className="inline-block w-[3px] h-[1em] bg-amber-500 ml-1 align-middle"
+          className="inline-block w-[3px] h-[1em] bg-yellow-400 ml-1 align-middle"
         />
       )}
     </motion.div>
