@@ -1,85 +1,116 @@
 {
   "nav": {
-    "discover": "Gusanga",
+    "home": "Amatangazo",
+    "videos": "Amavidewo",
+    "audios": "Amajwi",
+    "sheets": "Amabaruwa",
+    "events": "Ibirori",
     "books": "Ibitabo",
-    "concerts": "Ibirori",
-    "artists": "Abahanzi",
-    "library": "Isomero"
-  },
-  "header": {
-    "discover": "Gusanga",
-    "books": "Ibitabo",
-    "concerts": "Ibirori",
-    "artists": "Abahanzi",
+    "about": "Ibyerekeyo",
+    "discover": "Gushaka",
+    "music": "Muzika",
+    "scores": "Amabaruwa",
+    "concerts": "Konsa",
     "library": "Isomero",
-    "contact": "Twandikire",
-    "signIn": "Injira",
-    "joinNow": "IYANDIKISHE"
+    "contact": "Vuganye",
+    "admin": "Portal ya Admin",
+    "logout": "Sohoka",
+    "cart": "Igitunga"
   },
   "hero": {
-    "title": "AHA CLASSICAL YIHURIRA NA GOSPEL",
-    "subtitle": "Ikigo Kimwe Cyo Gusoma. Umuziki Wose.",
-    "cta": {
-      "discover": "GUSANGA UMUZIKI",
-      "explore": "KUREBA ISOMERO"
-    }
+    "title": "UNA TANTUM VOCE",
+    "subtitle": "Ijwi Rimwe",
+    "tagline": "Aho muzika ya kiziki ihura n'umuco wa gospel n'ubuvanganzo bwiza. Iterambere rya muzika kuri bose.",
+    "cta_explore": "Gerageza Urubuga",
+    "cta_join": "Injira Mu Muryango Wacu"
+  },
+  "stats": {
+    "music": "Indirimbo",
+    "books": "Ibitabo",
+    "videos": "Amavidewo",
+    "scores": "Amabaruwa"
+  },
+  "modules": {
+    "title": "Gerageza Urubuga Rwacu",
+    "subtitle": "Moduli enye zegeranye zihuza muzika ya kiziki, umuco wa gospel, ubuvanganzo bwiza n'ibitaramo bya live mu rurimirije rumwe.",
+    "music_title": "Muzika",
+    "music_desc": "Gufata ibitaramo bya kiziki na gospel",
+    "videos_title": "Amavidewo",
+    "videos_desc": "Reba ibitaramo n'amahugurwa",
+    "books_title": "Ibitabo",
+    "books_desc": "Ubuvanganzo bwiza bw'inyigisho",
+    "scores_title": "Amabaruwa",
+    "scores_desc": "Amabaruwa ya muzika y'amatsinda",
+    "events_title": "Ibirori",
+    "events_desc": "Ibitaramo bya live kandi ugurane ibyemezo",
+    "community_title": "Umuryango",
+    "community_desc": "Injira mu muryango wacu wa muzika w'isi yose"
   },
   "mission": {
-    "title": "Umuziki n'Ibyo Kwiga ku Bantu",
-    "description": "Igikorwa gifatanyije guteza imbere umuziki hamwe n'ibitabo by'uburezi, bikora ibikorwa by'ubugeni bishingira, bigisha, no guhindura sosiyete kubufatanye n'ubutumwa bwo kurera, bwo kurinda imico, n'ubw'umwuka.",
-    "features": {
-      "educationalMusic": "Umuziki Wo Kurera",
-      "educationalMusicDesc": "Indirimbo zifite ubutumwa bwo kurera, bwo kurinda imico, n'ubw'umwuka mu iterambere rusange.",
-      "formativeLiterature": "Ibitabo Byo Kurera",
-      "formativeLiteratureDesc": "Ibitabo by'ubwenge n'uburezi by'ubufatanye bikigisha kubona inzira mu nibogamiye.",
-      "culturalEvents": "Ibirori By'Imico",
-      "culturalEventsDesc": "Ibirori byo kuririmba, amahugurwa, n'ibirori by'imico bikungahaza imyidagaduro n'uburezi.",
-      "musicEducation": "Uburezi Bw'Umuziki",
-      "musicEducationDesc": "Gahunda z'amahugurwa n'amashuri y'abana, urubyiruko, n'abakuru mu guteza imbere impano yo kuririmba."
-    },
-    "vision": "Icyerekezo Cyacu",
-    "visionDesc": "Kuba ikigo cy'ubugeni n'ubwenge gikora ibikorwa bitanga umusanzu mu iterambere ry'imico, imico, n'uburezi bwa sosiyete mu guhuza umuziki n'ubwenge mu cyerekezo kimwe gikora ibyiza."
+    "title": "Intego Yacu",
+    "p1": "UNA TANTUM VOCE — ikilatini cyivugwa \"Ijwi Rimwe\" — cyerekana bumwe bw'imyumvire y'ubuhanzi n'ubwenge. Duheriza uruhushya rwiza rwa muzika ya kiziki na gospel n'ubuvanganzo bwiza.",
+    "p2": "Urubuga rwacu rugira nk'akazu ka muzika, isomero rya digito, sitore y'ibicuruzwa, akazu ko kugura ibyemezo by'ibitaramo, n'ishuri rizaza — byose bigamije gufasha roho y'ubuhanzi n'ubwenge.",
+    "tag_classical": "Muzika ya Kiziki",
+    "tag_gospel": "Umuco wa Gospel",
+    "tag_literature": "Ubuvanganzo bwiza",
+    "tag_languages": "Indimi 8",
+    "quote": "Muzika ni nzira y'Imana yo kuzana roho mu bice by'isonga. Aho amagambo ahuye n'ikibazo, muzika ivuga — Una Tantum Voce, ijwi rimwe rihuza abantu bose mu muco n'umuco."
+  },
+  "featured": {
+    "title": "Ibintu Bikomeye",
+    "viewAll": "Reba byose",
+    "play": "Gukina"
+  },
+  "cta": {
+    "title": "Injira Mu Gendo Yacu Ya Muzika",
+    "subtitle": "Fungura konti kugira ngo wubone ibintu byihariye, ugure ibitabo n'amabaruwa, kandi uwandikishe mu bitaramo bizaza.",
+    "button": "Fungura Konti Y'ubuntu",
+    "learnMore": "Menya Byinshi Ibyerekeyo"
+  },
+  "common": {
+    "search": "Gushakisha...",
+    "loading": "Biripakira...",
+    "noContent": "Nta bintu birahari kuri ubu.",
+    "noContentHint": "Ibintu bizagaragara hano mugihe umuyobozi abyongeyemo.",
+    "back": "Subira inyuma",
+    "home": "Amatangazo",
+    "subscribe": "Andikishe",
+    "newsletter": "Ubutumwa",
+    "yourEmail": "Email yawe",
+    "followUs": "Dukurikire"
   },
   "footer": {
-    "contactUs": "Twandikire",
-    "followUs": "Dukurikire",
-    "newsletter": "Amajwi Yacu",
-    "email": "Email",
-    "phone": "Terefone",
-    "address": "Aderesi",
-    "copyright": "© 2024 UNA TANTUM VOCE. Uburenganzira bwose bwafatiwe. | Iterambere ry'Umuziki ku Bose"
+    "explore": "Gerageza",
+    "more": "Ibindi",
+    "company": "Ikigo",
+    "musicForAll": "Muzika kuri Bose",
+    "rights": "© 2024 UNA TANTUM VOCE. Uburenganzira bwose bwizigamiwe.",
+    "rightsTagline": "Iterambere rya Muzika kuri Bose"
   },
-  "assistant": {
-    "title": "Umufasha wa UTV",
-    "status": "Kiri Online 24/7",
-    "placeholder": "Andika ubutumwa bwawe...",
-    "send": "Ohereza"
-  },
-  "contact": {
-    "title": "Twandikire",
-    "subtitle": "Twifurije kuva i kure. Niba ufite ibibazo bijyanye numuziki, ushaka gukorana, cyangwa ukeneye ubufasha, turi hano kugufasha.",
-    "sendMessage": "Ohereza Ubutumwa",
-    "name": "Izina",
-    "email": "Email",
-    "subject": "Ingingo",
-    "message": "Ubutumwa",
-    "contactInfo": "Amakuru Y'Igenwa",
-    "connectWithUs": "Duhamagare",
-    "needSupport": "Ukeneye Ubufasha?",
-    "supportDesc": "Itsinda ryacu ry'ubufasha riri hano 24/7 kugufasha mu bibazo waba ufitse. Ntugire ubwoba kutwandikira!",
-    "getSupport": "Shaka Ubufasha",
-    "subjects": {
-      "general": "Ikibazo Rusange",
-      "support": "Ubufasha",
-      "collaboration": "Gukorana",
-      "music": "Ijyanye numuziki",
-      "education": "Gahunda z'Uburezi"
-    }
-  },
-  "library": {
-    "empty": {
-      "title": "Isomero Ryawe Ni Ihame",
-      "description": "Tangira gusanga umusaruro wacu w'indirimbo zo muri Classical na Gospel, ibitabo, nibindi byinshi kugirango ubeho isomero ryawe."
+  "pages": {
+    "videos": {
+      "title": "Amavidewo",
+      "subtitle": "Ibitaramo, amahugurwa n'ibyabaye inyuma"
+    },
+    "music": {
+      "title": "Muzika",
+      "subtitle": "Gufata ibitaramo bya kiziki na gospel bya UNA TANTUM VOCE"
+    },
+    "books": {
+      "title": "Ibitabo",
+      "subtitle": "Ubuvanganzo bwiza bw'inyigisho"
+    },
+    "scores": {
+      "title": "Amabaruwa",
+      "subtitle": "Amabaruwa ya muzika y'amatsinda"
+    },
+    "concerts": {
+      "title": "Ibirori",
+      "subtitle": "Ibitaramo bya live kandi ugurane ibyemezo"
+    },
+    "about": {
+      "title": "Ibyerekeyo",
+      "subtitle": "Menya UNA TANTUM VOCE"
     }
   }
 }

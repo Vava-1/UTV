@@ -58,7 +58,7 @@ export function VideosPage() {
   };
 
   return (
-    <PageWrapper title="Videos" subtitle="Performances, masterclasses & behind-the-scenes" icon={<Youtube size={32} />}>
+    <PageWrapper title={t('pages.videos.title')} subtitle={t('pages.videos.subtitle')} icon={<Youtube size={32} />}>
       <div className="space-y-6">
         {/* Search */}
         <div className="relative max-w-md">

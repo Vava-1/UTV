@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Home } from 'lucide-react';
 
 interface PageWrapperProps {
@@ -13,6 +14,7 @@ interface PageWrapperProps {
 
 export function PageWrapper({ children, title, subtitle, icon, showBackButton = true }: PageWrapperProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-white">
@@ -30,7 +32,7 @@ export function PageWrapper({ children, title, subtitle, icon, showBackButton = 
               className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-blue-800 bg-white border border-gray-200 rounded-lg transition-all hover:border-blue-300 hover:bg-blue-50"
             >
               <ArrowLeft size={14} />
-              <span className="hidden sm:inline">Back</span>
+              <span className="hidden sm:inline">{t('common.back')}</span>
             </button>
           )}
           <Link
@@ -38,7 +40,7 @@ export function PageWrapper({ children, title, subtitle, icon, showBackButton = 
             className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-blue-800 bg-white border border-gray-200 rounded-lg transition-all hover:border-blue-300 hover:bg-blue-50"
           >
             <Home size={14} />
-            <span className="hidden sm:inline">Home</span>
+            <span className="hidden sm:inline">{t('common.home')}</span>
           </Link>
         </motion.div>
 

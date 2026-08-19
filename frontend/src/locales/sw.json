@@ -1,85 +1,116 @@
 {
   "nav": {
-    "discover": "Gundua",
+    "home": "Mwanzo",
+    "videos": "Video",
+    "audios": "Sauti",
+    "sheets": "Mabala",
+    "events": "Matukio",
     "books": "Vitabu",
-    "concerts": "Tamasha",
-    "artists": "Wasanii",
-    "library": "Maktaba"
-  },
-  "header": {
+    "about": "Kuhusu",
     "discover": "Gundua",
-    "books": "Vitabu",
+    "music": "Muziki",
+    "scores": "Mabala",
     "concerts": "Tamasha",
-    "artists": "Wasanii",
     "library": "Maktaba",
     "contact": "Wasiliana",
-    "signIn": "Ingia",
-    "joinNow": "JIUNGE SASA"
+    "admin": "Portal ya Admin",
+    "logout": "Toka",
+    "cart": "Kikapu"
   },
   "hero": {
-    "title": "HAPA CLASSICAL INAKUTANA NA GOSPEL",
-    "subtitle": "Jukwaa Moja. Muziki Wote.",
-    "cta": {
-      "discover": "GUNDUA MUZIKI",
-      "explore": "CHUNGUA MAKATABA"
-    }
+    "title": "UNA TANTUM VOCE",
+    "subtitle": "Sauti Moja",
+    "tagline": "Muziki wa classical unapokutana na mila ya gospel na fasihi ya malezi. Maendeleo ya muziki kwa wote.",
+    "cta_explore": "Chunguza Jukwaa",
+    "cta_join": "Jiunge na Jamii Yetu"
+  },
+  "stats": {
+    "music": "Nyimbo",
+    "books": "Vitabu",
+    "videos": "Video",
+    "scores": "Mabala"
+  },
+  "modules": {
+    "title": "Chunguza Jukwaa Letu",
+    "subtitle": "Moduli siti zilizounganishwa zinazounga muziki wa classical, mila za gospel, fasihi ya kifalsafa na maonyesho ya moja kwa moja katika uzoefu mmoja.",
+    "music_title": "Muziki",
+    "music_desc": "Tiririsha maonyesho ya classical & gospel",
+    "videos_title": "Video",
+    "videos_desc": "Tazama maonyesho & madarasa",
+    "books_title": "Vitabu",
+    "books_desc": "Fasihi ya kifalsafa ya malezi",
+    "scores_title": "Mabala",
+    "scores_desc": "Mabala ya muziki kwa kwaya & vikundi",
+    "events_title": "Matukio",
+    "events_desc": "Tamasha moja kwa moja & ununuzi wa tiketi",
+    "community_title": "Jamii",
+    "community_desc": "Jiunge na familia yetu ya kimataifa ya muziki"
   },
   "mission": {
-    "title": "Muziki na Mawazo kwa Maendeleo ya Binadamu",
-    "description": "Mpango wa pambao unaokuza muziki pamoja na fasihi ya kielimu, ukitengeza kazi za kisanii zinazoongoza, kuelimisha, na kubadilisha jamii kupitia ujumbe wa kielimu, wa maadili, na wa kiroho.",
-    "features": {
-      "educationalMusic": "Muziki wa Kielimu",
-      "educationalMusicDesc": "Nyimbo zinazobeba ujumbe wa kielimu, maadili, na kiroho kwa maendeleo ya jumla.",
-      "formativeLiterature": "Fasihi ya Kuelimisha",
-      "formativeLiteratureDesc": "Vitabu vya kifalsafa na kielimu vinasaidia kupitia changamoto za maisha kwa hekima.",
-      "culturalEvents": "Matukio ya Kitamaduni",
-      "culturalEventsDesc": "Matamasha, mafunzo, na matukio ya kitamaduni yanayochochea burudani na elimu.",
-      "musicEducation": "Elimu ya Muziki",
-      "musicEducationDesc": "Programu za mafunzo na shule kwa watoto, vijana, na watu wazima kuendeleza talanta ya muziki."
-    },
-    "vision": "Maono Yetu",
-    "visionDesc": "Kuwa kituo cha uzalishaji wa kisanii na kiakili kinachochangia maendeleo ya kitamaduni, maadili, na kielimu ya jamii kwa kuunganisha muziki na mawazo katika maono moja yenye kuleta mabadiliko."
+    "title": "Dhamira Yetu",
+    "p1": "UNA TANTUM VOCE — Kilatini kwa \"Sauti Moja\" — inawakilisha umoja wa maonyesho ya sanaa na malezi ya kiakili. Tunachanganya uzuri wa muziki wa classical na gospel na fasihi ya kifalsafa ya malezi.",
+    "p2": "Jukwaa letu hutumika kama huduma ya kutiririsha muziki, maktaba ya kidijitali, duka la biashara ya kielektroniki, kituo cha tiketi za tamasha, na chuo kijacho — vyote vimejitolea kulisha roho ya sanaa na akili ya malezi.",
+    "tag_classical": "Muziki wa Classical",
+    "tag_gospel": "Mila za Gospel",
+    "tag_literature": "Fasihi ya Kifalsafa",
+    "tag_languages": "Lugha 8",
+    "quote": "Muziki ni njia ya kimungu ya kusafirisha roho kwenda milki ya juu. Ambapo maneno hoshindwa, muziki unazungumza — Una Tantum Voce, sauti moja inayounga binadamu katika tamaduni na karne."
+  },
+  "featured": {
+    "title": "Maudhui Yanayoonyeshwa",
+    "viewAll": "Tazama vyote",
+    "play": "Cheza"
+  },
+  "cta": {
+    "title": "Jiunge na Safari Yetu ya Muziki",
+    "subtitle": "Unda akaunti kufikia maudhui ya kipekee, kununua vitabu na mabala, na kujiandikisha kwa tamasha zijazo.",
+    "button": "Unda Akaunti ya Bure",
+    "learnMore": "Jifunze Zaidi Kuhusu Sisi"
+  },
+  "common": {
+    "search": "Tafuta...",
+    "loading": "Inapakia...",
+    "noContent": "Hakuna maudhui yanayopatikana kwa sasa.",
+    "noContentHint": "Maudhui yataonekana hapa baada ya msimamizi kuongeza.",
+    "back": "Nyuma",
+    "home": "Mwanzo",
+    "subscribe": "Jisajili",
+    "newsletter": "Habari",
+    "yourEmail": "Barua pepe yako",
+    "followUs": "Tufuate"
   },
   "footer": {
-    "contactUs": "Wasiliana Nasi",
-    "followUs": "Tufuate",
-    "newsletter": "Jarida",
-    "email": "Barua Pepe",
-    "phone": "Simu",
-    "address": "Anwani",
-    "copyright": "© 2024 UNA TANTUM VOCE. Haki Zote Zimehifadhiwa. | Maendeleo ya Muziki kwa Wote"
+    "explore": "Chunguza",
+    "more": "Zaidi",
+    "company": "Kampuni",
+    "musicForAll": "Muziki kwa Wote",
+    "rights": "© 2024 UNA TANTUM VOCE. Haki zote zimehifadhiwa.",
+    "rightsTagline": "Maendeleo ya Muziki kwa Wote"
   },
-  "assistant": {
-    "title": "Msaidizi wa UTV",
-    "status": "Online 24/7",
-    "placeholder": "Andika ujumbe wako...",
-    "send": "Tuma"
-  },
-  "contact": {
-    "title": "Wasiliana Nasi",
-    "subtitle": "Tungependa kukutia kisikia. Ikiwa una maswali kuhusu muziki wetu, unataka kushirikiana, au unahitaji msaada, tuko hapa kukusaidia.",
-    "sendMessage": "Tuma Ujumbe",
-    "name": "Jina",
-    "email": "Barua Pepe",
-    "subject": "Mada",
-    "message": "Ujumbe",
-    "contactInfo": "Maelezo ya Mawasiliano",
-    "connectWithUs": "Ungana Nasi",
-    "needSupport": "Unahitaji Msaada?",
-    "supportDesc": "Timu yetu ya msaada inapatikana 24/7 kukusaidia maswali au matatizo yoyote. Usisite kutufikia!",
-    "getSupport": "Pata Msaada",
-    "subjects": {
-      "general": "Swali la Jumla",
-      "support": "Msaada",
-      "collaboration": "Ushirikiano",
-      "music": "Kuhusu Muziki",
-      "education": "Programu za Kielimu"
-    }
-  },
-  "library": {
-    "empty": {
-      "title": "Maktaba Yako Ni Tupu",
-      "description": "Anza kugundua mkusanyiko wetu wa muziki wa Classical na Gospel, vitabu, na zaidi ili ujenge maktaba yako ya kibinafsi."
+  "pages": {
+    "videos": {
+      "title": "Video",
+      "subtitle": "Maonyesho, madarasa na nyuma ya pazia"
+    },
+    "music": {
+      "title": "Muziki",
+      "subtitle": "Tiririsha maonyesho ya classical & gospel ya UNA TANTUM VOCE"
+    },
+    "books": {
+      "title": "Vitabu",
+      "subtitle": "Fasihi ya kifalsafa ya malezi"
+    },
+    "scores": {
+      "title": "Mabala",
+      "subtitle": "Mabala ya muziki kwa kwaya & vikundi"
+    },
+    "concerts": {
+      "title": "Matukio",
+      "subtitle": "Tamasha moja kwa moja & ununuzi wa tiketi"
+    },
+    "about": {
+      "title": "Kuhusu",
+      "subtitle": "Jifunze kuhusu UNA TANTUM VOCE"
     }
   }
 }

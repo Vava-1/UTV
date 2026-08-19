@@ -175,7 +175,7 @@ export function ConcertsPage() {
 
   if (loading) {
     return (
-      <PageWrapper title={t('nav.concerts')} subtitle={t('concerts.subtitle')} icon={<Calendar size={32} />}>
+      <PageWrapper title={t('pages.concerts.title')} subtitle={t('pages.concerts.subtitle')} icon={<Calendar size={32} />}>
         <div className="space-y-4">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="bg-blue-900 rounded-xl border border-blue-700 p-6 animate-pulse">
@@ -196,7 +196,7 @@ export function ConcertsPage() {
 
   return (
     <>
-      <PageWrapper title={t('nav.concerts')} subtitle={t('concerts.subtitle')} icon={<Calendar size={32} />}>
+      <PageWrapper title={t('pages.concerts.title')} subtitle={t('pages.concerts.subtitle')} icon={<Calendar size={32} />}>
         <div className="space-y-6">
           {/* Search */}
           <div className="relative max-w-md">

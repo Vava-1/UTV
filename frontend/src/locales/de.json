@@ -1,49 +1,116 @@
 {
   "nav": {
-    "discover": "Entdecken",
+    "home": "Startseite",
+    "videos": "Videos",
+    "audios": "Audios",
+    "sheets": "Noten",
+    "events": "Veranstaltungen",
     "books": "Bücher",
-    "concerts": "Konzerte",
-    "artists": "Künstler",
-    "library": "Bibliothek",
-    "contact": "Kontakt"
-  },
-  "header": {
+    "about": "Über uns",
     "discover": "Entdecken",
-    "books": "Bücher",
+    "music": "Musik",
+    "scores": "Noten",
     "concerts": "Konzerte",
-    "artists": "Künstler",
     "library": "Bibliothek",
     "contact": "Kontakt",
-    "signIn": "Anmelden",
-    "joinNow": "JETZT BEITRETEN"
+    "admin": "Admin Portal",
+    "logout": "Abmelden",
+    "cart": "Warenkorb"
   },
   "hero": {
-    "title": "WO KLASSIK GOSPEL TRIFFT",
-    "subtitle": "Eine Einzige Plattform. All die Musik.",
-    "cta": {
-      "discover": "MUSIK ENTDECKEN",
-      "explore": "BIBLIOTHEK ERKUNDEN"
-    }
+    "title": "UNA TANTUM VOCE",
+    "subtitle": "Eine Einzelne Stimme",
+    "tagline": "Wo klassische Musik auf Gospel-Tradition und bildende Literatur trifft. Musikalische Entwicklung für alle.",
+    "cta_explore": "Plattform Erkunden",
+    "cta_join": "Gemeinschaft Beitreten"
+  },
+  "stats": {
+    "music": "Musiktitel",
+    "books": "Bücher",
+    "videos": "Videos",
+    "scores": "Musiknoten"
+  },
+  "modules": {
+    "title": "Entdecken Sie Unsere Plattform",
+    "subtitle": "Sechs integrierte Module, die klassische Musik, Gospel-Traditionen, philosophische Literatur und Live-Auftritte in einem einheitlichen Erlebnis vereinen.",
+    "music_title": "Musik",
+    "music_desc": "Klassische & Gospel-Aufführungen streamen",
+    "videos_title": "Videos",
+    "videos_desc": "Aufführungen & Meisterkurse ansehen",
+    "books_title": "Bücher",
+    "books_desc": "Bildende philosophische Literatur",
+    "scores_title": "Noten",
+    "scores_desc": "Notenblätter für Chöre & Ensembles",
+    "events_title": "Veranstaltungen",
+    "events_desc": "Live-Konzerte & Ticketkauf",
+    "community_title": "Gemeinschaft",
+    "community_desc": "Treten Sie unserer globalen musikalischen Familie bei"
+  },
+  "mission": {
+    "title": "Unsere Mission",
+    "p1": "UNA TANTUM VOCE — lateinisch für \"Eine Einzelne Stimme\" — repräsentiert die Einheit von künstlerischem Ausdruck und intellektueller Bildung. Wir verbinden die Schönheit klassischer und Gospel-Musik mit bildender philosophischer Literatur.",
+    "p2": "Unsere Plattform dient als Musik-Streaming-Dienst, digitale Bibliothek, E-Commerce-Shop, Konzert-Ticketzentrale und zukünftige Akademie — alle gewidmet der Nährung sowohl der künstlerischen Seele als auch des bildenden Geistes.",
+    "tag_classical": "Klassische Musik",
+    "tag_gospel": "Gospel-Traditionen",
+    "tag_literature": "Philosophische Literatur",
+    "tag_languages": "8 Sprachen",
+    "quote": "Musik ist der göttliche Weg, die Seele in höhere Sphären zu transportieren. Wo Worte versagen, spricht die Musik — Una Tantum Voce, eine einzelne Stimme, die die Menschheit über Kulturen und Jahrhunderte hinweg vereint."
+  },
+  "featured": {
+    "title": "Empfohlene Inhalte",
+    "viewAll": "Alle ansehen",
+    "play": "Abspielen"
+  },
+  "cta": {
+    "title": "Treten Sie Unserer Musikalischen Reise Bei",
+    "subtitle": "Erstellen Sie ein Konto, um exklusive Inhalte zu nutzen, Bücher und Noten zu kaufen und sich für kommende Konzerte anzumelden.",
+    "button": "Kostenloses Konto Erstellen",
+    "learnMore": "Mehr Über Uns Erfahren"
+  },
+  "common": {
+    "search": "Suchen...",
+    "loading": "Laden...",
+    "noContent": "Noch keine Inhalte verfügbar.",
+    "noContentHint": "Inhalte erscheinen hier, sobald der Administrator sie hinzufügt.",
+    "back": "Zurück",
+    "home": "Startseite",
+    "subscribe": "Abonnieren",
+    "newsletter": "Newsletter",
+    "yourEmail": "Ihre E-Mail",
+    "followUs": "Folgen Sie uns"
   },
   "footer": {
-    "contactUs": "Kontaktieren Sie uns",
-    "followUs": "Folgen Sie uns",
-    "email": "E-Mail",
-    "phone": "Telefon",
-    "address": "Adresse",
-    "copyright": "© 2024 UNA TANTUM VOCE. Alle Rechte vorbehalten. | Musikentwicklung Für Alle"
+    "explore": "Entdecken",
+    "more": "Mehr",
+    "company": "Unternehmen",
+    "musicForAll": "Musik für Alle",
+    "rights": "© 2024 UNA TANTUM VOCE. Alle Rechte vorbehalten.",
+    "rightsTagline": "Musikalische Entwicklung für Alle"
   },
-  "assistant": {
-    "title": "UTV Assistent",
-    "status": "Online 24/7",
-    "placeholder": "Nachricht eingeben...",
-    "send": "Senden"
-  },
-  "library": {
-    "empty": {
-      "title": "Ihre Bibliothek ist leer",
-      "description": "Beginnen Sie mit der Erkundung unserer Sammlung klassischer und Gospel-Musik, Bücher und mehr, um Ihre persönliche Bibliothek aufzubauen.",
-      "cta": "Katalog durchsuchen"
+  "pages": {
+    "videos": {
+      "title": "Videos",
+      "subtitle": "Aufführungen, Meisterkurse & Hinter den Kulissen"
+    },
+    "music": {
+      "title": "Musik",
+      "subtitle": "Klassische & Gospel-Aufführungen von UNA TANTUM VOCE streamen"
+    },
+    "books": {
+      "title": "Bücher",
+      "subtitle": "Bildende philosophische Literatur"
+    },
+    "scores": {
+      "title": "Noten",
+      "subtitle": "Notenblätter für Chöre & Ensembles"
+    },
+    "concerts": {
+      "title": "Veranstaltungen",
+      "subtitle": "Live-Konzerte & Ticketkauf"
+    },
+    "about": {
+      "title": "Über uns",
+      "subtitle": "Erfahren Sie mehr über UNA TANTUM VOCE"
     }
   }
 }

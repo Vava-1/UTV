@@ -54,7 +54,7 @@ export function MusicPage() {
 
   if (loading) {
     return (
-      <PageWrapper title="Music" subtitle="Classical & gospel performances" icon={<MusicIcon size={32} />}>
+      <PageWrapper title={t('pages.music.title')} subtitle={t('pages.music.subtitle')} icon={<MusicIcon size={32} />}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[1,2,3,4,5,6].map(i => (
             <div key={i} className="bg-gray-100 rounded-xl h-32 animate-pulse" />
@@ -65,7 +65,7 @@ export function MusicPage() {
   }
 
   return (
-    <PageWrapper title="Music" subtitle="Stream classical & gospel performances from UNA TANTUM VOCE" icon={<MusicIcon size={32} />}>
+    <PageWrapper title={t('pages.music.title')} subtitle={t('pages.music.subtitle')} icon={<MusicIcon size={32} />}>
       <div className="space-y-6">
         {/* Search */}
         <div className="relative max-w-md">

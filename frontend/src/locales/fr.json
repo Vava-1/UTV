@@ -1,95 +1,116 @@
 {
   "nav": {
-    "discover": "Découvrir",
+    "home": "Accueil",
+    "videos": "Vidéos",
+    "audios": "Audios",
+    "sheets": "Partitions",
+    "events": "Événements",
     "books": "Livres",
-    "concerts": "Concerts",
-    "artists": "Artistes",
-    "library": "Bibliothèque",
-    "contact": "Contact"
-  },
-  "header": {
+    "about": "À Propos",
     "discover": "Découvrir",
-    "books": "Livres",
+    "music": "Musique",
+    "scores": "Partitions",
     "concerts": "Concerts",
-    "artists": "Artistes",
     "library": "Bibliothèque",
     "contact": "Contact",
-    "signIn": "Se connecter",
-    "joinNow": "REJOIGNEZ-VOUS"
+    "admin": "Portail Admin",
+    "logout": "Déconnexion",
+    "cart": "Panier"
   },
   "hero": {
-    "title": "OÙ LE CLASSIQUE RENCONTRE LE GOSPEL",
-    "subtitle": "Une Seule Plateforme. Toute la Musique.",
-    "cta": {
-      "discover": "DÉCOUVRIR LA MUSIQUE",
-      "explore": "EXPLORER LA BIBLIOTHÈQUE"
-    }
+    "title": "UNA TANTUM VOCE",
+    "subtitle": "Une Seule Voix",
+    "tagline": "Là où la musique classique rencontre la tradition gospel et la littérature formative. Le développement musical pour tous.",
+    "cta_explore": "Explorer la Plateforme",
+    "cta_join": "Rejoignez Notre Communauté"
+  },
+  "stats": {
+    "music": "Pistes Musicales",
+    "books": "Livres",
+    "videos": "Vidéos",
+    "scores": "Partitions"
+  },
+  "modules": {
+    "title": "Explorez Notre Plateforme",
+    "subtitle": "Six modules intégrés réunissant musique classique, traditions gospel, littérature philosophique et performance en direct dans une expérience unifiée.",
+    "music_title": "Musique",
+    "music_desc": "Écoutez des performances classiques & gospel",
+    "videos_title": "Vidéos",
+    "videos_desc": "Regardez des performances & masterclasses",
+    "books_title": "Livres",
+    "books_desc": "Littérature philosophique formative",
+    "scores_title": "Partitions",
+    "scores_desc": "Musique de partition pour chœurs & ensembles",
+    "events_title": "Événements",
+    "events_desc": "Concerts en direct & achat de billets",
+    "community_title": "Communauté",
+    "community_desc": "Rejoignez notre famille musicale mondiale"
   },
   "mission": {
-    "title": "Musique et Pensée pour la Formation Humaine",
-    "description": "Une initiative intégrée qui promeut la musique aux côtés de la littérature formatrice, créant des œuvres artistiques qui inspirent, éduquent et transforment la société par des messages éducatifs, moraux et spirituels.",
-    "features": {
-      "educationalMusic": "Musique Éducative",
-      "educationalMusicDesc": "Compositions musicales qui portent des messages éducatifs, moraux et spirituels pour un développement holistique.",
-      "formativeLiterature": "Littérature Formatrice",
-      "formativeLiteratureDesc": "Livres philosophiques et éducatifs qui aident à naviguer les défis de la vie avec sagesse.",
-      "culturalEvents": "Événements Culturels",
-      "culturalEventsDesc": "Concerts, ateliers et événements culturels qui favorisent à la fois le divertissement et l'éducation.",
-      "musicEducation": "Éducation Musicale",
-      "musicEducationDesc": "Programmes de formation et écoles pour enfants, jeunes et adultes pour développer le talent musical."
-    },
-    "vision": "Notre Vision",
-    "visionDesc": "Devenir un centre de production artistique et intellectuelle qui contribue au développement culturel, moral et éducatif de la société en unissant la musique et la pensée dans une seule vision transformatrice."
+    "title": "Notre Mission",
+    "p1": "UNA TANTUM VOCE — latin pour « Une Seule Voix » — représente l'unité de l'expression artistique et de la formation intellectuelle. Nous relions la beauté de la musique classique et gospel à la littérature philosophique formative.",
+    "p2": "Notre plateforme sert de service de streaming musical, bibliothèque numérique, magasin e-commerce, centre de billetterie de concerts et future académie — tous dédiés à nourrir l'âme artistique et l'esprit formateur.",
+    "tag_classical": "Musique Classique",
+    "tag_gospel": "Traditions Gospel",
+    "tag_literature": "Littérature Philosophique",
+    "tag_languages": "8 Langues",
+    "quote": "La musique est le moyen divin de transporter l'âme vers des royaumes supérieurs. Là où les mots échouent, la musique parle — Una Tantum Voce, une seule voix unissant l'humanité à travers les cultures et les siècles."
+  },
+  "featured": {
+    "title": "Contenu Vedette",
+    "viewAll": "Voir tout",
+    "play": "Lire"
+  },
+  "cta": {
+    "title": "Rejoignez Notre Voyage Musical",
+    "subtitle": "Créez un compte pour accéder au contenu exclusif, acheter des livres et des partitions, et vous inscrire aux concerts à venir.",
+    "button": "Créer un Compte Gratuit",
+    "learnMore": "En savoir plus sur nous"
+  },
+  "common": {
+    "search": "Rechercher...",
+    "loading": "Chargement...",
+    "noContent": "Aucun contenu disponible pour le moment.",
+    "noContentHint": "Le contenu apparaîtra ici une fois que l'administrateur l'ajoutera.",
+    "back": "Retour",
+    "home": "Accueil",
+    "subscribe": "S'abonner",
+    "newsletter": "Newsletter",
+    "yourEmail": "Votre email",
+    "followUs": "Suivez-nous"
   },
   "footer": {
-    "contactUs": "Contactez-nous",
-    "followUs": "Suivez-nous:",
-    "newsletter": "Newsletter:",
-    "email": "Email",
-    "phone": "Téléphone",
-    "address": "Adresse",
-    "copyright": "© 2024 UNA TANTUM VOCE. Tous droits réservés. | Développement Musical Pour Tous"
+    "explore": "Explorer",
+    "more": "Plus",
+    "company": "Entreprise",
+    "musicForAll": "Musique pour Tous",
+    "rights": "© 2024 UNA TANTUM VOCE. Tous droits réservés.",
+    "rightsTagline": "Développement Musical pour Tous"
   },
-  "assistant": {
-    "title": "Assistant UTV",
-    "status": "En ligne 24/7",
-    "placeholder": "Tapez votre message...",
-    "send": "Envoyer",
-    "examples": {
-      "stats": "Montrez-moi les statistiques de la plateforme",
-      "support": "J'ai besoin d'aide avec mon compte",
-      "new": "Quoi de neuf sur la plateforme?",
-      "manage": "Comment puis-je gérer le contenu?",
-      "concerts": "Parlez-moi des concerts à venir",
-      "education": "Quels programmes éducatifs offrez-vous?"
-    }
-  },
-  "contact": {
-    "title": "Contactez-nous",
-    "subtitle": "Nous aimerions avoir de vos nouvelles. Que vous ayez des questions sur notre musique, vouloir collaborer ou avoir besoin d'aide, nous sommes là pour vous.",
-    "sendMessage": "Envoyez-nous un message",
-    "name": "Nom",
-    "email": "Email",
-    "subject": "Sujet",
-    "message": "Message",
-    "contactInfo": "Informations de Contact",
-    "connectWithUs": "Connectez-vous avec nous",
-    "needSupport": "Besoin de Support?",
-    "supportDesc": "Notre équipe de support dédiée est disponible 24/7 pour vous aider avec toutes questions ou problèmes. N'hésitez pas à nous contacter!",
-    "getSupport": "Obtenir du Support",
-    "subjects": {
-      "general": "Demande Générale",
-      "support": "Besoin de Support",
-      "collaboration": "Collaboration",
-      "music": "Lié à la Musique",
-      "education": "Programmes Éducatifs"
-    }
-  },
-  "library": {
-    "empty": {
-      "title": "Votre Bibliothèque est Vide",
-      "description": "Commencez à explorer notre collection de musique classique et gospel, de livres et plus encore pour construire votre bibliothèque personnelle.",
-      "cta": "Explorer le Catalogue"
+  "pages": {
+    "videos": {
+      "title": "Vidéos",
+      "subtitle": "Performances, masterclasses & coulisses"
+    },
+    "music": {
+      "title": "Musique",
+      "subtitle": "Écoutez des performances classiques & gospel de UNA TANTUM VOCE"
+    },
+    "books": {
+      "title": "Livres",
+      "subtitle": "Littérature philosophique formative"
+    },
+    "scores": {
+      "title": "Partitions",
+      "subtitle": "Musique de partition pour chœurs & ensembles"
+    },
+    "concerts": {
+      "title": "Événements",
+      "subtitle": "Concerts en direct & achat de billets"
+    },
+    "about": {
+      "title": "À Propos",
+      "subtitle": "Découvrez UNA TANTUM VOCE"
     }
   }
 }

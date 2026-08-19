@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import api from '@/utils/api';
 import { Content } from '@/types';
-import { UTVLogo } from '@/components/UTVLogo';
 import { TypewriterText } from '@/components/TypewriterText';
 import {
   Music, BookOpen, Video, FileText, Calendar, Users, ArrowRight,
@@ -27,12 +26,12 @@ export function Home() {
   }, []);
 
   const modules = [
-    { icon: Music, title: 'Music', desc: 'Stream classical & gospel performances', path: '/music', color: 'bg-blue-100 text-blue-800' },
-    { icon: Video, title: 'Videos', desc: 'Watch performances & masterclasses', path: '/videos', color: 'bg-yellow-100 text-yellow-800' },
-    { icon: BookOpen, title: 'Books', desc: 'Formative philosophical literature', path: '/books', color: 'bg-blue-100 text-blue-800' },
-    { icon: FileText, title: 'Scores', desc: 'Sheet music for choirs & ensembles', path: '/scores', color: 'bg-yellow-100 text-yellow-800' },
-    { icon: Calendar, title: 'Events', desc: 'Live concerts & ticket purchasing', path: '/concerts', color: 'bg-blue-100 text-blue-800' },
-    { icon: Users, title: 'Community', desc: 'Join our global musical family', path: '/discover', color: 'bg-yellow-100 text-yellow-800' },
+    { icon: Music, title: t('modules.music_title'), desc: t('modules.music_desc'), path: '/music', color: 'bg-blue-100 text-blue-800' },
+    { icon: Video, title: t('modules.videos_title'), desc: t('modules.videos_desc'), path: '/videos', color: 'bg-yellow-100 text-yellow-800' },
+    { icon: BookOpen, title: t('modules.books_title'), desc: t('modules.books_desc'), path: '/books', color: 'bg-blue-100 text-blue-800' },
+    { icon: FileText, title: t('modules.scores_title'), desc: t('modules.scores_desc'), path: '/scores', color: 'bg-yellow-100 text-yellow-800' },
+    { icon: Calendar, title: t('modules.events_title'), desc: t('modules.events_desc'), path: '/concerts', color: 'bg-blue-100 text-blue-800' },
+    { icon: Users, title: t('modules.community_title'), desc: t('modules.community_desc'), path: '/discover', color: 'bg-yellow-100 text-yellow-800' },
   ];
 
   return (
@@ -61,14 +60,18 @@ export function Home() {
         </motion.div>
 
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-          {/* Logo — restored from old version */}
+          {/* Logo — uses image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             className="inline-flex items-center justify-center mb-8"
           >
-            <UTVLogo size="large" className="text-yellow-400 drop-shadow-2xl" />
+            <img
+              src="/logo.png"
+              alt="UTV Logo"
+              className="w-24 h-24 rounded-2xl object-cover shadow-2xl"
+            />
           </motion.div>
 
           {/* Title — with typewriter animation */}
@@ -95,7 +98,7 @@ export function Home() {
             transition={{ duration: 0.8, delay: 3.5 }}
             className="text-yellow-400 text-lg sm:text-xl tracking-[0.3em] uppercase mb-6 font-medium"
           >
-            One Single Voice
+            {t('hero.subtitle')}
           </motion.p>
 
           {/* Tagline */}
@@ -105,8 +108,7 @@ export function Home() {
             transition={{ duration: 0.8, delay: 3.8 }}
             className="text-xl sm:text-2xl text-blue-100 mb-12 max-w-2xl mx-auto leading-relaxed"
           >
-            Where classical music meets gospel tradition and formative literature.
-            Music development for all.
+            {t('hero.tagline')}
           </motion.p>
 
           {/* CTAs */}
@@ -121,14 +123,14 @@ export function Home() {
               className="btn-accent text-lg px-8 py-4"
             >
               <Sparkles size={20} />
-              Explore the Platform
+              {t('hero.cta_explore')}
               <ArrowRight size={20} />
             </Link>
             <Link
               to="/register"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-900 transition-all duration-200"
             >
-              Join Our Community
+              {t('hero.cta_join')}
             </Link>
           </motion.div>
 
@@ -148,10 +150,10 @@ export function Home() {
       <section className="bg-blue-900 text-white py-12">
         <div className="container-utv px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <StatCard icon={Music} value={stats.music} label="Music Tracks" />
-            <StatCard icon={BookOpen} value={stats.books} label="Books" />
-            <StatCard icon={Video} value={stats.videos} label="Videos" />
-            <StatCard icon={FileText} value={stats.scores} label="Music Scores" />
+            <StatCard icon={Music} value={stats.music} label={t('stats.music')} />
+            <StatCard icon={BookOpen} value={stats.books} label={t('stats.books')} />
+            <StatCard icon={Video} value={stats.videos} label={t('stats.videos')} />
+            <StatCard icon={FileText} value={stats.scores} label={t('stats.scores')} />
           </div>
         </div>
       </section>
@@ -161,10 +163,9 @@ export function Home() {
         <div className="container-utv">
           <div className="text-center mb-12">
             <div className="divider-yellow mx-auto mb-4" />
-            <h2 className="text-heading mb-3">Explore Our Platform</h2>
+            <h2 className="text-heading mb-3">{t('modules.title')}</h2>
             <p className="text-subheading max-w-2xl mx-auto">
-              Six integrated modules bringing together classical music, gospel traditions,
-              philosophical literature, and live performance into one unified experience.
+              {t('modules.subtitle')}
             </p>
           </div>
 
@@ -187,7 +188,7 @@ export function Home() {
                   <h3 className="text-xl font-bold text-blue-900 mb-2">{mod.title}</h3>
                   <p className="text-gray-600">{mod.desc}</p>
                   <div className="mt-4 inline-flex items-center gap-1 text-blue-700 font-medium group-hover:gap-2 transition-all">
-                    Explore <ArrowRight size={16} />
+                    <ArrowRight size={16} />
                   </div>
                 </Link>
               </motion.div>
@@ -206,22 +207,18 @@ export function Home() {
               viewport={{ once: true }}
             >
               <div className="divider-yellow mb-4" />
-              <h2 className="text-heading mb-6">Our Mission</h2>
+              <h2 className="text-heading mb-6">{t('mission.title')}</h2>
               <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-                UNA TANTUM VOCE — Latin for "One Single Voice" — represents the unity of
-                artistic expression and intellectual formation. We bridge the beauty of
-                classical and gospel music with formative philosophical literature.
+                {t('mission.p1')}
               </p>
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                Our platform serves as a music streaming service, digital library,
-                e-commerce store, concert ticketing hub, and future academy — all dedicated
-                to nurturing both the artistic soul and the formative mind.
+                {t('mission.p2')}
               </p>
               <div className="flex flex-wrap gap-3">
-                <span className="badge-blue"><Heart size={12} /> Classical Music</span>
-                <span className="badge-yellow"><Star size={12} /> Gospel Traditions</span>
-                <span className="badge-blue"><BookOpen size={12} /> Philosophical Literature</span>
-                <span className="badge-yellow"><Globe size={12} /> 8 Languages</span>
+                <span className="badge-blue"><Heart size={12} /> {t('mission.tag_classical')}</span>
+                <span className="badge-yellow"><Star size={12} /> {t('mission.tag_gospel')}</span>
+                <span className="badge-blue"><BookOpen size={12} /> {t('mission.tag_literature')}</span>
+                <span className="badge-yellow"><Globe size={12} /> {t('mission.tag_languages')}</span>
               </div>
             </motion.div>
 
@@ -234,17 +231,15 @@ export function Home() {
               <div className="card-blue p-8 rounded-2xl">
                 <Quote size={48} className="text-yellow-400 mb-4" />
                 <p className="text-xl text-white leading-relaxed mb-6 italic">
-                  "Music is the divine way to transport the soul to higher realms.
-                  Where words fail, music speaks — Una Tantum Voce, one single voice
-                  uniting humanity across cultures and centuries."
+                  {t('mission.quote')}
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center">
-                    <Music size={24} className="text-blue-900" />
+                  <div className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center overflow-hidden">
+                    <img src="/logo.png" alt="UTV" className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <p className="font-bold text-white">UNA TANTUM VOCE</p>
-                    <p className="text-blue-200 text-sm">Music Development for All</p>
+                    <p className="text-blue-200 text-sm">{t('footer.rightsTagline')}</p>
                   </div>
                 </div>
               </div>
@@ -260,10 +255,10 @@ export function Home() {
             <div className="flex items-end justify-between mb-8">
               <div>
                 <div className="divider-yellow mb-4" />
-                <h2 className="text-heading">Featured Content</h2>
+                <h2 className="text-heading">{t('featured.title')}</h2>
               </div>
               <Link to="/discover" className="btn-ghost">
-                View all <ArrowRight size={16} />
+                {t('featured.viewAll')} <ArrowRight size={16} />
               </Link>
             </div>
 
@@ -311,7 +306,7 @@ export function Home() {
                         })}
                         className="mt-3 w-full inline-flex items-center justify-center gap-2 py-2 bg-yellow-400 text-blue-900 font-semibold rounded-lg hover:bg-yellow-500 transition-colors text-sm"
                       >
-                        <Play size={14} fill="currentColor" /> Play
+                        <Play size={14} fill="currentColor" /> {t('featured.play')}
                       </button>
                     )}
                   </div>
@@ -331,22 +326,21 @@ export function Home() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl sm:text-5xl font-serif font-bold mb-4">
-              Join Our Musical Journey
+              {t('cta.title')}
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Create an account to access exclusive content, purchase books and scores,
-              and register for upcoming concerts.
+              {t('cta.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/register" className="btn-accent text-lg px-8 py-4">
                 <Sparkles size={20} />
-                Create Free Account
+                {t('cta.button')}
               </Link>
               <Link
                 to="/about"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-900 transition-all"
               >
-                Learn More About Us
+                {t('cta.learnMore')}
               </Link>
             </div>
           </motion.div>

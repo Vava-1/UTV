@@ -40,7 +40,7 @@ export function BooksPage() {
 
   if (loading) {
     return (
-      <PageWrapper title={t('nav.books')} subtitle={t('books.subtitle')} icon={<BookOpen size={32} />}>
+      <PageWrapper title={t('pages.books.title')} subtitle={t('pages.books.subtitle')} icon={<BookOpen size={32} />}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
             <div key={i} className="bg-blue-900 rounded-xl border border-blue-700 overflow-hidden animate-pulse">

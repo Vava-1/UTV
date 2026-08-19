@@ -1,27 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Linkedin } from 'lucide-react';
-import { UTVLogo } from './UTVLogo';
 
 export function Footer() {
+  const { t } = useTranslation();
+
   const footerSections = [
     {
-      title: 'Explore',
+      title: t('footer.explore'),
       links: [
-        { label: 'Home', path: '/' },
-        { label: 'Videos', path: '/videos' },
-        { label: 'Audios', path: '/music' },
-        { label: 'Sheets', path: '/scores' },
-        { label: 'Events', path: '/concerts' },
-        { label: 'About', path: '/about' },
+        { label: t('nav.home'), path: '/' },
+        { label: t('nav.videos'), path: '/videos' },
+        { label: t('nav.audios'), path: '/music' },
+        { label: t('nav.sheets'), path: '/scores' },
+        { label: t('nav.events'), path: '/concerts' },
+        { label: t('nav.books'), path: '/books' },
+        { label: t('nav.about'), path: '/about' },
       ]
     },
     {
-      title: 'More',
+      title: t('footer.more'),
       links: [
-        { label: 'Books', path: '/books' },
-        { label: 'Discover', path: '/discover' },
-        { label: 'Contact', path: '/contact' },
+        { label: t('nav.discover'), path: '/discover' },
+        { label: t('nav.contact'), path: '/contact' },
       ]
     },
   ];
@@ -47,10 +49,15 @@ export function Footer() {
           {/* Brand + Contact */}
           <div className="space-y-4">
             <div className="flex items-center gap-3 mb-4">
-              <UTVLogo size="default" className="text-yellow-400" />
+              <img
+                src="/logo.png"
+                alt="UTV Logo"
+                className="w-10 h-10 rounded-lg object-cover"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+              />
               <div>
                 <h3 className="text-lg font-bold tracking-tight font-serif">UNA TANTUM VOCE</h3>
-                <p className="text-xs text-blue-300 tracking-widest uppercase">Music for All</p>
+                <p className="text-xs text-blue-300 tracking-widest uppercase">{t('footer.musicForAll')}</p>
               </div>
             </div>
             <div className="space-y-2">
@@ -91,7 +98,7 @@ export function Footer() {
           {/* Social */}
           <div className="space-y-3">
             <h3 className="text-sm font-bold text-yellow-400 uppercase tracking-wider mb-3">
-              Follow Us
+              {t('common.followUs')}
             </h3>
             <div className="flex gap-3">
               {socialLinks.map((social, i) => (
@@ -108,15 +115,15 @@ export function Footer() {
               ))}
             </div>
             <div className="pt-4">
-              <p className="text-xs text-blue-300 mb-2">Newsletter</p>
+              <p className="text-xs text-blue-300 mb-2">{t('common.newsletter')}</p>
               <div className="flex gap-2">
                 <input
                   type="email"
-                  placeholder="Your email"
+                  placeholder={t('common.yourEmail')}
                   className="flex-1 px-3 py-2 bg-blue-800 border border-blue-700 rounded-lg text-white placeholder-blue-400 text-sm focus:outline-none focus:border-yellow-400"
                 />
                 <button className="px-4 py-2 bg-yellow-400 text-blue-900 text-sm font-bold rounded-lg hover:bg-yellow-500 transition-colors">
-                  Subscribe
+                  {t('common.subscribe')}
                 </button>
               </div>
             </div>
@@ -126,7 +133,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-10 pt-6 border-t border-blue-800 text-center">
           <p className="text-blue-300 text-sm">
-            © 2024 UNA TANTUM VOCE. All rights reserved. · Music Development for All
+            {t('footer.rights')} · {t('footer.rightsTagline')}
           </p>
         </div>
       </div>

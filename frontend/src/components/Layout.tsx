@@ -4,11 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/AuthContext';
 import api from '@/utils/api';
-import { UTVLogo } from './UTVLogo';
 import {
-  Menu, X, Globe, User, LogIn, LogOut, ShoppingCart,
-  ChevronDown, Shield, Home as HomeIcon, Video, Music,
-  FileText, Calendar, Info,
+  Menu, X, Globe, User, LogOut, ShoppingCart,
+  ChevronDown, Shield,
 } from 'lucide-react';
 
 const languages = [
@@ -20,16 +18,6 @@ const languages = [
   { code: 'pt', name: 'Português' },
   { code: 'rw', name: 'Kinyarwanda' },
   { code: 'sw', name: 'Kiswahili' },
-];
-
-// Requested nav: Home, Videos, Audios, Sheets, Events, About
-const navItems = [
-  { path: '/', label: 'Home' },
-  { path: '/videos', label: 'Videos' },
-  { path: '/music', label: 'Audios' },
-  { path: '/scores', label: 'Sheets' },
-  { path: '/concerts', label: 'Events' },
-  { path: '/about', label: 'About' },
 ];
 
 function Navbar() {
@@ -63,19 +51,38 @@ function Navbar() {
     return location.pathname.startsWith(path);
   };
 
+  // Nav items — uses translations
+  const navItems = [
+    { path: '/', label: t('nav.home') },
+    { path: '/videos', label: t('nav.videos') },
+    { path: '/music', label: t('nav.audios') },
+    { path: '/scores', label: t('nav.sheets') },
+    { path: '/concerts', label: t('nav.events') },
+    { path: '/books', label: t('nav.books') },
+    { path: '/about', label: t('nav.about') },
+  ];
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo + Brand */}
+          {/* Logo + Brand — uses logo image, not music symbol */}
           <Link to="/" className="flex items-center gap-3 group">
-            <UTVLogo size="default" className="text-yellow-400 group-hover:scale-110 transition-transform" />
+            <img
+              src="/logo.png"
+              alt="UTV Logo"
+              className="w-10 h-10 rounded-lg object-cover group-hover:scale-110 transition-transform"
+              onError={(e) => {
+                // Fallback to text if logo fails to load
+                (e.target as HTMLImageElement).style.display = 'none';
+              }}
+            />
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold text-blue-900 tracking-tight font-serif leading-none">
                 UTV
               </h1>
               <p className="text-[9px] text-gray-500 tracking-widest uppercase mt-0.5">
-                Una Tantum Voce
+                {t('footer.musicForAll')}
               </p>
             </div>
           </Link>
@@ -86,7 +93,7 @@ function Navbar() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
+                className={`px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                   isActive(item.path)
                     ? 'text-blue-800 bg-blue-50 border-b-2 border-yellow-400'
                     : 'text-gray-600 hover:text-blue-800 hover:bg-blue-50'
@@ -154,8 +161,8 @@ function Navbar() {
               </Link>
             )}
 
-            {/* User menu / Login */}
-            {isAuthenticated ? (
+            {/* User menu (Login button REMOVED per user request) */}
+            {isAuthenticated && (
               <div className="relative">
                 <button
                   onClick={() => setUserMenu(!userMenu)}
@@ -181,11 +188,11 @@ function Navbar() {
                         <ShoppingCart size={14} /> My Orders
                       </Link>
                       <Link to="/tickets" className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-800 transition-colors">
-                        <Music size={14} /> My Tickets
+                        <User size={14} /> My Tickets
                       </Link>
                       {isAdmin && (
                         <Link to="/admin-secure-portal" className="flex items-center gap-2 px-4 py-2.5 text-sm text-blue-800 hover:bg-blue-50 transition-colors font-medium">
-                          <Shield size={14} /> Admin Portal
+                          <Shield size={14} /> {t('nav.admin')}
                         </Link>
                       )}
                       <hr className="border-gray-100" />
@@ -193,20 +200,12 @@ function Navbar() {
                         onClick={() => { logout(); }}
                         className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
                       >
-                        <LogOut size={14} /> Logout
+                        <LogOut size={14} /> {t('nav.logout')}
                       </button>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
-            ) : (
-              <Link
-                to="/login"
-                className="flex items-center gap-2 px-4 py-2 bg-blue-800 text-white text-sm font-semibold rounded-lg hover:bg-blue-900 transition-colors"
-              >
-                <LogIn size={16} />
-                <span className="hidden sm:inline">Login</span>
-              </Link>
             )}
 
             {/* Mobile menu toggle */}
