@@ -55,6 +55,9 @@ class Settings(BaseSettings):
     EMAIL_PASS: Optional[str] = None
     EMAIL_FROM: str = "UNA TANTUM VOCE <noreply@unatantumvoce.org>"
     EMAIL_ENABLED: bool = False
+    # Seconds to wait for SMTP connect/read/write before giving up. Keeps
+    # synchronous email from pinning a request near the serverless timeout.
+    EMAIL_TIMEOUT: int = 5
 
     # ─── OpenAI (optional — AI assistant uses keyword fallback) ────────────
     OPENAI_API_KEY: Optional[str] = None

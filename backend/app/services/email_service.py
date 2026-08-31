@@ -19,6 +19,20 @@ from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
+import threading
+
+
+def _spawn(fn):
+    """Run a callable on a daemon thread so the request returns immediately.
+
+    Used for best-effort work (e.g. bulk email) that must not block a request
+    past the serverless timeout. Best-effort: the thread may be torn down when
+    the container exits after the response.
+    """
+    t = threading.Thread(target=fn, daemon=True)
+    t.start()
+
+
 # ─── HTML Email Templates ────────────────────────────────────────────────────
 
 ORDER_CONFIRMATION_TEMPLATE = """
@@ -160,7 +174,7 @@ def _send_email(
         msg.attach(MIMEText(html_body, "html", "utf-8"))
 
         context = ssl.create_default_context()
-        with smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT) as server:
+        with smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT, timeout=settings.EMAIL_TIMEOUT) as server:
             server.ehlo()
             server.starttls(context=context)
             server.login(settings.EMAIL_USER, settings.EMAIL_PASS)
@@ -190,7 +204,7 @@ def _send_bulk_email(
 
     try:
         context = ssl.create_default_context()
-        with smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT) as server:
+        with smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT, timeout=settings.EMAIL_TIMEOUT) as server:
             server.ehlo()
             server.starttls(context=context)
             server.login(settings.EMAIL_USER, settings.EMAIL_PASS)
@@ -278,16 +292,34 @@ def send_newsletter(
     body_html: str,
     body_text: Optional[str] = None
 ) -> dict:
-    """Send newsletter to all active subscribers."""
+    """Send newsletter to all active subscribers.
+
+    Non-blocking: the send is dispatched to a background thread and this
+    returns immediately. On serverless (Vercel) a request that blocked on a
+    large SMTP fan-out would exceed the 10s lambda timeout; backgrounding
+    keeps the admin endpoint responsive. The thread is best-effort.
+    """
     # Wrap content in branded template
     wrapped_html = NEWSLETTER_WRAPPER.format(
         content=body_html,
         frontend_url=settings.FRONTEND_URL
     )
 
-    return _send_bulk_email(
-        recipients=recipients,
-        subject=f"UNA TANTUM VOCE — {subject}",
-        html_body=wrapped_html,
-        text_body=body_text
-    )
+    total = len(recipients)
+    if total == 0:
+        return {"sent": 0, "failed": 0, "queued": 0}
+
+    def _run():
+        try:
+            _send_bulk_email(
+                recipients=recipients,
+                subject=f"UNA TANTUM VOCE — {subject}",
+                html_body=wrapped_html,
+                text_body=body_text
+            )
+        except Exception as e:  # pragma: no cover
+            logger.error(f"[Email] Background newsletter send failed: {e}")
+
+    _spawn(_run)
+
+    return {"sent": 0, "failed": 0, "queued": total}
