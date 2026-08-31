@@ -30,10 +30,25 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    // Don't ship source maps publicly in production
+    sourcemap: process.env.NODE_ENV !== 'production',
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        // Split vendor libraries into separate, long-cached chunks and
+        // keep the main entry lean (avoids the >500 kB single-chunk warning).
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/react-router') || id.includes('/scheduler/')) {
+              return 'react';
+            }
+            if (id.includes('framer-motion')) return 'motion';
+            if (id.includes('i18next') || id.includes('react-i18next')) return 'i18n';
+            if (id.includes('axios')) return 'axios';
+            if (id.includes('lucide-react')) return 'icons';
+            if (id.includes('stripe-js')) return 'stripe';
+            return 'vendor';
+          }
+        },
       },
     },
   },

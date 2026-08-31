@@ -1,3 +1,6 @@
+/* Google Fonts — must be the first statement in the file (CSS @import rule) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -115,6 +118,3 @@
     background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #172554 100%);
   }
 }
-
-/* Google Fonts via @import for Playfair Display + Cinzel + Lato */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&family=Inter:wght@300;400;500;600;700&display=swap');
