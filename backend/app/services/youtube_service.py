@@ -119,77 +119,116 @@ def _resolve_channel_id(api_key: str, channel_handle: str) -> Optional[str]:
     return None
 
 
-def list_channel_videos(api_key: str, channel_id: str, max_results: int = 50) -> List[Dict[str, Any]]:
-    """List recent videos from a channel. Returns list of video metadata dicts.
+def list_channel_videos(api_key: str, channel_id: str, max_results: int = 0) -> List[Dict[str, Any]]:
+    """List ALL videos from a channel with pagination support.
 
-    Each dict has: video_id, title, description, published_at, thumbnail_url,
-    duration_seconds (ISO 8601 → seconds).
+    Returns list of video metadata dicts with: video_id, title, description,
+    published_at, thumbnail_url, duration_seconds (ISO 8601 → seconds).
+
+    Args:
+        api_key: YouTube Data API v3 key
+        channel_id: YouTube channel ID (UC...)
+        max_results: Maximum videos to fetch (0 = all videos)
     """
-    # Step 1: search.list to get video IDs
-    try:
-        search_resp = requests.get(
-            f"{YOUTUBE_API_BASE}/search",
-            params={
-                "key": api_key,
-                "part": "id,snippet",
-                "channelId": channel_id,
-                "type": "video",
-                "order": "date",
-                "maxResults": min(max_results, 50),
-            },
-            timeout=30,
-        )
-        search_resp.raise_for_status()
-        search_data = search_resp.json()
-    except requests.RequestException as e:
-        logger.error(f"[YouTube] search.list failed: {e}")
-        raise RuntimeError(f"YouTube search failed: {e}")
+    all_video_ids = []
+    next_page_token = None
+    page_count = 0
+    max_pages = 20  # Safety limit: 20 pages × 50 videos = 1000 videos max
 
-    video_ids = [item["id"]["videoId"] for item in search_data.get("items", []) if "videoId" in item.get("id", {})]
-    if not video_ids:
-        return []
+    # Step 1: Paginate through search.list to get ALL video IDs
+    while page_count < max_pages:
+        params = {
+            "key": api_key,
+            "part": "id,snippet",
+            "channelId": channel_id,
+            "type": "video",
+            "order": "date",
+            "maxResults": 50,  # Max per page
+        }
+        if next_page_token:
+            params["pageToken"] = next_page_token
 
-    # Step 2: videos.list to get durations + better metadata
-    try:
-        videos_resp = requests.get(
-            f"{YOUTUBE_API_BASE}/videos",
-            params={
-                "key": api_key,
-                "part": "snippet,contentDetails",
-                "id": ",".join(video_ids),
-            },
-            timeout=30,
-        )
-        videos_resp.raise_for_status()
-        videos_data = videos_resp.json()
-    except requests.RequestException as e:
-        logger.error(f"[YouTube] videos.list failed: {e}")
-        # Return partial data without durations
-        return [
-            {
-                "video_id": item["id"]["videoId"],
-                "title": item["snippet"]["title"],
-                "description": item["snippet"].get("description", ""),
-                "published_at": item["snippet"].get("publishedAt"),
-                "thumbnail_url": _best_thumbnail(item["snippet"].get("thumbnails", {})),
-                "duration_seconds": None,
-            }
-            for item in search_data.get("items", [])
+        try:
+            search_resp = requests.get(
+                f"{YOUTUBE_API_BASE}/search",
+                params=params,
+                timeout=30,
+            )
+            search_resp.raise_for_status()
+            search_data = search_resp.json()
+        except requests.RequestException as e:
+            logger.error(f"[YouTube] search.list failed on page {page_count + 1}: {e}")
+            raise RuntimeError(f"YouTube search failed: {e}")
+
+        items = search_data.get("items", [])
+        page_video_ids = [
+            item["id"]["videoId"]
+            for item in items
             if "videoId" in item.get("id", {})
         ]
+        all_video_ids.extend(page_video_ids)
+        page_count += 1
 
+        logger.info(f"[YouTube] Fetched page {page_count}: {len(page_video_ids)} videos (total: {len(all_video_ids)})")
+
+        # Check if we should stop
+        next_page_token = search_data.get("nextPageToken")
+        if not next_page_token or not items:
+            break
+        if max_results > 0 and len(all_video_ids) >= max_results:
+            all_video_ids = all_video_ids[:max_results]
+            break
+
+    if not all_video_ids:
+        return []
+
+    # Step 2: videos.list to get durations + better metadata (batch in groups of 50)
+    videos_by_id = {}
+    for i in range(0, len(all_video_ids), 50):
+        batch_ids = all_video_ids[i:i + 50]
+        try:
+            videos_resp = requests.get(
+                f"{YOUTUBE_API_BASE}/videos",
+                params={
+                    "key": api_key,
+                    "part": "snippet,contentDetails",
+                    "id": ",".join(batch_ids),
+                },
+                timeout=30,
+            )
+            videos_resp.raise_for_status()
+            videos_data = videos_resp.json()
+            for item in videos_data.get("items", []):
+                videos_by_id[item["id"]] = item
+        except requests.RequestException as e:
+            logger.error(f"[YouTube] videos.list failed for batch {i // 50 + 1}: {e}")
+            # Continue with partial data
+
+    # Step 3: Build result list in original order (newest first)
     result = []
-    for item in videos_data.get("items", []):
-        snippet = item.get("snippet", {})
-        content_details = item.get("contentDetails", {})
-        result.append({
-            "video_id": item["id"],
-            "title": snippet.get("title", ""),
-            "description": snippet.get("description", ""),
-            "published_at": snippet.get("publishedAt"),
-            "thumbnail_url": _best_thumbnail(snippet.get("thumbnails", {})),
-            "duration_seconds": _parse_iso8601_duration(content_details.get("duration", "")),
-        })
+    for video_id in all_video_ids:
+        if video_id in videos_by_id:
+            item = videos_by_id[video_id]
+            snippet = item.get("snippet", {})
+            content_details = item.get("contentDetails", {})
+            result.append({
+                "video_id": item["id"],
+                "title": snippet.get("title", ""),
+                "description": snippet.get("description", ""),
+                "published_at": snippet.get("publishedAt"),
+                "thumbnail_url": _best_thumbnail(snippet.get("thumbnails", {})),
+                "duration_seconds": _parse_iso8601_duration(content_details.get("duration", "")),
+            })
+        else:
+            # Fallback for videos we couldn't get details for
+            result.append({
+                "video_id": video_id,
+                "title": f"Video {video_id}",
+                "description": "",
+                "published_at": None,
+                "thumbnail_url": None,
+                "duration_seconds": None,
+            })
 
     return result
 
@@ -277,12 +316,10 @@ def sync_channel_videos(db: Session, max_results: int = 50) -> Dict[str, int]:
                 )
                 db.add(content)
                 created += 1
-
-            synced += 1
         except Exception as e:
             logger.error(f"[YouTube] Failed to sync video {video.get('video_id')}: {e}")
             errors += 1
 
     db.commit()
-    logger.info(f"[YouTube] Sync complete: created={created}, updated={synced - created}, errors={errors}")
-    return {"synced": synced, "created": created, "errors": errors}
+    logger.info(f"[YouTube] Sync complete: created={created}, updated={synced}, errors={errors}")
+    return {"synced": synced + created, "created": created, "updated": synced, "errors": errors}

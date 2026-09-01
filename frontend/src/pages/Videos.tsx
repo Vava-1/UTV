@@ -17,7 +17,7 @@ export function VideosPage() {
 
   useEffect(() => {
     api
-      .get('/contents', { params: { content_type: 'video', page_size: 50 } })
+      .get('/contents', { params: { content_type: 'video', page_size: 200 } })
       .then((res) => setVideos(res.data.items))
       .catch(() => showToast('Failed to load videos', 'error'))
       .finally(() => setLoading(false));

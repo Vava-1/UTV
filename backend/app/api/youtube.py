@@ -34,15 +34,15 @@ def youtube_status(
 
 @router.post("/sync")
 def sync_videos(
-    max_results: int = 50,
+    max_results: int = 0,
     _: User = Depends(get_current_admin),
     db: Session = Depends(get_db),
 ):
     """Sync videos from the UTV YouTube channel — admin only.
 
-    Pulls the latest `max_results` videos (max 50 per YouTube API limits)
-    from the @UNATANTUMVOCEOFFICIAL channel and creates/updates Content
-    records with content_type='video', platform='youtube'.
+    Pulls ALL videos from the @UNATANTUMVOCEOFFICIAL channel (paginated)
+    and creates/updates Content records with content_type='video',
+    platform='youtube'. Use max_results to limit (0 = all videos).
 
     Idempotent: running twice won't duplicate videos.
     """

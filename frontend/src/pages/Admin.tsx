@@ -419,8 +419,8 @@ function VideosTab() {
     setSyncing(true);
     setSyncResult(null);
     try {
-      const r = await api.post('/youtube/sync', null, { params: { max_results: 50 } });
-      setSyncResult(`Sync complete: ${r.data.created} new, ${r.data.synced - r.data.created} updated, ${r.data.errors} errors.`);
+      const r = await api.post('/youtube/sync', null, { params: { max_results: 0 } });
+      setSyncResult(`Sync complete: ${r.data.created} new, ${r.data.updated || r.data.synced - r.data.created} updated, ${r.data.errors} errors.`);
       fetchVideos();
     } catch (err: any) {
       setSyncResult(err?.response?.data?.detail || 'Sync failed. Is YOUTUBE_API_KEY configured?');
@@ -489,7 +489,7 @@ function VideosTab() {
             </div>
             <div>
               <h3 className="text-base font-semibold text-white">YouTube Channel Sync</h3>
-              <p className="text-xs text-blue-200">Sync videos from @UNATANTUMVOCEOFFICIAL</p>
+              <p className="text-xs text-blue-200">Sync ALL videos from @UNATANTUMVOCEOFFICIAL</p>
             </div>
           </div>
           <button
@@ -498,7 +498,7 @@ function VideosTab() {
             className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
           >
             {syncing ? <RefreshCw size={14} className="animate-spin" /> : <RefreshCw size={14} />}
-            {syncing ? 'Syncing...' : 'Sync Now'}
+            {syncing ? 'Syncing...' : 'Sync All Videos'}
           </button>
         </div>
         {syncResult && (
