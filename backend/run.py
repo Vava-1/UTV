@@ -1,11 +1,14 @@
+import os
 import uvicorn
 from app.core.config import settings
 
 if __name__ == "__main__":
+    # Railway/Render/Heroku inject PORT. Default to 8000 otherwise.
+    port = int(os.environ.get("PORT", 8000))
     uvicorn.run(
         "app.main:app",
         host="0.0.0.0",
-        port=8000,
+        port=port,
         reload=settings.DEBUG,
         log_level="info"
     )

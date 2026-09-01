@@ -29,6 +29,11 @@ os.environ.setdefault("DATABASE_URL", os.environ.get("POSTGRES_URL", ""))
 # Import the FastAPI app
 try:
     from app.main import app
+    # Serverless-friendly table bootstrap: lifespan is OFF in serverless so
+    # startup hooks never run. create_all is idempotent — it only creates
+    # missing tables (no drop/modify). Runs once per cold start instance.
+    from app.db.database import ensure_tables_exist
+    ensure_tables_exist()
     # Wrap with mangum for Vercel ASGI compatibility
     from mangum import Mangum
     handler = Mangum(app, lifespan="off")  # lifespan off — no startup/shutdown hooks in serverless
