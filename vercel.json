@@ -3,7 +3,8 @@
   "services": {
     "backend": {
       "root": "backend",
-      "buildCommand": "pip install -r requirements.txt"
+      "buildCommand": "pip install -r requirements.txt",
+      "entrypoint": "app.main:app"
     },
     "frontend": {
       "root": "frontend",
