@@ -4,19 +4,21 @@ from sqlalchemy.orm import sessionmaker, Session
 from app.core.config import settings
 
 db_url = settings.DATABASE_URL
-if db_url.startswith("postgres://"):
-    db_url = db_url.replace("postgres://", "postgresql://", 1)
+import os as _os
 
-engine_kwargs = {"echo": settings.DEBUG}
 if db_url.startswith("sqlite"):
     engine_kwargs["connect_args"] = {"check_same_thread": False}
+elif _os.environ.get("VERCEL"):
+    # Vercel serverless: NullPool to avoid exhausting Neon connections
+    from sqlalchemy.pool import NullPool
+    engine_kwargs["poolclass"] = NullPool
+    engine_kwargs["connect_args"] = {"connect_timeout": 10}
 else:
     engine_kwargs.update({
         "pool_pre_ping": True,
         "pool_size": 10,
         "max_overflow": 20
     })
-
 engine = create_engine(db_url, **engine_kwargs)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

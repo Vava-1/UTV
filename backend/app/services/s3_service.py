@@ -18,8 +18,12 @@ from app.core.config import settings
 logger = logging.getLogger(__name__)
 
 # Local fallback upload directory
+# Wrapped in try/except: Vercel's filesystem is read-only at runtime.
 LOCAL_UPLOAD_DIR = Path("uploads")
-LOCAL_UPLOAD_DIR.mkdir(exist_ok=True)
+try:
+    LOCAL_UPLOAD_DIR.mkdir(exist_ok=True)
+except (OSError, PermissionError):
+    pass
 
 
 class S3Service:

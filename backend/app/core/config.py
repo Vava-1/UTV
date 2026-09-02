@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     # ─── App ────────────────────────────────────────────────────────────────
     APP_NAME: str = "UNA TANTUM VOCE"
     APP_ENV: str = "development"
-    DEBUG: bool = True
+    DEBUG: bool = False
 
     # ─── Database ───────────────────────────────────────────────────────────
     # SQLite for dev (file-based), PostgreSQL for production
