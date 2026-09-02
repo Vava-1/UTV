@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-
-# Disallow admin portal
-Disallow: /admin-secure-portal
-Disallow: /api/
-
-# Sitemap
-Sitemap: https://unatantumvoce.com/sitemap.xml
