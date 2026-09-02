@@ -1,21 +1,19 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "functions": {
-    "api/index.py": {
-      "runtime": "python3.12",
-      "maxDuration": 10,
-      "memory": 1024
+  "experimentalServices": {
+    "backend": {
+      "root": "backend",
+      "mountPath": "/api"
+    },
+    "frontend": {
+      "root": "frontend",
+      "mountPath": "/",
+      "framework": "vite"
     }
   },
-  "regions": ["iad1"],
-
   "buildCommand": "npm install --prefix frontend && npm run build --prefix frontend",
   "outputDirectory": "frontend/dist",
-  "framework": "vite",
-  "rewrites": [
-    { "source": "/api/:path*", "destination": "/api/index" },
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
-  ],
+  "rewrites": [{ "source": "/api/:path*", "destination": "/api" }],
   "headers": [
     {
       "source": "/(.*)",
